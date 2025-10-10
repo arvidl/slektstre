@@ -54,6 +54,9 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         'average_age': 'Gjennomsnittsalder',
         'living_persons': 'Levende personer',
         'deceased_persons': 'Avdøde personer',
+        'gender_distribution': 'Kjønnsfordeling',
+        'age_distribution': 'Aldersfordeling',
+        'marriage_status': 'Ekteskapstatus',
         
         # Visualisering
         'family_tree': 'Slektstre',
@@ -130,6 +133,9 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         'average_age': 'Average Age',
         'living_persons': 'Living Persons',
         'deceased_persons': 'Deceased Persons',
+        'gender_distribution': 'Gender Distribution',
+        'age_distribution': 'Age Distribution',
+        'marriage_status': 'Marriage Status',
         
         # Visualization
         'family_tree': 'Family Tree',

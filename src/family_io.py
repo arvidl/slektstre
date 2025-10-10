@@ -107,26 +107,53 @@ def load_from_csv(file_path: str) -> FamilieData:
     
     personer = []
     for _, row in df.iterrows():
+        # Hjelpefunksjon for å håndtere NaN verdier
+        def safe_get(key, default=''):
+            value = row.get(key, default)
+            return default if pd.isna(value) else value
+        
         person = Person(
-            id=row.get('id', ''),
-            fornavn=row.get('fornavn', ''),
-            mellomnavn=row.get('mellomnavn'),
-            etternavn=row.get('etternavn'),
-            kjønn=Gender(row.get('kjønn', 'other')),
-            fødselsdato=_parse_date(row.get('fødselsdato')),
-            dødsdato=_parse_date(row.get('dødsdato')),
-            fødested=row.get('fødested'),
-            dødssted=row.get('dødssted'),
-            bilde_sti=row.get('bilde_sti'),
-            notater=row.get('notater'),
-            historier=_parse_list(row.get('historier')),
-            foreldre=_parse_list(row.get('foreldre')),
-            barn=_parse_list(row.get('barn')),
-            partnere=_parse_list(row.get('partnere'))
+            id=safe_get('id', ''),
+            fornavn=safe_get('fornavn', ''),
+            mellomnavn=safe_get('mellomnavn') if safe_get('mellomnavn') else None,
+            etternavn=safe_get('etternavn') if safe_get('etternavn') else None,
+            kjønn=Gender(safe_get('kjønn', 'other')),
+            fødselsdato=_parse_date(safe_get('fødselsdato')),
+            dødsdato=_parse_date(safe_get('dødsdato')),
+            fødested=safe_get('fødested') if safe_get('fødested') else None,
+            dødssted=safe_get('dødssted') if safe_get('dødssted') else None,
+            bilde_sti=safe_get('bilde_sti') if safe_get('bilde_sti') else None,
+            notater=safe_get('notater') if safe_get('notater') else None,
+            historier=_parse_list(safe_get('historier')),
+            foreldre=_parse_list(safe_get('foreldre')),
+            barn=_parse_list(safe_get('barn')),
+            partnere=_parse_list(safe_get('partnere'))
         )
         personer.append(person)
     
-    return FamilieData(personer=personer)
+    # Prøv å laste ekteskap fra separat fil
+    ekteskap = []
+    ekteskap_file = file_path.parent / f"{file_path.stem}_ekteskap.csv"
+    if ekteskap_file.exists():
+        ekteskap_df = pd.read_csv(ekteskap_file, encoding='utf-8')
+        for _, row in ekteskap_df.iterrows():
+            def safe_get(key, default=''):
+                value = row.get(key, default)
+                return default if pd.isna(value) else value
+            
+            ekteskap_obj = Ekteskap(
+                id=safe_get('id', ''),
+                partner1_id=safe_get('partner1_id', ''),
+                partner2_id=safe_get('partner2_id', ''),
+                ekteskapsdato=_parse_date(safe_get('ekteskapsdato')),
+                ekteskapssted=safe_get('ekteskapssted') if safe_get('ekteskapssted') else None,
+                skilsmisse_dato=_parse_date(safe_get('skilsmisse_dato')),
+                ekteskapstype=safe_get('ekteskapstype', 'ekteskap'),
+                notater=safe_get('notater') if safe_get('notater') else None
+            )
+            ekteskap.append(ekteskap_obj)
+    
+    return FamilieData(personer=personer, ekteskap=ekteskap)
 
 def save_to_csv(familie_data: FamilieData, file_path: str) -> None:
     """
@@ -138,6 +165,7 @@ def save_to_csv(familie_data: FamilieData, file_path: str) -> None:
     """
     file_path = Path(file_path)
     
+    # Lagre personer
     rows = []
     for person in familie_data.personer:
         row = {
@@ -161,6 +189,26 @@ def save_to_csv(familie_data: FamilieData, file_path: str) -> None:
     
     df = pd.DataFrame(rows)
     df.to_csv(file_path, index=False, encoding='utf-8')
+    
+    # Lagre ekteskap til separat fil
+    if familie_data.ekteskap:
+        ekteskap_file = file_path.parent / f"{file_path.stem}_ekteskap.csv"
+        ekteskap_rows = []
+        for ekteskap in familie_data.ekteskap:
+            row = {
+                'id': ekteskap.id,
+                'partner1_id': ekteskap.partner1_id,
+                'partner2_id': ekteskap.partner2_id,
+                'ekteskapsdato': ekteskap.ekteskapsdato.isoformat() if ekteskap.ekteskapsdato else '',
+                'ekteskapssted': ekteskap.ekteskapssted,
+                'skilsmisse_dato': ekteskap.skilsmisse_dato.isoformat() if ekteskap.skilsmisse_dato else '',
+                'ekteskapstype': ekteskap.ekteskapstype,
+                'notater': ekteskap.notater
+            }
+            ekteskap_rows.append(row)
+        
+        ekteskap_df = pd.DataFrame(ekteskap_rows)
+        ekteskap_df.to_csv(ekteskap_file, index=False, encoding='utf-8')
 
 def export_to_gedcom(familie_data: FamilieData, file_path: str) -> None:
     """

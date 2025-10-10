@@ -16,3 +16,4 @@ dependencies:
   - pip
   - pip:
     - python-dateutil>=2.8
+    - kaleido>=0.2.1

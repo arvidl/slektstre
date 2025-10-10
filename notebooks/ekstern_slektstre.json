@@ -1,0 +1,56 @@
+{
+  "personer": [
+    {
+      "id": "FS123456789",
+      "fornavn": "Erik",
+      "mellomnavn": null,
+      "etternavn": "Lundervold",
+      "kjønn": "male",
+      "fødselsdato": "1920-05-15",
+      "dødsdato": "1995-08-22",
+      "fødested": "Bergen, Norway",
+      "dødssted": "Oslo, Norway",
+      "bilde_sti": null,
+      "notater": "Importert fra FamilySearch (ID: FS123456789)",
+      "historier": [],
+      "foreldre": [],
+      "barn": [],
+      "partnere": [],
+      "ekstra_data": {}
+    },
+    {
+      "id": "FS444555666",
+      "fornavn": "Ingrid",
+      "mellomnavn": null,
+      "etternavn": "Hansen",
+      "kjønn": "female",
+      "fødselsdato": "1925-07-10",
+      "dødsdato": "2010-12-03",
+      "fødested": "Trondheim, Norway",
+      "dødssted": "Oslo, Norway",
+      "bilde_sti": null,
+      "notater": "Importert fra FamilySearch (ID: FS444555666)",
+      "historier": [],
+      "foreldre": [],
+      "barn": [],
+      "partnere": [],
+      "ekstra_data": {}
+    }
+  ],
+  "ekteskap": [
+    {
+      "id": "e_FS123456789_FS444555666",
+      "partner1_id": "FS123456789",
+      "partner2_id": "FS444555666",
+      "ekteskapsdato": null,
+      "skilsmisse_dato": null,
+      "ekteskapssted": null,
+      "ekteskapstype": "ekteskap",
+      "notater": "Importert fra FamilySearch"
+    }
+  ],
+  "opprettet": "2025-10-10 20:41:55.202711",
+  "sist_endret": "2025-10-10 20:41:55.202714",
+  "versjon": "1.0",
+  "beskrivelse": null
+}
