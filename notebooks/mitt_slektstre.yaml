@@ -1,0 +1,139 @@
+metadata:
+  versjon: '1.0'
+  opprettet: '2025-10-10T19:49:01.877187'
+  sist_endret: '2025-10-10T19:49:01.933137'
+  beskrivelse: null
+personer:
+- id: p1
+  fornavn: Erik
+  mellomnavn: null
+  etternavn: Lundervold
+  kjønn: male
+  fødselsdato: '1920-05-15'
+  dødsdato: null
+  fødested: Bergen
+  dødssted: null
+  bilde_sti: null
+  notater: Første generasjon i slektstreet
+  historier: []
+  foreldre: []
+  barn: []
+  partnere: []
+  ekstra_data: {}
+- id: p2
+  fornavn: Arvid
+  mellomnavn: null
+  etternavn: Lundervold
+  kjønn: male
+  fødselsdato: '1950-03-10'
+  dødsdato: null
+  fødested: Oslo
+  dødssted: null
+  bilde_sti: null
+  notater: Andre generasjon
+  historier: []
+  foreldre:
+  - e9b01368-97e9-4344-a16b-f580091a3eab
+  barn:
+  - p4
+  - p5
+  partnere:
+  - p3
+  ekstra_data: {}
+- id: p3
+  fornavn: Anna
+  mellomnavn: null
+  etternavn: Pedersen
+  kjønn: female
+  fødselsdato: '1952-07-22'
+  dødsdato: null
+  fødested: Trondheim
+  dødssted: null
+  bilde_sti: null
+  notater: Andre generasjon
+  historier: []
+  foreldre: []
+  barn:
+  - p4
+  - p5
+  partnere:
+  - p2
+  ekstra_data: {}
+- id: p4
+  fornavn: Lars
+  mellomnavn: null
+  etternavn: Lundervold
+  kjønn: male
+  fødselsdato: '1980-12-05'
+  dødsdato: null
+  fødested: Bergen
+  dødssted: null
+  bilde_sti: null
+  notater: Tredje generasjon
+  historier: []
+  foreldre:
+  - p2
+  - p3
+  barn: []
+  partnere: []
+  ekstra_data: {}
+- id: p5
+  fornavn: Kari
+  mellomnavn: null
+  etternavn: Lundervold
+  kjønn: female
+  fødselsdato: '1983-04-18'
+  dødsdato: null
+  fødested: Bergen
+  dødssted: null
+  bilde_sti: null
+  notater: Tredje generasjon
+  historier: []
+  foreldre:
+  - p2
+  - p3
+  barn: []
+  partnere: []
+  ekstra_data: {}
+- id: e9b01368-97e9-4344-a16b-f580091a3eab
+  fornavn: Erik
+  mellomnavn: null
+  etternavn: Hansen
+  kjønn: male
+  fødselsdato: '1920-03-15'
+  dødsdato: '1995-08-22'
+  fødested: Oslo
+  dødssted: null
+  bilde_sti: null
+  notater: Arbeidet som ingeniør
+  historier: []
+  foreldre: []
+  barn:
+  - p2
+  partnere: []
+  ekstra_data: {}
+- id: 6728796d-2461-4594-93fe-dd4479c97684
+  fornavn: Ingrid
+  mellomnavn: null
+  etternavn: Hansen
+  kjønn: female
+  fødselsdato: '1925-07-10'
+  dødsdato: '2010-12-03'
+  fødested: Trondheim
+  dødssted: null
+  bilde_sti: null
+  notater: Lærer og mor til 3 barn
+  historier: []
+  foreldre: []
+  barn: []
+  partnere: []
+  ekstra_data: {}
+ekteskap:
+- id: b193e9a3-e3b1-4b69-8175-0dffb28057b1
+  partner1_id: p2
+  partner2_id: p3
+  ekteskapsdato: '1978-08-20'
+  skilsmisse_dato: null
+  ekteskapssted: Bergen
+  ekteskapstype: ekteskap
+  notater: null

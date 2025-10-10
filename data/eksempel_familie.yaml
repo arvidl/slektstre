@@ -1,0 +1,262 @@
+metadata:
+  versjon: "1.0"
+  opprettet: "2025-01-27T10:00:00"
+  sist_endret: "2025-01-27T10:00:00"
+  beskrivelse: "Eksempel familie med 4 generasjoner - Lundervold familien"
+
+personer:
+  # Generasjon 1 (eldste)
+  - id: "p1"
+    fornavn: "Erik"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "1920-03-15"
+    dødsdato: "1995-08-22"
+    fødested: "Bergen"
+    dødssted: "Oslo"
+    notater: "Arbeidet som ingeniør på NSB"
+    historier: 
+      - "Flyktet fra Norge under krigen"
+      - "Bygde sitt eget hus i Oslo"
+
+  - id: "p2"
+    fornavn: "Ingrid"
+    mellomnavn: "Marie"
+    etternavn: "Hansen"
+    kjønn: "female"
+    fødselsdato: "1925-07-10"
+    dødsdato: "2010-12-03"
+    fødested: "Trondheim"
+    dødssted: "Oslo"
+    notater: "Lærer og mor til 4 barn"
+    historier:
+      - "Møtte Erik på dans i 1947"
+      - "Spilte piano og sang i kirkekor"
+
+  # Generasjon 2
+  - id: "p3"
+    fornavn: "Arvid"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "1950-05-20"
+    dødsdato: "2022-11-15"
+    fødested: "Oslo"
+    dødssted: "Bergen"
+    notater: "Professor i informatikk"
+    historier:
+      - "Doktorgrad fra MIT"
+      - "Grunnla flere teknologiselskaper"
+    foreldre: ["p1", "p2"]
+
+  - id: "p4"
+    fornavn: "Helena"
+    mellomnavn: "Sofia"
+    etternavn: "Lundervold"
+    kjønn: "female"
+    fødselsdato: "1952-09-12"
+    fødested: "Oslo"
+    notater: "Arkitekt og kunstner"
+    historier:
+      - "Designet flere kjente bygninger i Bergen"
+      - "Malte akvareller i fritiden"
+    foreldre: ["p1", "p2"]
+
+  - id: "p5"
+    fornavn: "Bjørn"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "1955-01-08"
+    fødested: "Oslo"
+    notater: "Lærer og fotballtrener"
+    historier:
+      - "Spilte fotball på høyt nivå i ungdommen"
+      - "Trente juniorlag i 20 år"
+    foreldre: ["p1", "p2"]
+
+  - id: "p6"
+    fornavn: "Kari"
+    etternavn: "Lundervold"
+    kjønn: "female"
+    fødselsdato: "1958-11-30"
+    fødested: "Oslo"
+    notater: "Sykepleier og mor til 3 barn"
+    historier:
+      - "Jobbet på sykehus i over 30 år"
+      - "Var kjent for sin omsorgsfulle natur"
+    foreldre: ["p1", "p2"]
+
+  # Generasjon 3
+  - id: "p8"
+    fornavn: "Anna"
+    mellomnavn: "Kristin"
+    etternavn: "Pedersen"
+    kjønn: "female"
+    fødselsdato: "1952-08-25"
+    fødested: "Stavanger"
+    notater: "Markedsføringssjef"
+    historier:
+      - "Jobbet i flere internasjonale selskaper"
+      - "Er aktiv i lokalsamfunnet"
+
+  - id: "p7"
+    fornavn: "Magnus"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "1980-04-15"
+    fødested: "Bergen"
+    notater: "Dataingeniør og entreprenør"
+    historier:
+      - "Grunnla sitt første selskap som 22-åring"
+      - "Reiser mye for jobb"
+    foreldre: ["p3", "p8"]
+
+  - id: "p9"
+    fornavn: "Erik"
+    mellomnavn: "Arvid"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "1985-12-10"
+    fødested: "Bergen"
+    notater: "Forsker i kunstig intelligens"
+    historier:
+      - "Doktorgrad i maskinlæring"
+      - "Publiserer regelmessig i internasjonale tidsskrifter"
+    foreldre: ["p3", "p8"]
+
+  - id: "p10"
+    fornavn: "Sofia"
+    etternavn: "Lundervold"
+    kjønn: "female"
+    fødselsdato: "1988-06-18"
+    fødested: "Bergen"
+    notater: "Lærer og mor til 2 barn"
+    historier:
+      - "Jobber på samme skole som sin mor"
+      - "Er aktiv i foreldreforeningen"
+    foreldre: ["p3", "p8"]
+
+  - id: "p11"
+    fornavn: "Lars"
+    etternavn: "Andersen"
+    kjønn: "male"
+    fødselsdato: "1983-03-22"
+    fødested: "Bergen"
+    notater: "Musiker og komponist"
+    historier:
+      - "Spiller flere instrumenter"
+      - "Har komponert musikk for filmer"
+    foreldre: ["p4", "p17"]
+
+  - id: "p12"
+    fornavn: "Marianne"
+    etternavn: "Olsen"
+    kjønn: "female"
+    fødselsdato: "1985-09-14"
+    fødested: "Bergen"
+    notater: "Grafisk designer"
+    historier:
+      - "Jobber for et designbyrå"
+      - "Har vunnet flere designpriser"
+    foreldre: ["p4", "p17"]
+
+  - id: "p17"
+    fornavn: "Ole"
+    etternavn: "Andersen"
+    kjønn: "male"
+    fødselsdato: "1950-06-15"
+    fødested: "Bergen"
+    notater: "Ingeniør"
+    historier:
+      - "Jobbet i oljeindustrien"
+      - "Var aktiv i lokalsamfunnet"
+
+  # Generasjon 4 (yngste)
+  - id: "p13"
+    fornavn: "Emma"
+    etternavn: "Lundervold"
+    kjønn: "female"
+    fødselsdato: "2010-02-28"
+    fødested: "Bergen"
+    notater: "Skoleelev, interessert i naturvitenskap"
+    historier:
+      - "Vinner av skolens vitenskapsmesse"
+      - "Spiller fotball på lag"
+    foreldre: ["p7", "p8"]
+
+  - id: "p14"
+    fornavn: "Noah"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "2012-07-15"
+    fødested: "Bergen"
+    notater: "Skoleelev, interessert i teknologi"
+    historier:
+      - "Bygger roboter i fritiden"
+      - "Er flink til matematikk"
+    foreldre: ["p7", "p8"]
+
+  - id: "p15"
+    fornavn: "Maja"
+    etternavn: "Lundervold"
+    kjønn: "female"
+    fødselsdato: "2015-11-03"
+    fødested: "Bergen"
+    notater: "Skoleelev, interessert i kunst og musikk"
+    historier:
+      - "Spiller piano og synger"
+      - "Malte sitt første maleri som 6-åring"
+    foreldre: ["p9", "p10"]
+
+  - id: "p16"
+    fornavn: "Oliver"
+    etternavn: "Lundervold"
+    kjønn: "male"
+    fødselsdato: "2018-04-20"
+    fødested: "Bergen"
+    notater: "Skoleelev, interessert i dyr og natur"
+    historier:
+      - "Har en samling av steiner"
+      - "Hjelper til på dyrehagen"
+    foreldre: ["p9", "p10"]
+
+ekteskap:
+  - id: "e1"
+    partner1_id: "p1"
+    partner2_id: "p2"
+    ekteskapsdato: "1947-06-15"
+    ekteskapssted: "Oslo"
+    ekteskapstype: "ekteskap"
+    notater: "Gift i Oslo domkirke"
+
+  - id: "e2"
+    partner1_id: "p3"
+    partner2_id: "p8"
+    ekteskapsdato: "1978-08-20"
+    ekteskapssted: "Bergen"
+    ekteskapstype: "ekteskap"
+    notater: "Gift i Bergen domkirke"
+
+  - id: "e3"
+    partner1_id: "p4"
+    partner2_id: "p17"
+    ekteskapsdato: "1980-05-10"
+    ekteskapssted: "Bergen"
+    ekteskapstype: "ekteskap"
+    skilsmisse_dato: "1995-03-15"
+    notater: "Skilt etter 15 års ekteskap"
+
+  - id: "e4"
+    partner1_id: "p7"
+    partner2_id: "p8"
+    ekteskapsdato: "2005-09-12"
+    ekteskapssted: "Bergen"
+    ekteskapstype: "ekteskap"
+    notater: "Gift i Bergen rådhus"
+
+  - id: "e5"
+    partner1_id: "p9"
+    partner2_id: "p10"
+    ekteskapsdato: "2010-06-18"
+    ekteskapssted: "Bergen"
+    ekteskapstype: "ekteskap"
+    notater: "Gift i Fantoft stavkirke"
