@@ -16,6 +16,7 @@ Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, im
 - 🌍 **Tospråklig støtte**: Norsk (primær) og engelsk
 - 📁 **Flere dataformater**: YAML, JSON, CSV og GEDCOM
 - 🔍 **Slektsanalyse**: Beregning av slektskap, generasjonsnivåer og statistikk
+- 🌐 **Eksterne databaser**: Integrasjon med FamilySearch, Digitalarkivet og Wikipedia API
 
 #### Installasjon
 
@@ -62,12 +63,13 @@ plt.show()
 
 #### Jupyter Notebooks
 
-Prosjektet inkluderer fire omfattende notebooks:
+Prosjektet inkluderer fem omfattende notebooks:
 
 1. **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
 2. **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
 3. **03_importer_data.ipynb** - Import/eksport av data
 4. **04_visualisering.ipynb** - Alle visualiseringsalternativer
+5. **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
 
 #### Dataformat
 
@@ -98,6 +100,14 @@ ekteskap:
 - **Timeglass-visning**: Fokusperson i midten
 - **Statistikk-diagrammer**: Kjønnsfordeling, aldersfordeling, etc.
 
+#### Eksterne databaser
+
+- **FamilySearch API**: Verdens største genealogi-database (gratis)
+- **Digitalarkivet**: Norske historiske kilder og arkiver (gratis)
+- **Wikipedia API**: Biografisk informasjon om kjente personer (gratis)
+- **Data-konvertering**: Automatisk konvertering fra eksterne formater
+- **Eksport**: Til forskjellige formater for deling med andre
+
 ### English
 
 The Slektstre project allows you to build complex family trees with rich metadata, import/export data in multiple formats, and visualize relationships in various ways. The project supports both Norwegian and English languages.
@@ -110,6 +120,7 @@ The Slektstre project allows you to build complex family trees with rich metadat
 - 🌍 **Bilingual support**: Norwegian (primary) and English
 - 📁 **Multiple data formats**: YAML, JSON, CSV and GEDCOM
 - 🔍 **Family analysis**: Relationship calculation, generation levels and statistics
+- 🌐 **External databases**: Integration with FamilySearch, Digitalarkivet and Wikipedia API
 
 #### Installation
 
@@ -156,12 +167,13 @@ plt.show()
 
 #### Jupyter Notebooks
 
-The project includes four comprehensive notebooks:
+The project includes five comprehensive notebooks:
 
 1. **01_introduksjon.ipynb** - Overview and basic concepts
 2. **02_bygg_tre_manuelt.ipynb** - Building family trees programmatically
 3. **03_importer_data.ipynb** - Data import/export
 4. **04_visualisering.ipynb** - All visualization options
+5. **05_eksterne_databaser.ipynb** - Integration with genealogy databases and APIs
 
 #### Data Format
 
@@ -191,6 +203,14 @@ ekteskap:
 - **Interactive view**: Plotly-based with hover info
 - **Hourglass view**: Focus person in center
 - **Statistics charts**: Gender distribution, age distribution, etc.
+
+#### External Databases
+
+- **FamilySearch API**: World's largest genealogy database (free)
+- **Digitalarkivet**: Norwegian historical sources and archives (free)
+- **Wikipedia API**: Biographical information about notable people (free)
+- **Data conversion**: Automatic conversion from external formats
+- **Export**: To various formats for sharing with others
 
 ## Teknisk informasjon / Technical Information
 
