@@ -1,0 +1,23 @@
+# Requirements for generating the book PDF
+# This file contains only the essential packages for book generation
+# For a complete environment, use environment.yml or requirements.txt
+
+# Core book generation
+jupyter-book>=0.15.0
+sphinx>=5.0.0
+sphinx-book-theme>=1.0.0
+myst-nb>=0.17.0
+nbconvert[webpdf]>=7.0.0
+
+# PDF processing
+PyPDF2>=3.0.0
+playwright>=1.55.0
+
+# Document processing
+pandoc>=3.0.0
+beautifulsoup4>=4.12.0
+
+# Note: You'll also need LaTeX installed on your system for full PDF generation
+# For macOS: brew install --cask mactex
+# For Ubuntu: sudo apt-get install texlive-full
+# For Windows: Install MiKTeX or TeX Live

@@ -1,0 +1,8 @@
+root: README
+entries:
+- file: notebooks/00_slektstraer_og_grafer
+- file: notebooks/01_introduksjon
+- file: notebooks/02_bygg_tre_manuelt
+- file: notebooks/03_importer_data
+- file: notebooks/04_visualisering
+- file: notebooks/05_eksterne_databaser

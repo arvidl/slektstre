@@ -21,12 +21,15 @@ Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, im
 #### Installasjon
 
 ```bash
-# Opprett conda-miljø
+# Opprett conda-miljø (anbefalt)
 conda env create -f environment.yml
 conda activate slektstre
 
 # Eller installer pakker direkte
 pip install -r requirements.txt
+
+# For kun bok-generering
+pip install -r requirements-book.txt
 ```
 
 #### Rask start
@@ -128,12 +131,15 @@ The Slektstre project allows you to build complex family trees with rich metadat
 #### Installation
 
 ```bash
-# Create conda environment
+# Create conda environment (recommended)
 conda env create -f environment.yml
 conda activate slektstre
 
 # Or install packages directly
 pip install -r requirements.txt
+
+# For book generation only
+pip install -r requirements-book.txt
 ```
 
 #### Quick Start
@@ -222,6 +228,7 @@ ekteskap:
 
 ### Avhengigheter / Dependencies
 
+**Core slektstre packages:**
 - Python 3.12+
 - NetworkX 3.0+
 - Matplotlib 3.7+
@@ -230,6 +237,14 @@ ekteskap:
 - PyYAML 6.0+
 - Pandas 2.0+
 - Jupyter 1.0+
+
+**Book generation packages:**
+- Jupyter Book 0.15+
+- Sphinx 5.0+
+- nbconvert[webpdf] 7.0+
+- Playwright 1.55+
+- PyPDF2 3.0+
+- Pandoc 3.0+
 
 ### Prosjektstruktur / Project Structure
 
@@ -257,6 +272,44 @@ MIT License - se LICENSE fil for detaljer / see LICENSE file for details.
 ### Bidrag / Contributing
 
 Bidrag er velkommen! Vennligst opprett en issue eller pull request. / Contributions are welcome! Please create an issue or pull request.
+
+### 📚 Generer PDF-bok / Generate PDF Book
+
+Du kan generere en komplett PDF-bok av hele prosjektet:
+
+**You can generate a complete PDF book of the entire project:**
+
+```bash
+# Enkel metode / Simple method
+make book
+
+# Eller manuelt / Or manually
+pip install -r requirements-book.txt
+jupyter-book build . --builder pdfhtml
+```
+
+Boken vil inkludere README.md som introduksjon, fulgt av alle notebooks som separate kapitler.
+
+**The book will include README.md as introduction, followed by all notebooks as separate chapters.**
+
+#### 📖 Bok-redigering / Book Editing
+
+For detaljerte instruksjoner om hvordan du redigerer boken, legger til kapitler, eller setter opp automatisk oppdatering, se [BOK-REDIGERING.md](BOK-REDIGERING.md).
+
+**For detailed instructions on how to edit the book, add chapters, or set up automatic updates, see [BOK-REDIGERING.md](BOK-REDIGERING.md).**
+
+#### 🚀 Rask start for bok-redigering / Quick start for book editing
+
+```bash
+# Valider eksisterende bok / Validate existing book
+make validate
+
+# Start automatisk overvåkning / Start automatic monitoring
+make watch
+
+# Generer bok på nytt / Regenerate book
+make book
+```
 
 ### Kontakt / Contact
 

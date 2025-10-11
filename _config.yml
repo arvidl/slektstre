@@ -1,0 +1,26 @@
+# Jupyter Book configuration
+title: "Slektstre med NetworkX - En komplett guide"
+author: "Arvid Lundervold"
+language: "no"
+locale: "no"
+
+# PDF settings
+html:
+  favicon: "assets/favicon.ico"
+  use_edit_page_button: false
+  use_repository_button: false
+  use_issues_button: false
+
+# PDF generation
+sphinx:
+  config:
+    latex_elements:
+      extra_usepackage: ["babel"]
+      babel: "\\usepackage[norsk]{babel}"
+      polyglossia: "\\setdefaultlanguage{norwegian}"
+    latex_engine: "xelatex"
+
+# Table of contents
+toc:
+  numbering: true
+  depth: 3

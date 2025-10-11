@@ -1,3 +1,4 @@
+# Core slektstre dependencies
 networkx>=3.0
 matplotlib>=3.7
 jupyter>=1.0
@@ -9,3 +10,45 @@ ipywidgets>=8.0
 pillow>=10.0
 python-dateutil>=2.8
 kaleido>=0.2.1
+
+# Book generation dependencies
+jupyter-book>=0.15.0
+sphinx>=5.0.0
+sphinx-book-theme>=1.0.0
+myst-nb>=0.17.0
+nbconvert[webpdf]>=7.0.0
+pandoc>=3.0.0
+sphinx-latex>=0.0.1
+PyPDF2>=3.0.0
+playwright>=1.55.0
+beautifulsoup4>=4.12.0
+bleach>=4.1.0
+defusedxml>=0.7.0
+jinja2>=3.0
+jupyter-core>=4.7.0
+jupyterlab-pygments>=0.1.0
+markupsafe>=2.0
+mistune>=2.0.3
+nbclient>=0.5.0
+nbformat>=5.7
+packaging>=24.0
+pandocfilters>=1.4.1
+pygments>=2.4.1
+tinycss2>=1.2.0
+traitlets>=5.1
+webencodings>=0.5.0
+platformdirs>=2.5
+jupyter-client>=6.1.12
+fastjsonschema>=2.15
+jsonschema>=2.6
+soupsieve>1.2
+pyee>=13.0.0
+greenlet>=3.1.1
+attrs>=22.2.0
+jsonschema-specifications>=2023.03.6
+referencing>=0.28.4
+rpds-py>=0.7.1
+typing-extensions>=4.11.0
+
+# File watching and automation
+watchdog>=3.0.0
