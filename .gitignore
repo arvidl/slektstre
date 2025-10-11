@@ -11,7 +11,7 @@ __pycache__/
 */logs.log
 
 # Audio files (too large for Git)
-*.mp3
+# *.mp3
 *.m4a
 *.wav
 *.aac
