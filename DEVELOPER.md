@@ -6,6 +6,58 @@ This guide is for developers contributing to the slektstre project.
 
 ## 🇳🇴 Norsk
 
+### Google Colab Development
+
+Når du legger til nye features:
+
+#### Testing i Colab
+1. **Test lokalt først** - Sørg for at koden fungerer i lokal Jupyter
+2. **Legg til Colab-kompatibilitet** - Inkluder Colab setup-celle i alle notebooks
+3. **Test i faktisk Colab-miljø** - Åpne notebook via Colab-badge og test
+4. **Oppdater Colab-badge lenker** - Sørg for at badges i README peker til riktige notebooks
+
+#### Colab Setup-celle Template
+```python
+# =============================================================================
+# GOOGLE COLAB SETUP / GOOGLE COLAB SETUP
+# =============================================================================
+
+# Sjekk om vi kjører i Google Colab
+try:
+    import google.colab
+    IN_COLAB = True
+    print("🔧 Kjører i Google Colab - installerer avhengigheter...")
+    print("🔧 Running in Google Colab - installing dependencies...")
+    
+    # Installer nødvendige pakker
+    %pip install -q networkx matplotlib plotly pydantic pyyaml pandas ipywidgets pillow kaleido
+    
+    # Klon repository
+    %git clone https://github.com/arvidl/slektstre.git
+    import sys
+    sys.path.append('/content/slektstre/src')
+    
+except ImportError:
+    IN_COLAB = False
+    print("💻 Kjører lokalt / Running locally")
+    import sys
+    sys.path.append('../src')
+
+print(f"📍 Miljø: {'Google Colab' if IN_COLAB else 'Lokal'}")
+print(f"📍 Environment: {'Google Colab' if IN_COLAB else 'Local'}")
+```
+
+#### Colab Badge Format
+```markdown
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/NOTEBOOK_NAME.ipynb)
+```
+
+#### Vanlige Colab-problemer
+- **Import-feil**: Sjekk at `sys.path.append()` er korrekt
+- **Pakke-installasjon**: Bruk `%pip install` ikke `!pip install`
+- **Fil-tilgang**: Colab har `/content/` som root, ikke `../`
+- **Visualiseringer**: Test at matplotlib/plotly fungerer i Colab
+
 ### Repository-vedlikehold
 
 #### Store filer i Git (>100MB)

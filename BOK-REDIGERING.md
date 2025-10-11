@@ -21,6 +21,34 @@ jupyter nbconvert --to webpdf notebooks/*.ipynb --output-dir=book_pdf
 python scripts/combine_pdfs.py
 ```
 
+## 🧪 Testing i Google Colab
+
+Før publisering, test alle notebooks i Colab:
+
+### Steg 1: Åpne notebook via Colab-badge
+1. Gå til README.md i GitHub
+2. Klikk på Colab-badgen for notebooken du vil teste
+3. Notebooken åpnes automatisk i Google Colab
+
+### Steg 2: Kjør alle celler
+1. Kjør første celle (Colab setup) - dette installerer avhengigheter
+2. Kjør alle celler sekvensielt
+3. Verifiser at alle visualiseringer fungerer
+4. Sjekk at ingen feilmeldinger oppstår
+
+### Steg 3: Verifiser funksjonalitet
+- ✅ Alle pakker installeres riktig
+- ✅ Visualiseringer vises korrekt
+- ✅ Ingen import-feil
+- ✅ Alle eksempler kjører uten problemer
+
+### Steg 4: Rapporter problemer
+Hvis du finner problemer:
+1. Dokumenter feilen nøye
+2. Opprett issue på GitHub
+3. Inkluder screenshots og feilmeldinger
+4. Spesifiser hvilken notebook og hvilke celler som feiler
+
 ## 📝 Legge til et nytt kapittel
 
 ### Steg 1: Opprett ny notebook

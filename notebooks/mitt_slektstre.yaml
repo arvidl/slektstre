@@ -1,7 +1,7 @@
 metadata:
   versjon: '1.0'
-  opprettet: '2025-10-10T19:49:01.877187'
-  sist_endret: '2025-10-10T19:49:01.933137'
+  opprettet: '2025-10-11T16:48:48.864843'
+  sist_endret: '2025-10-11T16:48:48.905489'
   beskrivelse: null
 personer:
 - id: p1
@@ -33,7 +33,7 @@ personer:
   notater: Andre generasjon
   historier: []
   foreldre:
-  - e9b01368-97e9-4344-a16b-f580091a3eab
+  - 7d887502-43f2-4b86-8491-7fade70647d2
   barn:
   - p4
   - p5
@@ -95,7 +95,7 @@ personer:
   barn: []
   partnere: []
   ekstra_data: {}
-- id: e9b01368-97e9-4344-a16b-f580091a3eab
+- id: 7d887502-43f2-4b86-8491-7fade70647d2
   fornavn: Erik
   mellomnavn: null
   etternavn: Hansen
@@ -112,7 +112,7 @@ personer:
   - p2
   partnere: []
   ekstra_data: {}
-- id: 6728796d-2461-4594-93fe-dd4479c97684
+- id: 9dc8bb68-47e2-4d3b-ac2a-848ee2ba6d3d
   fornavn: Ingrid
   mellomnavn: null
   etternavn: Hansen
@@ -129,7 +129,7 @@ personer:
   partnere: []
   ekstra_data: {}
 ekteskap:
-- id: b193e9a3-e3b1-4b69-8175-0dffb28057b1
+- id: e7c0b201-c982-4253-9707-a00a45e3f63d
   partner1_id: p2
   partner2_id: p3
   ekteskapsdato: '1978-08-20'

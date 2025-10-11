@@ -100,6 +100,19 @@ Prosjektet inkluderer seks omfattende notebooks:
 
 **📚 Nytt: 00_slektstraer_og_grafer.ipynb** er en omfattende introduksjonsnotebook som kobler sammen genealogi og grafteori. Den dekker grunnleggende konsepter, praktiske øvelser, og viser hvordan NetworkX brukes til å bygge og analysere slektstrær. Perfekt for nybegynnere som vil forstå både slektstrær og den underliggende matematikken.
 
+#### Åpne i Google Colab / Open in Google Colab
+
+Alle notebooks kan kjøres direkte i Google Colab uten installasjon:
+
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb) **00_slektstraer_og_grafer.ipynb** - Introduksjon til slektstrær og grafteori
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb) **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb) **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb) **03_importer_data.ipynb** - Import/eksport av data
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb) **04_visualisering.ipynb** - Alle visualiseringsalternativer
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb) **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
+
+**💡 Tips:** Klikk på Colab-badgen for å åpne notebooken direkte i Google Colab. Alle avhengigheter installeres automatisk!
+
 #### Dataformat
 
 Slektstreet støtter flere formater:
@@ -314,6 +327,16 @@ slektstre/
 ### Lisens / License
 
 MIT License - se LICENSE fil for detaljer / see LICENSE file for details.
+
+### 🔒 Håndtering av sensitive data / Handling Sensitive Data
+
+For detaljert veiledning om å håndtere private familie-data, se [SENSITIVE_DATA_GUIDE.md](SENSITIVE_DATA_GUIDE.md).
+
+**For detailed guidance on managing private family data, see [SENSITIVE_DATA_GUIDE.md](SENSITIVE_DATA_GUIDE.md).**
+
+En privat repository template er tilgjengelig i `templates/private-repo/`.
+
+**A private repository template is available in `templates/private-repo/`.**
 
 ### Bidrag / Contributing
 
