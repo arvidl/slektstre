@@ -357,6 +357,22 @@ make watch
 make book
 ```
 
+### 🛠️ Utviklingsverktøy / Development Tools
+
+For detaljerte instruksjoner om utvikling og repository-vedlikehold, se [DEVELOPER.md](DEVELOPER.md).
+
+**For detailed instructions on development and repository maintenance, see [DEVELOPER.md](DEVELOPER.md).**
+
+**Hurtigreferanse / Quick reference:**
+```bash
+# Fjern store filer / Remove large files
+pip install git-filter-repo
+git filter-repo --path large_file.ipynb --invert-paths --force
+
+# Rydd notebook outputs / Clean notebook outputs
+jupyter nbconvert --clear-output --inplace notebook.ipynb
+```
+
 ### Kontakt / Contact
 
 Arvid Lundervold - [GitHub](https://github.com/arvid)

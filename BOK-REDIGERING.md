@@ -244,13 +244,22 @@ playwright install
 jupyter nbconvert --to webpdf notebooks/00_slektstraer_og_grafer.ipynb
 ```
 
-#### 3. Større PDF-filer
+#### 3. Store filer i Git (>100MB)
+```bash
+# Fjern store filer fra Git-historikken
+pip install git-filter-repo
+git filter-repo --path problematic_file.ipynb --invert-paths --force
+git remote add origin git@github.com:arvidl/slektstre.git
+git push origin main --force
+```
+
+#### 4. Større PDF-filer
 ```bash
 # Komprimer eksisterende PDF-er
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -o compressed.pdf input.pdf
 ```
 
-#### 4. Manglende avhengigheter
+#### 5. Manglende avhengigheter
 ```bash
 # Reinstaller alt
 pip install -r requirements.txt

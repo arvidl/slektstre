@@ -252,6 +252,11 @@ href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp
 (universell kompatibilitet)</a> - 20MB - <a
 href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
 (høy kvalitet)</a> - 40MB</p>
+<blockquote>
+<p><strong>📝 Merk:</strong> Podcast-filene er ikke inkludert i
+Git-repositoryet på grunn av størrelse. Du må laste dem ned separat
+eller generere dem lokalt.</p>
+</blockquote>
 <p><strong>🔧 For å spille av:</strong> 1. Last ned filen til din
 datamaskin 2. Åpne med din foretrukne lydspiller 3. Eller bruk en online
 lydspiller som støtter lokale filer</p>
@@ -402,6 +407,11 @@ href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp
 (universal compatibility)</a> - 20MB - <a
 href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
 (high quality)</a> - 40MB</p>
+<blockquote>
+<p><strong>📝 Note:</strong> Podcast files are not included in the Git
+repository due to size. You need to download them separately or generate
+them locally.</p>
+</blockquote>
 <p><strong>🔧 To play:</strong> 1. Download the file to your computer 2.
 Open with your preferred audio player 3. Or use an online audio player
 that supports local files</p>
@@ -593,6 +603,20 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href=
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generer bok på nytt / Regenerate book</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> book</span></code></pre></div>
+<h3 id="utviklingsverktøy-development-tools">🛠️ Utviklingsverktøy /
+Development Tools</h3>
+<p>For detaljerte instruksjoner om utvikling og repository-vedlikehold,
+se <a href="DEVELOPER.md">DEVELOPER.md</a>.</p>
+<p><strong>For detailed instructions on development and repository
+maintenance, see <a href="DEVELOPER.md">DEVELOPER.md</a>.</strong></p>
+<p><strong>Hurtigreferanse / Quick reference:</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fjern store filer / Remove large files</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install git-filter-repo</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-repo <span class="at">--path</span> large_file.ipynb <span class="at">--invert-paths</span> <span class="at">--force</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Rydd notebook outputs / Clean notebook outputs</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> nbconvert <span class="at">--clear-output</span> <span class="at">--inplace</span> notebook.ipynb</span></code></pre></div>
 <h3 id="kontakt-contact">Kontakt / Contact</h3>
 <p>Arvid Lundervold - <a href="https://github.com/arvid">GitHub</a></p>
 </body>
