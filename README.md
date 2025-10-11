@@ -23,6 +23,12 @@ import IPython.display as ipd
 ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')
 ```
 
+**🎧 Eller åpne [notebook 00_slektstraer_og_grafer.ipynb](notebooks/00_slektstraer_og_grafer.ipynb) som har en forbedret audio-spiller med:**
+- Automatisk path-deteksjon (fungerer både lokalt og i Google Colab)
+- HTML5 audio som fallback
+- Automatisk cleanup for å unngå store notebook-filer
+- Bilingual instruksjoner og feedback
+
 ## 🇳🇴 Norsk / 🇬🇧 English
 
 ### Norsk (Hovedspråk)
