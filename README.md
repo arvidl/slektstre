@@ -63,13 +63,16 @@ plt.show()
 
 #### Jupyter Notebooks
 
-Prosjektet inkluderer fem omfattende notebooks:
+Prosjektet inkluderer seks omfattende notebooks:
 
+0. **00_slektstraer_og_grafer.ipynb** - Introduksjon til slektstrær og grafteori
 1. **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
 2. **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
 3. **03_importer_data.ipynb** - Import/eksport av data
 4. **04_visualisering.ipynb** - Alle visualiseringsalternativer
 5. **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
+
+**📚 Nytt: 00_slektstraer_og_grafer.ipynb** er en omfattende introduksjonsnotebook som kobler sammen genealogi og grafteori. Den dekker grunnleggende konsepter, praktiske øvelser, og viser hvordan NetworkX brukes til å bygge og analysere slektstrær. Perfekt for nybegynnere som vil forstå både slektstrær og den underliggende matematikken.
 
 #### Dataformat
 
@@ -167,13 +170,16 @@ plt.show()
 
 #### Jupyter Notebooks
 
-The project includes five comprehensive notebooks:
+The project includes six comprehensive notebooks:
 
+0. **00_slektstraer_og_grafer.ipynb** - Introduction to family trees and graph theory
 1. **01_introduksjon.ipynb** - Overview and basic concepts
 2. **02_bygg_tre_manuelt.ipynb** - Building family trees programmatically
 3. **03_importer_data.ipynb** - Data import/export
 4. **04_visualisering.ipynb** - All visualization options
 5. **05_eksterne_databaser.ipynb** - Integration with genealogy databases and APIs
+
+**📚 New: 00_slektstraer_og_grafer.ipynb** is a comprehensive introductory notebook that bridges genealogy and graph theory. It covers fundamental concepts, practical exercises, and shows how NetworkX is used to build and analyze family trees. Perfect for beginners who want to understand both family trees and the underlying mathematics.
 
 #### Data Format
 
