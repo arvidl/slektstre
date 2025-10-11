@@ -6,11 +6,15 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 
 **Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
 
-[![🎧 Spill av podcasten](https://img.shields.io/badge/🎧_Spill_av_podcasten-00A86B?style=for-the-badge&logo=spotify&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)
+<audio controls>
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mp4">
+  Din nettleser støtter ikke lydavspilling. <a href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">Last ned podcasten her</a>.
+</audio>
 
-**📥 [Last ned podcasten direkte](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)**
-
-*Klikk på knappen over for å spille av podcasten i nettleseren, eller last ned filen for lokal avspilling.*
+**📥 Last ned:**
+- [MP3 (universell kompatibilitet)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
+- [M4A (høy kvalitet)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
 ## 🇳🇴 Norsk / 🇬🇧 English
 
@@ -132,11 +136,15 @@ The Slektstre project allows you to build complex family trees with rich metadat
 
 **Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
 
-[![🎧 Play Podcast](https://img.shields.io/badge/🎧_Play_Podcast-00A86B?style=for-the-badge&logo=spotify&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)
+<audio controls>
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mp4">
+  Your browser does not support audio playback. <a href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">Download the podcast here</a>.
+</audio>
 
-**📥 [Download podcast directly](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)**
-
-*Click the button above to play the podcast in your browser, or download the file for local playback.*
+**📥 Download:**
+- [MP3 (universal compatibility)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
+- [M4A (high quality)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
 #### Key Features
 
