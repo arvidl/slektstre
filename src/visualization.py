@@ -15,9 +15,9 @@ from typing import List, Dict, Optional, Tuple, Any
 from datetime import date
 import math
 
-from models import Person, Gender
-from tree import Slektstre
-from localization import t
+from .models import Person, Gender
+from .tree import Slektstre
+from .localization import t
 
 # Farger for visualisering
 COLORS = {
