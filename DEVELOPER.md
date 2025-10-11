@@ -6,6 +6,54 @@ This guide is for developers contributing to the slektstre project.
 
 ## 🇳🇴 Norsk
 
+### Audio og Store Filer / Audio and Large Files
+
+#### Problemet med Audio i Notebooks
+Når audio-spillere brukes i notebooks, kan de embedde audio-data i notebook-outputs, 
+som gjør filene store og umulige å pushe til GitHub.
+
+When audio players are used in notebooks, they can embed audio data in notebook outputs,
+making files large and impossible to push to GitHub.
+
+#### Løsning: embed=False og Cleanup
+```python
+# ✅ Riktig måte å bruke audio på
+audio_widget = ipd.Audio(podcast_path, embed=False)
+display(audio_widget)
+
+# ✅ Rydd opp etter bruk
+del audio_widget
+gc.collect()
+```
+
+#### Automatisk Cleanup før Commit
+Notebook 00_ har en automatisk cleanup-celle som:
+- Fjerner alle notebook-outputs
+- Viser størrelse før/etter cleanup
+- Sikrer at notebooken er under 50MB
+
+**Kjør cleanup-cellen før commit/push!**
+
+#### Manuell Cleanup
+```bash
+# Fjern alle outputs fra notebook
+jupyter nbconvert --clear-output --inplace notebooks/00_slektstraer_og_grafer.ipynb
+
+# Sjekk størrelse
+ls -lh notebooks/00_slektstraer_og_grafer.ipynb
+```
+
+#### .gitignore for Audio-filer
+```gitignore
+# Ignorer alle audio-filer
+*.mp3
+*.m4a
+
+# Unntak for spesifikke podcast-filer
+!podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3
+!podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a
+```
+
 ### Google Colab Development
 
 Når du legger til nye features:
