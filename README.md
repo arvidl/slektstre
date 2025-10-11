@@ -2,22 +2,20 @@
 
 Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved hjelp av NetworkX og Jupyter notebooks.
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 ## 🎧 Podcast / Lydinnhold
 
 **Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
 
-> **📝 Merk:** Siden dette er et privat repository, må du laste ned podcast-filene lokalt for å spille dem av.
-
 **📥 Last ned podcast-filer:**
-- [MP3 (universell kompatibilitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
-- [M4A (høy kvalitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
-
-> **📝 Merk:** Podcast-filene er ikke inkludert i Git-repositoryet på grunn av størrelse. Du må laste dem ned separat eller generere dem lokalt.
+- [MP3 (universell kompatibilitet)](https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
+- [M4A (høy kvalitet)](https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
 **🔧 For å spille av:**
-1. Last ned filen til din datamaskin
+1. Klikk på lenken ovenfor for å laste ned
 2. Åpne med din foretrukne lydspiller
-3. Eller bruk en online lydspiller som støtter lokale filer
+3. Eller høre direkte i nettleseren (støtter MP3/M4A)
 
 **💡 Tips:** Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:
 ```python
@@ -338,9 +336,38 @@ En privat repository template er tilgjengelig i `templates/private-repo/`.
 
 **A private repository template is available in `templates/private-repo/`.**
 
+### 🌍 Public Repository / Offentlig Repository
+
+Dette er nå et **public repository** som alle kan se og bruke. Dette betyr:
+
+**✅ Fordeler:**
+- Alle kan teste notebooks i Google Colab uten autentisering
+- Bedre muligheter for å dele kunnskap og lære sammen
+- Open source-utvikling og bidrag fra samfunnet
+- Enklere å finne og bruke for nye brukere
+
+**⚠️ Viktig:**
+- Ingen sensitive familie-data er inkludert i dette repositoryet
+- Kun syntetiske eksempler og læringsressurser
+- For ekte familie-data, bruk private repository-malen
+
 ### Bidrag / Contributing
 
-Bidrag er velkommen! Vennligst opprett en issue eller pull request. / Contributions are welcome! Please create an issue or pull request.
+Bidrag er velkommen! Se [DEVELOPER.md](DEVELOPER.md) for detaljerte instruksjoner.
+
+**Hvordan bidra:**
+1. Fork repositoryet
+2. Lag en feature branch (`git checkout -b feature/ny-funksjon`)
+3. Test endringene dine i Google Colab
+4. Send en pull request
+
+**Contributions are welcome! See [DEVELOPER.md](DEVELOPER.md) for detailed instructions.**
+
+**How to contribute:**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Test your changes in Google Colab
+4. Submit a pull request
 
 ### 📚 Generer PDF-bok / Generate PDF Book
 
