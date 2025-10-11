@@ -1,0 +1,1189 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🔒 Håndtering av Sensitive Data / Handling Sensitive Data &#8212; Slektstre med NetworkX - En komplett guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SENSITIVE_DATA_GUIDE';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Slektstre med NetworkX - En komplett guide</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Slektstre med NetworkX
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/00_slektstraer_og_grafer.html">🌳 Slektstrær og Grafer - En Introduksjon</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/01_introduksjon.html">Slektstre med NetworkX - Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/02_bygg_tre_manuelt.html">Bygge slektstre manuelt - REN VERSJON</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/03_importer_data.html">Import/eksport av data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/04_visualisering.html">Visualisering av slektstre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/05_eksterne_databaser.html">Eksterne genealogi-databaser og API-er</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SENSITIVE_DATA_GUIDE.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🔒 Håndtering av Sensitive Data / Handling Sensitive Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk">🇳🇴 Norsk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvorfor-separate-repositorier">1. Hvorfor Separate Repositorier?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#personvern-i-genealogi">Personvern i Genealogi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prinsippet-offentlig-kode-vs-private-data">Prinsippet: Offentlig Kode vs. Private Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fordeler-med-denne-tilnaermingen">Fordeler med denne Tilnærmingen</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sette-opp-ditt-private-repository">2. Sette Opp Ditt Private Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-1-opprett-private-repository-pa-github">Steg 1: Opprett Private Repository på GitHub</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-2-bruk-template-strukturen">Steg 2: Bruk Template-strukturen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-3-installer-public-pakke">Steg 3: Installer Public Pakke</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasikkerhet-best-practices">3. Datasikkerhet - Best Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore-konfigurasjon">.gitignore Konfigurasjon</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aldri-commit-sensitive-filer">Aldri Commit Sensitive Filer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstra-sikkerhet-git-crypt-valgfritt">Ekstra Sikkerhet: git-crypt (Valgfritt)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-strategier">Backup-strategier</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arbeide-med-begge-repositorier">4. Arbeide med Begge Repositorier</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utviklingsworkflow">Utviklingsworkflow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-med-syntetiske-data">Testing med Syntetiske Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dele-anonymiserte-innsikter">Dele Anonymiserte Innsikter</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anonymisering-av-data-for-deling">5. Anonymisering av Data for Deling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script-for-datarensing">Python-script for Datarensing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retningslinjer-for-anonymisering">Retningslinjer for Anonymisering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samarbeid-med-familie">6. Samarbeid med Familie</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#legge-til-collaborators">Legge til Collaborators</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#handtere-forskjellige-tilgangsnivaer">Håndtere Forskjellige Tilgangsnivåer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#samtykke-fra-familie">Samtykke fra Familie</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanlige-fallgruver">7. Vanlige Fallgruver</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-utilsiktet-commit-av-sensitive-data">Problem 1: Utilsiktet Commit av Sensitive Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-synkroniseringsfeil-mellom-repos">Problem 2: Synkroniseringsfeil mellom Repos</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-gitignore-fungerer-ikke">Problem 3: .gitignore Fungerer Ikke</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-for-stor-repo-storrelse">Problem 4: For Stor Repo Størrelse</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdpr-og-juridiske-hensyn">8. GDPR og Juridiske Hensyn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#personvernlovgivning">Personvernlovgivning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#levende-vs-historiske-personer">Levende vs. Historiske Personer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-compliance">Best Practices for Compliance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fa-juridisk-rad">Få Juridisk Råd</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ressurser-og-lenker">9. Ressurser og Lenker</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interne-ressurser">Interne Ressurser</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksterne-ressurser">Eksterne Ressurser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#english">🇬🇧 English</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-separate-repositories">1. Why Separate Repositories?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-concerns-in-genealogy">Privacy Concerns in Genealogy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-principle-public-code-vs-private-data">The Principle: Public Code vs. Private Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-this-approach">Benefits of This Approach</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-private-repository">2. Setting Up Your Private Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remaining-sections-follow-same-structure">3-9. [Remaining sections follow same structure]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sjekkliste-checklist">📝 Sjekkliste / Checklist</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="handtering-av-sensitive-data-handling-sensitive-data">
+<h1>🔒 Håndtering av Sensitive Data / Handling Sensitive Data<a class="headerlink" href="#handtering-av-sensitive-data-handling-sensitive-data" title="Link to this heading">#</a></h1>
+<p>En omfattende guide for å håndtere private familie-data på en trygg og ansvarlig måte.</p>
+<p>A comprehensive guide for handling private family data in a secure and responsible manner.</p>
+<hr class="docutils" />
+<section id="norsk">
+<h2>🇳🇴 Norsk<a class="headerlink" href="#norsk" title="Link to this heading">#</a></h2>
+<section id="hvorfor-separate-repositorier">
+<h3>1. Hvorfor Separate Repositorier?<a class="headerlink" href="#hvorfor-separate-repositorier" title="Link to this heading">#</a></h3>
+<section id="personvern-i-genealogi">
+<h4>Personvern i Genealogi<a class="headerlink" href="#personvern-i-genealogi" title="Link to this heading">#</a></h4>
+<p>Genealogiske data inneholder ofte <strong>svært sensitiv informasjon</strong>:</p>
+<ul class="simple">
+<li><p>Fulle navn, fødselsdatoer og steder</p></li>
+<li><p>Familieforhold og slektskap</p></li>
+<li><p>Adresser og kontaktinformasjon</p></li>
+<li><p>Personlige historier og dokumenter</p></li>
+<li><p>Bilder av levende personer</p></li>
+</ul>
+</section>
+<section id="prinsippet-offentlig-kode-vs-private-data">
+<h4>Prinsippet: Offentlig Kode vs. Private Data<a class="headerlink" href="#prinsippet-offentlig-kode-vs-private-data" title="Link to this heading">#</a></h4>
+<p><strong>Public Repository (slektstre):</strong></p>
+<ul class="simple">
+<li><p>✅ All kildekode og funksjoner</p></li>
+<li><p>✅ Dokumentasjon og guider</p></li>
+<li><p>✅ Syntetiske eksempler og tutorials</p></li>
+<li><p>✅ Testing med mock-data</p></li>
+<li><p>❌ INGEN reelle familie-data</p></li>
+</ul>
+<p><strong>Private Repository (slektstre-privat):</strong></p>
+<ul class="simple">
+<li><p>✅ Reelle familie-data</p></li>
+<li><p>✅ Personlige analyser</p></li>
+<li><p>✅ Bilder og dokumenter</p></li>
+<li><p>✅ Research-notater</p></li>
+<li><p>❌ IKKE kildekode (bruk pakke fra public repo)</p></li>
+</ul>
+</section>
+<section id="fordeler-med-denne-tilnaermingen">
+<h4>Fordeler med denne Tilnærmingen<a class="headerlink" href="#fordeler-med-denne-tilnaermingen" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Sikkerhet</strong>: Sensitive data eksponeres aldri offentlig</p></li>
+<li><p><strong>Deling</strong>: Kan dele kode uten å kompromittere personvern</p></li>
+<li><p><strong>Samarbeid</strong>: Familie kan bidra til private repo sikkert</p></li>
+<li><p><strong>Fleksibilitet</strong>: Ulike tilgangsnivåer for forskjellige personer</p></li>
+<li><p><strong>GDPR-compliance</strong>: Lettere å følge personvernlovgivning</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sette-opp-ditt-private-repository">
+<h3>2. Sette Opp Ditt Private Repository<a class="headerlink" href="#sette-opp-ditt-private-repository" title="Link to this heading">#</a></h3>
+<section id="steg-1-opprett-private-repository-pa-github">
+<h4>Steg 1: Opprett Private Repository på GitHub<a class="headerlink" href="#steg-1-opprett-private-repository-pa-github" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Gå til <a class="reference external" href="http://GitHub.com">GitHub.com</a> og logg inn</p></li>
+<li><p>Klikk på “New repository”</p></li>
+<li><p>Navn: <code class="docutils literal notranslate"><span class="pre">slektstre-privat</span></code> (eller <code class="docutils literal notranslate"><span class="pre">min-slekt</span></code>, <code class="docutils literal notranslate"><span class="pre">familie-data</span></code>)</p></li>
+<li><p><strong>VIKTIG</strong>: Velg “Private” ❗</p></li>
+<li><p>Ikke initialiser med README (vi bruker template)</p></li>
+<li><p>Klikk “Create repository”</p></li>
+</ol>
+</section>
+<section id="steg-2-bruk-template-strukturen">
+<h4>Steg 2: Bruk Template-strukturen<a class="headerlink" href="#steg-2-bruk-template-strukturen" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kopier template fra public repo</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/path/to/slektstre/templates/private-repo/*<span class="w"> </span>/path/to/slektstre-privat/
+
+<span class="c1"># Gå til private repo</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/slektstre-privat
+
+<span class="c1"># Initialiser Git</span>
+git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit with template structure&quot;</span>
+
+<span class="c1"># Koble til GitHub remote</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:DITT-BRUKERNAVN/slektstre-privat.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</section>
+<section id="steg-3-installer-public-pakke">
+<h4>Steg 3: Installer Public Pakke<a class="headerlink" href="#steg-3-installer-public-pakke" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># I ditt private repo</span>
+pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/arvidl/slektstre.git
+
+<span class="c1"># Eller legg til i requirements.txt og kjør:</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="datasikkerhet-best-practices">
+<h3>3. Datasikkerhet - Best Practices<a class="headerlink" href="#datasikkerhet-best-practices" title="Link to this heading">#</a></h3>
+<section id="gitignore-konfigurasjon">
+<h4>.gitignore Konfigurasjon<a class="headerlink" href="#gitignore-konfigurasjon" title="Link to this heading">#</a></h4>
+<p><strong>KRITISK</strong>: Sjekk at <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> inkluderer:</p>
+<div class="highlight-gitignore notranslate"><div class="highlight"><pre><span></span># Sensitive family data
+*.yaml
+*.json
+*.gedcom
+data/real_data/
+data/familie/
+bilder/personer/
+dokumenter/
+notater/private/
+
+# Backup files
+*.backup
+*.old
+*_backup/
+
+# Personal notes
+mine_notater.md
+private_research/
+</pre></div>
+</div>
+</section>
+<section id="aldri-commit-sensitive-filer">
+<h4>Aldri Commit Sensitive Filer<a class="headerlink" href="#aldri-commit-sensitive-filer" title="Link to this heading">#</a></h4>
+<p><strong>Før hver commit</strong>, sjekk hva som blir committet:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>status
+git<span class="w"> </span>diff<span class="w"> </span>--staged
+</pre></div>
+</div>
+<p>Hvis du ser sensitive data, <strong>STOPP</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>reset<span class="w"> </span>HEAD<span class="w"> </span>sensitive_file.yaml
+</pre></div>
+</div>
+</section>
+<section id="ekstra-sikkerhet-git-crypt-valgfritt">
+<h4>Ekstra Sikkerhet: git-crypt (Valgfritt)<a class="headerlink" href="#ekstra-sikkerhet-git-crypt-valgfritt" title="Link to this heading">#</a></h4>
+<p>For ekstra sikkerhet, krypter sensitive filer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Installer git-crypt</span>
+brew<span class="w"> </span>install<span class="w"> </span>git-crypt<span class="w">  </span><span class="c1"># macOS</span>
+apt<span class="w"> </span>install<span class="w"> </span>git-crypt<span class="w">   </span><span class="c1"># Linux</span>
+
+<span class="c1"># Initialiser i repo</span>
+<span class="nb">cd</span><span class="w"> </span>slektstre-privat
+git-crypt<span class="w"> </span>init
+
+<span class="c1"># Definer hvilke filer som skal krypteres</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;data/*.yaml filter=git-crypt diff=git-crypt&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitattributes
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;data/*.json filter=git-crypt diff=git-crypt&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitattributes
+
+git<span class="w"> </span>add<span class="w"> </span>.gitattributes
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add git-crypt encryption&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="backup-strategier">
+<h4>Backup-strategier<a class="headerlink" href="#backup-strategier" title="Link to this heading">#</a></h4>
+<p><strong>Anbefalt backup-løsning</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>GitHub Private Repo</strong> (primary)</p></li>
+<li><p><strong>Lokal ekstern disk</strong> (encrypted backup)</p></li>
+<li><p><strong>Cloud storage</strong> (Google Drive/Dropbox, kryptert)</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eksempel: Backup-script</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>
+tar<span class="w"> </span>-czf<span class="w"> </span>~/backups/slektstre-privat-<span class="nv">$DATE</span>.tar.gz<span class="w"> </span>slektstre-privat/
+gpg<span class="w"> </span>--encrypt<span class="w"> </span>~/backups/slektstre-privat-<span class="nv">$DATE</span>.tar.gz
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="arbeide-med-begge-repositorier">
+<h3>4. Arbeide med Begge Repositorier<a class="headerlink" href="#arbeide-med-begge-repositorier" title="Link to this heading">#</a></h3>
+<section id="utviklingsworkflow">
+<h4>Utviklingsworkflow<a class="headerlink" href="#utviklingsworkflow" title="Link to this heading">#</a></h4>
+<p><strong>Utvikle nye features:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Jobb i public repo</span>
+<span class="nb">cd</span><span class="w"> </span>~/slektstre
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>new-feature
+
+<span class="c1"># 2. Skriv kode med syntetiske data</span>
+<span class="c1"># 3. Test grundig</span>
+<span class="c1"># 4. Commit og push</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add new feature&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>new-feature
+</pre></div>
+</div>
+<p><strong>Bruk med reelle data:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Oppdater public pakke</span>
+<span class="nb">cd</span><span class="w"> </span>~/slektstre-privat
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>git+https://github.com/arvidl/slektstre.git
+
+<span class="c1"># 2. Kjør analyser med dine data</span>
+jupyter<span class="w"> </span>notebook<span class="w"> </span>notebooks/min_slektsanalyse.ipynb
+
+<span class="c1"># 3. Commit analyser (IKKE data)</span>
+git<span class="w"> </span>add<span class="w"> </span>notebooks/min_slektsanalyse.ipynb
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update family analysis&quot;</span>
+git<span class="w"> </span>push
+</pre></div>
+</div>
+</section>
+<section id="testing-med-syntetiske-data">
+<h4>Testing med Syntetiske Data<a class="headerlink" href="#testing-med-syntetiske-data" title="Link to this heading">#</a></h4>
+<p>Opprett test-familier i public repo:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># data/eksempel_familie.yaml</span>
+<span class="n">personer</span><span class="p">:</span>
+  <span class="o">-</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">&quot;p1&quot;</span>
+    <span class="n">fornavn</span><span class="p">:</span> <span class="s2">&quot;Ola&quot;</span>
+    <span class="n">etternavn</span><span class="p">:</span> <span class="s2">&quot;Nordmann&quot;</span>
+    <span class="n">kjønn</span><span class="p">:</span> <span class="s2">&quot;male&quot;</span>
+    <span class="n">fødselsdato</span><span class="p">:</span> <span class="s2">&quot;1950-01-01&quot;</span>
+  
+  <span class="o">-</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">&quot;p2&quot;</span>
+    <span class="n">fornavn</span><span class="p">:</span> <span class="s2">&quot;Kari&quot;</span>
+    <span class="n">etternavn</span><span class="p">:</span> <span class="s2">&quot;Nordmann&quot;</span>
+    <span class="n">kjønn</span><span class="p">:</span> <span class="s2">&quot;female&quot;</span>
+    <span class="n">fødselsdato</span><span class="p">:</span> <span class="s2">&quot;1955-06-15&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="dele-anonymiserte-innsikter">
+<h4>Dele Anonymiserte Innsikter<a class="headerlink" href="#dele-anonymiserte-innsikter" title="Link to this heading">#</a></h4>
+<p>Hvis du finner interessante mønstre:</p>
+<ol class="arabic simple">
+<li><p><strong>Anonymiser data</strong> fullstendig</p></li>
+<li><p><strong>Lag generalisert eksempel</strong> i public repo</p></li>
+<li><p><strong>Skriv tutorial</strong> basert på funnene</p></li>
+<li><p><strong>Del med community</strong> uten å røpe private data</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="anonymisering-av-data-for-deling">
+<h3>5. Anonymisering av Data for Deling<a class="headerlink" href="#anonymisering-av-data-for-deling" title="Link to this heading">#</a></h3>
+<section id="python-script-for-datarensing">
+<h4>Python-script for Datarensing<a class="headerlink" href="#python-script-for-datarensing" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># scripts/anonymize_data.py</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="k">def</span> <span class="nf">anonymize_person</span><span class="p">(</span><span class="n">person</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Anonymiser en person for deling.&quot;&quot;&quot;</span>
+    
+    <span class="c1"># Generer falske navn</span>
+    <span class="n">first_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Ola&quot;</span><span class="p">,</span> <span class="s2">&quot;Kari&quot;</span><span class="p">,</span> <span class="s2">&quot;Per&quot;</span><span class="p">,</span> <span class="s2">&quot;Anne&quot;</span><span class="p">,</span> <span class="s2">&quot;Lars&quot;</span><span class="p">,</span> <span class="s2">&quot;Ingrid&quot;</span><span class="p">]</span>
+    <span class="n">last_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Nordmann&quot;</span><span class="p">,</span> <span class="s2">&quot;Hansen&quot;</span><span class="p">,</span> <span class="s2">&quot;Olsen&quot;</span><span class="p">,</span> <span class="s2">&quot;Berg&quot;</span><span class="p">,</span> <span class="s2">&quot;Dahl&quot;</span><span class="p">]</span>
+    
+    <span class="n">anonymized</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">anonymized</span><span class="p">[</span><span class="s1">&#39;fornavn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">first_names</span><span class="p">)</span>
+    <span class="n">anonymized</span><span class="p">[</span><span class="s1">&#39;etternavn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">last_names</span><span class="p">)</span>
+    
+    <span class="c1"># Shift datoer tilfeldig (±5 år)</span>
+    <span class="k">if</span> <span class="s1">&#39;fødselsdato&#39;</span> <span class="ow">in</span> <span class="n">person</span><span class="p">:</span>
+        <span class="n">orig_date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;fødselsdato&#39;</span><span class="p">])</span>
+        <span class="n">shift_days</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1825</span><span class="p">,</span> <span class="mi">1825</span><span class="p">)</span>  <span class="c1"># ±5 år</span>
+        <span class="n">new_date</span> <span class="o">=</span> <span class="n">orig_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">shift_days</span><span class="p">)</span>
+        <span class="n">anonymized</span><span class="p">[</span><span class="s1">&#39;fødselsdato&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_date</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    
+    <span class="c1"># Fjern identifiserende informasjon</span>
+    <span class="n">remove_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fødested&#39;</span><span class="p">,</span> <span class="s1">&#39;adresse&#39;</span><span class="p">,</span> <span class="s1">&#39;telefon&#39;</span><span class="p">,</span> <span class="s1">&#39;epost&#39;</span><span class="p">,</span> <span class="s1">&#39;bilde&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">remove_fields</span><span class="p">:</span>
+        <span class="n">anonymized</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">anonymized</span>
+
+<span class="k">def</span> <span class="nf">anonymize_family_tree</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">output_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Anonymiser hele slektstreet.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    
+    <span class="c1"># Anonymiser personer</span>
+    <span class="k">if</span> <span class="s1">&#39;personer&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;personer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">anonymize_person</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;personer&#39;</span><span class="p">]]</span>
+    
+    <span class="c1"># Behold relasjoner (de er ikke identifiserende)</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">allow_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Bruk</span>
+<span class="n">anonymize_family_tree</span><span class="p">(</span><span class="s1">&#39;data/min_familie.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;data/eksempel_anonymisert.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="retningslinjer-for-anonymisering">
+<h4>Retningslinjer for Anonymisering<a class="headerlink" href="#retningslinjer-for-anonymisering" title="Link to this heading">#</a></h4>
+<p><strong>Må fjernes:</strong></p>
+<ul class="simple">
+<li><p>✅ Fulle navn (erstatt med pseudonymer)</p></li>
+<li><p>✅ Nøyaktige fødselsdatoer (shift eller generaliser)</p></li>
+<li><p>✅ Spesifikke steder (bruk fylke/land i stedet)</p></li>
+<li><p>✅ Adresser og kontaktinfo</p></li>
+<li><p>✅ Bilder av levende personer</p></li>
+<li><p>✅ Unike historier eller hendelser</p></li>
+</ul>
+<p><strong>Kan beholdes:</strong></p>
+<ul class="simple">
+<li><p>✅ Slektskapsmønstre (hvem er relatert til hvem)</p></li>
+<li><p>✅ Generasjonsstrukturer</p></li>
+<li><p>✅ Statistiske mønstre</p></li>
+<li><p>✅ Historiske tidsepoker (århundre)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="samarbeid-med-familie">
+<h3>6. Samarbeid med Familie<a class="headerlink" href="#samarbeid-med-familie" title="Link to this heading">#</a></h3>
+<section id="legge-til-collaborators">
+<h4>Legge til Collaborators<a class="headerlink" href="#legge-til-collaborators" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Gå til ditt private repo på GitHub</p></li>
+<li><p>Settings → Collaborators</p></li>
+<li><p>Legg til familiemedlemmer via GitHub-brukernavn</p></li>
+<li><p>De får tilgang til private repo</p></li>
+</ol>
+</section>
+<section id="handtere-forskjellige-tilgangsnivaer">
+<h4>Håndtere Forskjellige Tilgangsnivåer<a class="headerlink" href="#handtere-forskjellige-tilgangsnivaer" title="Link to this heading">#</a></h4>
+<p><strong>Strategi 1: Single Private Repo</strong></p>
+<ul class="simple">
+<li><p>Alle familiemedlemmer har full tilgang</p></li>
+<li><p>Enkel å administrere</p></li>
+<li><p>Krever tillit og avtaler</p></li>
+</ul>
+<p><strong>Strategi 2: Personlige Branches</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hver person jobber på sin egen branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>arvid-research
+<span class="c1"># Commit personlige analyser</span>
+<span class="c1"># Merge kun avtalt informasjon til main</span>
+</pre></div>
+</div>
+<p><strong>Strategi 3: Multiple Private Repos</strong></p>
+<ul class="simple">
+<li><p>Hvert familiemedlem har sitt eget private repo</p></li>
+<li><p>Deler kun avtalt informasjon via public repo</p></li>
+<li><p>Maksimal kontroll, mer komplekst</p></li>
+</ul>
+</section>
+<section id="samtykke-fra-familie">
+<h4>Samtykke fra Familie<a class="headerlink" href="#samtykke-fra-familie" title="Link to this heading">#</a></h4>
+<p><strong>Viktig</strong>: Få samtykke før du:</p>
+<ul class="simple">
+<li><p>Legger inn data om levende personer</p></li>
+<li><p>Deler data med andre</p></li>
+<li><p>Publiserer analyser eller innsikter</p></li>
+<li><p>Tar backup til cloud-tjenester</p></li>
+</ul>
+<p><strong>Eksempel på samtykke-skjema</strong>:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># Samtykke for Genealogisk Forskning</span>
+
+Jeg, [Navn], samtykker til at følgende informasjon lagres 
+i familiens private genealogi-database:
+
+<span class="k">- [ ]</span> Mitt fulle navn
+<span class="k">- [ ]</span> Mine fødselsdato og -sted
+<span class="k">- [ ]</span> Mitt forhold til andre familiemedlemmer
+<span class="k">- [ ]</span> Bilder hvor jeg er med (spesifiser hvilke)
+<span class="k">- [ ]</span> [Annen informasjon]
+
+Jeg forstår at:
+<span class="k">-</span><span class="w"> </span>Data lagres privat på GitHub
+<span class="k">-</span><span class="w"> </span>Kun familiemedlemmer med tilgang kan se data
+<span class="k">-</span><span class="w"> </span>Jeg kan trekke samtykke når som helst
+<span class="k">-</span><span class="w"> </span>Data vil da bli fjernet
+
+Dato: _________
+Signatur: _________
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vanlige-fallgruver">
+<h3>7. Vanlige Fallgruver<a class="headerlink" href="#vanlige-fallgruver" title="Link to this heading">#</a></h3>
+<section id="problem-1-utilsiktet-commit-av-sensitive-data">
+<h4>Problem 1: Utilsiktet Commit av Sensitive Data<a class="headerlink" href="#problem-1-utilsiktet-commit-av-sensitive-data" title="Link to this heading">#</a></h4>
+<p><strong>Symptomer</strong>: Du har committet en <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>-fil med reelle data</p>
+<p><strong>Løsning</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hvis IKKE pushet ennå</span>
+git<span class="w"> </span>reset<span class="w"> </span>HEAD<span class="w"> </span>sensitive_file.yaml
+git<span class="w"> </span>checkout<span class="w"> </span>--<span class="w"> </span>sensitive_file.yaml
+
+<span class="c1"># Hvis allerede pushet til GitHub</span>
+<span class="c1"># Se DEVELOPER.md for git-filter-repo instruksjoner</span>
+git<span class="w"> </span>filter-repo<span class="w"> </span>--path<span class="w"> </span>sensitive_file.yaml<span class="w"> </span>--invert-paths<span class="w"> </span>--force
+</pre></div>
+</div>
+</section>
+<section id="problem-2-synkroniseringsfeil-mellom-repos">
+<h4>Problem 2: Synkroniseringsfeil mellom Repos<a class="headerlink" href="#problem-2-synkroniseringsfeil-mellom-repos" title="Link to this heading">#</a></h4>
+<p><strong>Symptomer</strong>: Ny feature i public repo fungerer ikke med dine data</p>
+<p><strong>Løsning</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Oppdater public pakke</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--force-reinstall<span class="w"> </span>git+https://github.com/arvidl/slektstre.git
+
+<span class="c1"># Sjekk versjon</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import slektstre; print(slektstre.__version__)&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="problem-3-gitignore-fungerer-ikke">
+<h4>Problem 3: .gitignore Fungerer Ikke<a class="headerlink" href="#problem-3-gitignore-fungerer-ikke" title="Link to this heading">#</a></h4>
+<p><strong>Symptomer</strong>: <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> ignorerer ikke <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>-filer</p>
+<p><strong>Løsning</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filer allerede tracked må un-trackes</span>
+git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>data/*.yaml
+
+<span class="c1"># Commit endringen</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Stop tracking yaml files&quot;</span>
+
+<span class="c1"># Nå vil .gitignore fungere</span>
+</pre></div>
+</div>
+</section>
+<section id="problem-4-for-stor-repo-storrelse">
+<h4>Problem 4: For Stor Repo Størrelse<a class="headerlink" href="#problem-4-for-stor-repo-storrelse" title="Link to this heading">#</a></h4>
+<p><strong>Symptomer</strong>: GitHub klager på repo størrelse</p>
+<p><strong>Løsning</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sjekk størrelse</span>
+du<span class="w"> </span>-sh<span class="w"> </span>.git
+
+<span class="c1"># Finn store filer</span>
+git<span class="w"> </span>rev-list<span class="w"> </span>--objects<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>git<span class="w"> </span>cat-file<span class="w"> </span>--batch-check<span class="o">=</span><span class="s1">&#39;%(objecttype) %(objectname) %(objectsize) %(rest)&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>awk<span class="w"> </span><span class="s1">&#39;/^blob/ {print substr($0,6)}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-k2<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-10
+
+<span class="c1"># Fjern store filer fra historikk (se DEVELOPER.md)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gdpr-og-juridiske-hensyn">
+<h3>8. GDPR og Juridiske Hensyn<a class="headerlink" href="#gdpr-og-juridiske-hensyn" title="Link to this heading">#</a></h3>
+<section id="personvernlovgivning">
+<h4>Personvernlovgivning<a class="headerlink" href="#personvernlovgivning" title="Link to this heading">#</a></h4>
+<p><strong>GDPR (EU/EØS)</strong> gjelder for:</p>
+<ul class="simple">
+<li><p>Levende personer</p></li>
+<li><p>Data som kan identifisere enkeltpersoner</p></li>
+<li><p>Lagring og deling av persondata</p></li>
+</ul>
+<p><strong>Dine plikter</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Samtykke</strong>: Få samtykke fra levende personer</p></li>
+<li><p><strong>Formål</strong>: Klar formålsbeskrivelse (genealogisk forskning)</p></li>
+<li><p><strong>Sikkerhet</strong>: Passende sikkerhetstiltak (private repo, kryptering)</p></li>
+<li><p><strong>Rettigheter</strong>: Personer kan kreve innsyn, retting, sletting</p></li>
+<li><p><strong>Databehandler</strong>: GitHub er databehandler - sjekk deres GDPR-compliance</p></li>
+</ol>
+</section>
+<section id="levende-vs-historiske-personer">
+<h4>Levende vs. Historiske Personer<a class="headerlink" href="#levende-vs-historiske-personer" title="Link to this heading">#</a></h4>
+<p><strong>Levende personer</strong> (GDPR gjelder):</p>
+<ul class="simple">
+<li><p>Krever samtykke</p></li>
+<li><p>Har rett til innsyn og sletting</p></li>
+<li><p>Spesielt sensitiv: barn under 18 år</p></li>
+</ul>
+<p><strong>Historiske personer</strong> (mer frihet):</p>
+<ul class="simple">
+<li><p>Døde personer er ikke dekket av GDPR</p></li>
+<li><p>100-års regel: Data over 100 år anses som historisk</p></li>
+<li><p>Offentlige arkiver: Kan fritt brukes</p></li>
+</ul>
+</section>
+<section id="best-practices-for-compliance">
+<h4>Best Practices for Compliance<a class="headerlink" href="#best-practices-for-compliance" title="Link to this heading">#</a></h4>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eksempel: Dataminimering i YAML</span>
+<span class="nt">personer</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1&quot;</span>
+<span class="w">    </span><span class="nt">fornavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Ola&quot;</span>
+<span class="w">    </span><span class="nt">etternavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Nordmann&quot;</span>
+<span class="w">    </span><span class="c1"># Lever: true/false flagg</span>
+<span class="w">    </span><span class="nt">lever</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># Hvis lever=true, begrens data:</span>
+<span class="w">    </span><span class="c1"># - Ingen fødselsdato (kun fødselsår)</span>
+<span class="w">    </span><span class="c1"># - Ingen adresse</span>
+<span class="w">    </span><span class="c1"># - Ingen bilder uten samtykke</span>
+</pre></div>
+</div>
+</section>
+<section id="fa-juridisk-rad">
+<h4>Få Juridisk Råd<a class="headerlink" href="#fa-juridisk-rad" title="Link to this heading">#</a></h4>
+<p>Hvis du:</p>
+<ul class="simple">
+<li><p>Deler data kommersielt</p></li>
+<li><p>Publiserer analyser offentlig</p></li>
+<li><p>Samler data fra mange personer</p></li>
+<li><p>Er usikker på reglene</p></li>
+</ul>
+<p><strong>→ Konsulter en advokat</strong> med erfaring i personvern og GDPR.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ressurser-og-lenker">
+<h3>9. Ressurser og Lenker<a class="headerlink" href="#ressurser-og-lenker" title="Link to this heading">#</a></h3>
+<section id="interne-ressurser">
+<h4>Interne Ressurser<a class="headerlink" href="#interne-ressurser" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="DEVELOPER.html"><span class="std std-doc">DEVELOPER.md</span></a> - Teknisk utviklerdokumentasjon</p></li>
+<li><p><a class="reference internal" href="#templates/private-repo/"><span class="xref myst">templates/private-repo/</span></a> - Template for private repo</p></li>
+<li><p><a class="reference internal" href="BOK-REDIGERING.html"><span class="std std-doc">BOK-REDIGERING.md</span></a> - Bok-redigering og vedlikehold</p></li>
+</ul>
+</section>
+<section id="eksterne-ressurser">
+<h4>Eksterne Ressurser<a class="headerlink" href="#eksterne-ressurser" title="Link to this heading">#</a></h4>
+<p><strong>Personvern:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.datatilsynet.no/">Datatilsynet (Norge)</a></p></li>
+<li><p><a class="reference external" href="https://gdpr.eu/">GDPR Portal</a></p></li>
+<li><p><a class="reference external" href="https://docs.github.com/en/code-security">GitHub Security Best Practices</a></p></li>
+</ul>
+<p><strong>Genealogi:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.familysearch.org/en/help/helpcenter/article/privacy-policy">FamilySearch Privacy Policy</a></p></li>
+<li><p><a class="reference external" href="https://www.ngsgenealogy.org/resources/standards/">Genealogical Standards</a></p></li>
+</ul>
+<p><strong>Git Sikkerhet:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/AGWA/git-crypt">git-crypt</a></p></li>
+<li><p><a class="reference external" href="https://github.com/newren/git-filter-repo">git-filter-repo</a></p></li>
+<li><p><a class="reference external" href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility">GitHub Private Repositories</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="english">
+<h2>🇬🇧 English<a class="headerlink" href="#english" title="Link to this heading">#</a></h2>
+<section id="why-separate-repositories">
+<h3>1. Why Separate Repositories?<a class="headerlink" href="#why-separate-repositories" title="Link to this heading">#</a></h3>
+<section id="privacy-concerns-in-genealogy">
+<h4>Privacy Concerns in Genealogy<a class="headerlink" href="#privacy-concerns-in-genealogy" title="Link to this heading">#</a></h4>
+<p>Genealogical data often contains <strong>highly sensitive information</strong>:</p>
+<ul class="simple">
+<li><p>Full names, birth dates and places</p></li>
+<li><p>Family relationships and lineage</p></li>
+<li><p>Addresses and contact information</p></li>
+<li><p>Personal stories and documents</p></li>
+<li><p>Photos of living individuals</p></li>
+</ul>
+</section>
+<section id="the-principle-public-code-vs-private-data">
+<h4>The Principle: Public Code vs. Private Data<a class="headerlink" href="#the-principle-public-code-vs-private-data" title="Link to this heading">#</a></h4>
+<p><strong>Public Repository (slektstre):</strong></p>
+<ul class="simple">
+<li><p>✅ All source code and functionality</p></li>
+<li><p>✅ Documentation and guides</p></li>
+<li><p>✅ Synthetic examples and tutorials</p></li>
+<li><p>✅ Testing with mock data</p></li>
+<li><p>❌ NO real family data</p></li>
+</ul>
+<p><strong>Private Repository (slektstre-privat):</strong></p>
+<ul class="simple">
+<li><p>✅ Real family data</p></li>
+<li><p>✅ Personal analyses</p></li>
+<li><p>✅ Photos and documents</p></li>
+<li><p>✅ Research notes</p></li>
+<li><p>❌ NOT source code (use package from public repo)</p></li>
+</ul>
+</section>
+<section id="benefits-of-this-approach">
+<h4>Benefits of This Approach<a class="headerlink" href="#benefits-of-this-approach" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Security</strong>: Sensitive data never exposed publicly</p></li>
+<li><p><strong>Sharing</strong>: Can share code without compromising privacy</p></li>
+<li><p><strong>Collaboration</strong>: Family can contribute to private repo safely</p></li>
+<li><p><strong>Flexibility</strong>: Different access levels for different people</p></li>
+<li><p><strong>GDPR Compliance</strong>: Easier to follow privacy regulations</p></li>
+</ol>
+</section>
+</section>
+<section id="setting-up-your-private-repository">
+<h3>2. Setting Up Your Private Repository<a class="headerlink" href="#setting-up-your-private-repository" title="Link to this heading">#</a></h3>
+<p>[English translation follows same structure as Norwegian section above]</p>
+</section>
+<section id="remaining-sections-follow-same-structure">
+<h3>3-9. [Remaining sections follow same structure]<a class="headerlink" href="#remaining-sections-follow-same-structure" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sjekkliste-checklist">
+<h2>📝 Sjekkliste / Checklist<a class="headerlink" href="#sjekkliste-checklist" title="Link to this heading">#</a></h2>
+<p>Før du begynner med reelle familie-data:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Opprettet private repository på GitHub</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Kopiert template-struktur</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Verifisert <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> konfigurasjon</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Installert public pakke</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Testet med syntetiske data først</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Fått samtykke fra levende personer</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Satt opp backup-løsning</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Lest og forstått GDPR-forpliktelser</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Avtalt regler med samarbeidspartnere</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Vet hvordan man anonymiserer data for deling</p></li>
+</ul>
+<p><strong>Gratulerer! Du er klar til å starte med din genealogiske forskning på en trygg og ansvarlig måte! 🎉</strong></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk">🇳🇴 Norsk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvorfor-separate-repositorier">1. Hvorfor Separate Repositorier?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#personvern-i-genealogi">Personvern i Genealogi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prinsippet-offentlig-kode-vs-private-data">Prinsippet: Offentlig Kode vs. Private Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fordeler-med-denne-tilnaermingen">Fordeler med denne Tilnærmingen</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sette-opp-ditt-private-repository">2. Sette Opp Ditt Private Repository</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-1-opprett-private-repository-pa-github">Steg 1: Opprett Private Repository på GitHub</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-2-bruk-template-strukturen">Steg 2: Bruk Template-strukturen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steg-3-installer-public-pakke">Steg 3: Installer Public Pakke</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasikkerhet-best-practices">3. Datasikkerhet - Best Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore-konfigurasjon">.gitignore Konfigurasjon</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aldri-commit-sensitive-filer">Aldri Commit Sensitive Filer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstra-sikkerhet-git-crypt-valgfritt">Ekstra Sikkerhet: git-crypt (Valgfritt)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-strategier">Backup-strategier</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arbeide-med-begge-repositorier">4. Arbeide med Begge Repositorier</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utviklingsworkflow">Utviklingsworkflow</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-med-syntetiske-data">Testing med Syntetiske Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dele-anonymiserte-innsikter">Dele Anonymiserte Innsikter</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anonymisering-av-data-for-deling">5. Anonymisering av Data for Deling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script-for-datarensing">Python-script for Datarensing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retningslinjer-for-anonymisering">Retningslinjer for Anonymisering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samarbeid-med-familie">6. Samarbeid med Familie</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#legge-til-collaborators">Legge til Collaborators</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#handtere-forskjellige-tilgangsnivaer">Håndtere Forskjellige Tilgangsnivåer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#samtykke-fra-familie">Samtykke fra Familie</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanlige-fallgruver">7. Vanlige Fallgruver</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-utilsiktet-commit-av-sensitive-data">Problem 1: Utilsiktet Commit av Sensitive Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-synkroniseringsfeil-mellom-repos">Problem 2: Synkroniseringsfeil mellom Repos</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-gitignore-fungerer-ikke">Problem 3: .gitignore Fungerer Ikke</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-for-stor-repo-storrelse">Problem 4: For Stor Repo Størrelse</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdpr-og-juridiske-hensyn">8. GDPR og Juridiske Hensyn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#personvernlovgivning">Personvernlovgivning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#levende-vs-historiske-personer">Levende vs. Historiske Personer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-compliance">Best Practices for Compliance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fa-juridisk-rad">Få Juridisk Råd</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ressurser-og-lenker">9. Ressurser og Lenker</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interne-ressurser">Interne Ressurser</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksterne-ressurser">Eksterne Ressurser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#english">🇬🇧 English</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-separate-repositories">1. Why Separate Repositories?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-concerns-in-genealogy">Privacy Concerns in Genealogy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-principle-public-code-vs-private-data">The Principle: Public Code vs. Private Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-this-approach">Benefits of This Approach</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-private-repository">2. Setting Up Your Private Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remaining-sections-follow-same-structure">3-9. [Remaining sections follow same structure]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sjekkliste-checklist">📝 Sjekkliste / Checklist</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Arvid Lundervold
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
