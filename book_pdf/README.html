@@ -243,21 +243,23 @@ familie-trær ved hjelp av NetworkX og Jupyter notebooks.</p>
 <h2 id="podcast-lydinnhold">🎧 Podcast / Lydinnhold</h2>
 <p><strong>Slektstre med Python og Grafteori - Slik Analyserer du Din
 Familie</strong></p>
-<p><a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3"><img
-src="https://img.shields.io/badge/🎧_Spill_av_podcasten_(MP3)-00A86B?style=for-the-badge&amp;logo=spotify&amp;logoColor=white"
-alt="🎧 Spill av podcasten (MP3)" /></a></p>
-<p><a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a"><img
-src="https://img.shields.io/badge/🎧_Spill_av_podcasten_(M4A)-FF6B6B?style=for-the-badge&amp;logo=apple&amp;logoColor=white"
-alt="🎧 Spill av podcasten (M4A)" /></a></p>
-<p><strong>📥 Last ned:</strong> - <a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
+<blockquote>
+<p><strong>📝 Merk:</strong> Siden dette er et privat repository, må du
+laste ned podcast-filene lokalt for å spille dem av.</p>
+</blockquote>
+<p><strong>📥 Last ned podcast-filer:</strong> - <a
+href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
 (universell kompatibilitet)</a> - 20MB - <a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
+href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
 (høy kvalitet)</a> - 40MB</p>
-<p><em>Klikk på knappene over for å spille av podcasten i nettleseren,
-eller last ned filen for lokal avspilling.</em></p>
+<p><strong>🔧 For å spille av:</strong> 1. Last ned filen til din
+datamaskin 2. Åpne med din foretrukne lydspiller 3. Eller bruk en online
+lydspiller som støtter lokale filer</p>
+<p><strong>💡 Tips:</strong> Du kan også høre på podcasten direkte i
+Jupyter Notebook ved å bruke:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython.display <span class="im">as</span> ipd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ipd.Audio(<span class="st">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span>)</span></code></pre></div>
 <h2 id="norsk-english">🇳🇴 Norsk / 🇬🇧 English</h2>
 <h3 id="norsk-hovedspråk">Norsk (Hovedspråk)</h3>
 <p>Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike
@@ -282,45 +284,45 @@ generasjonsnivåer og statistikk</li>
 FamilySearch, Digitalarkivet og Wikipedia API</li>
 </ul>
 <h4 id="installasjon">Installasjon</h4>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett conda-miljø (anbefalt)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate slektstre</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Eller installer pakker direkte</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For kun bok-generering</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span></code></pre></div>
-<h4 id="rask-start">Rask start</h4>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importer modulene direkte fra src-mappen</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">&#39;src&#39;</span>)</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett conda-miljø (anbefalt)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate slektstre</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models <span class="im">import</span> Person, Gender</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tree <span class="im">import</span> Slektstre</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett personer</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> Person(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    fornavn<span class="op">=</span><span class="st">&quot;Arvid&quot;</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    etternavn<span class="op">=</span><span class="st">&quot;Lundervold&quot;</span>, </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    kjønn<span class="op">=</span>Gender.MALE,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    fødselsdato<span class="op">=</span>date(<span class="dv">1985</span>, <span class="dv">12</span>, <span class="dv">10</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    fødested<span class="op">=</span><span class="st">&quot;Bergen&quot;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett slektstre</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>slektstre <span class="op">=</span> Slektstre()</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>slektstre.add_person(person)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualiser</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> visualization <span class="im">import</span> plot_hierarchical_tree</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_hierarchical_tree(slektstre)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Eller installer pakker direkte</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For kun bok-generering</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span></code></pre></div>
+<h4 id="rask-start">Rask start</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importer modulene direkte fra src-mappen</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">&#39;src&#39;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models <span class="im">import</span> Person, Gender</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tree <span class="im">import</span> Slektstre</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett personer</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> Person(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    fornavn<span class="op">=</span><span class="st">&quot;Arvid&quot;</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    etternavn<span class="op">=</span><span class="st">&quot;Lundervold&quot;</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    kjønn<span class="op">=</span>Gender.MALE,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    fødselsdato<span class="op">=</span>date(<span class="dv">1985</span>, <span class="dv">12</span>, <span class="dv">10</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    fødested<span class="op">=</span><span class="st">&quot;Bergen&quot;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett slektstre</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>slektstre <span class="op">=</span> Slektstre()</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>slektstre.add_person(person)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualiser</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> visualization <span class="im">import</span> plot_hierarchical_tree</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_hierarchical_tree(slektstre)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <h4 id="jupyter-notebooks">Jupyter Notebooks</h4>
 <p>Prosjektet inkluderer seks omfattende notebooks:</p>
 <ol start="0" type="1">
@@ -346,18 +348,18 @@ underliggende matematikken.</p>
 <h4 id="dataformat">Dataformat</h4>
 <p>Slektstreet støtter flere formater:</p>
 <p><strong>YAML (anbefalt)</strong>:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">personer</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fornavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Arvid&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">etternavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Lundervold&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">kjønn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;male&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødselsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1985-12-10&quot;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødested</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Bergen&quot;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ekteskap</span><span class="kw">:</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">partner1_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">partner2_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p2&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ekteskapsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2010-06-18&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">personer</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fornavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Arvid&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">etternavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Lundervold&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">kjønn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;male&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødselsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1985-12-10&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødested</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Bergen&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ekteskap</span><span class="kw">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">partner1_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">partner2_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p2&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ekteskapsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2010-06-18&quot;</span></span></code></pre></div>
 <p><strong>JSON, CSV og GEDCOM</strong> støttes også.</p>
 <h4 id="visualiseringer">Visualiseringer</h4>
 <ul>
@@ -391,21 +393,23 @@ English languages.</p>
 <h2 id="podcast-audio-content">🎧 Podcast / Audio Content</h2>
 <p><strong>Slektstre med Python og Grafteori - Slik Analyserer du Din
 Familie</strong></p>
-<p><a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3"><img
-src="https://img.shields.io/badge/🎧_Play_Podcast_(MP3)-00A86B?style=for-the-badge&amp;logo=spotify&amp;logoColor=white"
-alt="🎧 Play Podcast (MP3)" /></a></p>
-<p><a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a"><img
-src="https://img.shields.io/badge/🎧_Play_Podcast_(M4A)-FF6B6B?style=for-the-badge&amp;logo=apple&amp;logoColor=white"
-alt="🎧 Play Podcast (M4A)" /></a></p>
-<p><strong>📥 Download:</strong> - <a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
+<blockquote>
+<p><strong>📝 Note:</strong> Since this is a private repository, you
+need to download the podcast files locally to play them.</p>
+</blockquote>
+<p><strong>📥 Download podcast files:</strong> - <a
+href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
 (universal compatibility)</a> - 20MB - <a
-href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
+href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
 (high quality)</a> - 40MB</p>
-<p><em>Click the buttons above to play the podcast in your browser, or
-download the file for local playback.</em></p>
+<p><strong>🔧 To play:</strong> 1. Download the file to your computer 2.
+Open with your preferred audio player 3. Or use an online audio player
+that supports local files</p>
+<p><strong>💡 Tip:</strong> You can also listen to the podcast directly
+in Jupyter Notebook using:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython.display <span class="im">as</span> ipd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ipd.Audio(<span class="st">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span>)</span></code></pre></div>
 <h4 id="key-features">Key Features</h4>
 <ul>
 <li>📊 <strong>Rich metadata</strong>: Birth dates, places, photos,
@@ -424,45 +428,45 @@ generation levels and statistics</li>
 FamilySearch, Digitalarkivet and Wikipedia API</li>
 </ul>
 <h4 id="installation">Installation</h4>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create conda environment (recommended)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate slektstre</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or install packages directly</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For book generation only</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create conda environment (recommended)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate slektstre</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or install packages directly</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For book generation only</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span></code></pre></div>
 <h4 id="quick-start">Quick Start</h4>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules directly from src folder</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">&#39;src&#39;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models <span class="im">import</span> Person, Gender</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tree <span class="im">import</span> Slektstre</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create person</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> Person(</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    fornavn<span class="op">=</span><span class="st">&quot;Arvid&quot;</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    etternavn<span class="op">=</span><span class="st">&quot;Lundervold&quot;</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    kjønn<span class="op">=</span>Gender.MALE,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    fødselsdato<span class="op">=</span>date(<span class="dv">1985</span>, <span class="dv">12</span>, <span class="dv">10</span>),</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    fødested<span class="op">=</span><span class="st">&quot;Bergen&quot;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create family tree</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>slektstre <span class="op">=</span> Slektstre()</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>slektstre.add_person(person)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> visualization <span class="im">import</span> plot_hierarchical_tree</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_hierarchical_tree(slektstre)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules directly from src folder</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">&#39;src&#39;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models <span class="im">import</span> Person, Gender</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tree <span class="im">import</span> Slektstre</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create person</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> Person(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    fornavn<span class="op">=</span><span class="st">&quot;Arvid&quot;</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    etternavn<span class="op">=</span><span class="st">&quot;Lundervold&quot;</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    kjønn<span class="op">=</span>Gender.MALE,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    fødselsdato<span class="op">=</span>date(<span class="dv">1985</span>, <span class="dv">12</span>, <span class="dv">10</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    fødested<span class="op">=</span><span class="st">&quot;Bergen&quot;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create family tree</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>slektstre <span class="op">=</span> Slektstre()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>slektstre.add_person(person)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> visualization <span class="im">import</span> plot_hierarchical_tree</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plot_hierarchical_tree(slektstre)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <h4 id="jupyter-notebooks-1">Jupyter Notebooks</h4>
 <p>The project includes six comprehensive notebooks:</p>
 <ol start="0" type="1">
@@ -487,18 +491,18 @@ mathematics.</p>
 <h4 id="data-format">Data Format</h4>
 <p>The family tree supports multiple formats:</p>
 <p><strong>YAML (recommended)</strong>:</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">personer</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fornavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Arvid&quot;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">etternavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Lundervold&quot;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">kjønn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;male&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødselsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1985-12-10&quot;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødested</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Bergen&quot;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ekteskap</span><span class="kw">:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">partner1_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">partner2_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p2&quot;</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ekteskapsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2010-06-18&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">personer</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fornavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Arvid&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">etternavn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Lundervold&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">kjønn</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;male&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødselsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1985-12-10&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fødested</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Bergen&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ekteskap</span><span class="kw">:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">partner1_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p1&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">partner2_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;p2&quot;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ekteskapsdato</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2010-06-18&quot;</span></span></code></pre></div>
 <p><strong>JSON, CSV and GEDCOM</strong> are also supported.</p>
 <h4 id="visualizations">Visualizations</h4>
 <ul>
@@ -559,13 +563,13 @@ PDF Book</h3>
 <p>Du kan generere en komplett PDF-bok av hele prosjektet:</p>
 <p><strong>You can generate a complete PDF book of the entire
 project:</strong></p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enkel metode / Simple method</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> book</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Eller manuelt / Or manually</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter-book</span> build . <span class="at">--builder</span> pdfhtml</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enkel metode / Simple method</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> book</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Eller manuelt / Or manually</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements-book.txt</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter-book</span> build . <span class="at">--builder</span> pdfhtml</span></code></pre></div>
 <p>Boken vil inkludere README.md som introduksjon, fulgt av alle
 notebooks som separate kapitler.</p>
 <p><strong>The book will include README.md as introduction, followed by
@@ -580,15 +584,15 @@ chapters, or set up automatic updates, see <a
 href="BOK-REDIGERING.md">BOK-REDIGERING.md</a>.</strong></p>
 <h4 id="rask-start-for-bok-redigering-quick-start-for-book-editing">🚀
 Rask start for bok-redigering / Quick start for book editing</h4>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valider eksisterende bok / Validate existing book</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> validate</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start automatisk overvåkning / Start automatic monitoring</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> watch</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generer bok på nytt / Regenerate book</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> book</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valider eksisterende bok / Validate existing book</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> validate</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start automatisk overvåkning / Start automatic monitoring</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> watch</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generer bok på nytt / Regenerate book</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> book</span></code></pre></div>
 <h3 id="kontakt-contact">Kontakt / Contact</h3>
 <p>Arvid Lundervold - <a href="https://github.com/arvid">GitHub</a></p>
 </body>

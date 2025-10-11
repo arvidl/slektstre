@@ -6,15 +6,22 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 
 **Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
 
-[![🎧 Spill av podcasten (MP3)](https://img.shields.io/badge/🎧_Spill_av_podcasten_(MP3)-00A86B?style=for-the-badge&logo=spotify&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3)
+> **📝 Merk:** Siden dette er et privat repository, må du laste ned podcast-filene lokalt for å spille dem av.
 
-[![🎧 Spill av podcasten (M4A)](https://img.shields.io/badge/🎧_Spill_av_podcasten_(M4A)-FF6B6B?style=for-the-badge&logo=apple&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)
+**📥 Last ned podcast-filer:**
+- [MP3 (universell kompatibilitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
+- [M4A (høy kvalitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
-**📥 Last ned:**
-- [MP3 (universell kompatibilitet)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
-- [M4A (høy kvalitet)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
+**🔧 For å spille av:**
+1. Last ned filen til din datamaskin
+2. Åpne med din foretrukne lydspiller
+3. Eller bruk en online lydspiller som støtter lokale filer
 
-*Klikk på knappene over for å spille av podcasten i nettleseren, eller last ned filen for lokal avspilling.*
+**💡 Tips:** Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:
+```python
+import IPython.display as ipd
+ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')
+```
 
 ## 🇳🇴 Norsk / 🇬🇧 English
 
@@ -136,15 +143,22 @@ The Slektstre project allows you to build complex family trees with rich metadat
 
 **Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
 
-[![🎧 Play Podcast (MP3)](https://img.shields.io/badge/🎧_Play_Podcast_(MP3)-00A86B?style=for-the-badge&logo=spotify&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3)
+> **📝 Note:** Since this is a private repository, you need to download the podcast files locally to play them.
 
-[![🎧 Play Podcast (M4A)](https://img.shields.io/badge/🎧_Play_Podcast_(M4A)-FF6B6B?style=for-the-badge&logo=apple&logoColor=white)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)
+**📥 Download podcast files:**
+- [MP3 (universal compatibility)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
+- [M4A (high quality)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
-**📥 Download:**
-- [MP3 (universal compatibility)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
-- [M4A (high quality)](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
+**🔧 To play:**
+1. Download the file to your computer
+2. Open with your preferred audio player
+3. Or use an online audio player that supports local files
 
-*Click the buttons above to play the podcast in your browser, or download the file for local playback.*
+**💡 Tip:** You can also listen to the podcast directly in Jupyter Notebook using:
+```python
+import IPython.display as ipd
+ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')
+```
 
 #### Key Features
 
