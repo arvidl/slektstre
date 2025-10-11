@@ -20,7 +20,7 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 **💡 Tips:** Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:
 ```python
 import IPython.display as ipd
-ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')
+ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3', embed=False)
 ```
 
 **🎧 Eller åpne [notebook 00_slektstraer_og_grafer.ipynb](notebooks/00_slektstraer_og_grafer.ipynb) som har en forbedret audio-spiller med:**
