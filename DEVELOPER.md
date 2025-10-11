@@ -33,7 +33,7 @@ try:
     %pip install -q networkx matplotlib plotly pydantic pyyaml pandas ipywidgets pillow kaleido
     
     # Klon repository
-    %git clone https://github.com/arvidl/slektstre.git
+    !git clone https://github.com/arvidl/slektstre.git
     import sys
     sys.path.append('/content/slektstre/src')
     
