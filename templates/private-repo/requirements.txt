@@ -1,0 +1,48 @@
+# =============================================================================
+# Requirements for Private Genealogy Repository
+# =============================================================================
+
+# Main slektstre package from public repository
+# This contains all the code and functionality
+git+https://github.com/arvidl/slektstre.git
+
+# Additional tools for private analysis and visualization
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+numpy>=1.24.0
+
+# Optional: Enhanced visualization
+seaborn>=0.12.0
+plotly>=5.0.0
+
+# Optional: Advanced data analysis
+scipy>=1.10.0
+scikit-learn>=1.3.0
+
+# Optional: Data export and reporting
+openpyxl>=3.1.0
+xlsxwriter>=3.1.0
+reportlab>=4.0.0
+
+# Optional: Encryption and security
+# cryptography>=41.0.0
+# gnupg>=2.3.0
+
+# =============================================================================
+# Installation Instructions
+# =============================================================================
+#
+# Standard installation:
+#   pip install -r requirements.txt
+#
+# Upgrade slektstre package only:
+#   pip install --upgrade git+https://github.com/arvidl/slektstre.git
+#
+# Install with optional dependencies:
+#   pip install -r requirements.txt
+#   pip install cryptography gnupg  # if you want encryption
+#
+# =============================================================================
+
