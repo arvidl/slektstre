@@ -240,31 +240,41 @@
 <h1 id="slektstre-med-networkx">Slektstre med NetworkX</h1>
 <p>Et Python-bibliotek for å bygge, administrere og visualisere
 familie-trær ved hjelp av NetworkX og Jupyter notebooks.</p>
+<p><a
+href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb"><img
+src="https://colab.research.google.com/assets/colab-badge.svg"
+alt="Open in Colab" /></a> <a
+href="https://opensource.org/licenses/MIT"><img
+src="https://img.shields.io/badge/License-MIT-yellow.svg"
+alt="License: MIT" /></a> <a
+href="https://www.python.org/downloads/"><img
+src="https://img.shields.io/badge/python-3.8+-blue.svg"
+alt="Python 3.8+" /></a></p>
 <h2 id="podcast-lydinnhold">🎧 Podcast / Lydinnhold</h2>
 <p><strong>Slektstre med Python og Grafteori - Slik Analyserer du Din
 Familie</strong></p>
-<blockquote>
-<p><strong>📝 Merk:</strong> Siden dette er et privat repository, må du
-laste ned podcast-filene lokalt for å spille dem av.</p>
-</blockquote>
 <p><strong>📥 Last ned podcast-filer:</strong> - <a
-href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
+href="https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3
 (universell kompatibilitet)</a> - 20MB - <a
-href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
+href="https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A
 (høy kvalitet)</a> - 40MB</p>
-<blockquote>
-<p><strong>📝 Merk:</strong> Podcast-filene er ikke inkludert i
-Git-repositoryet på grunn av størrelse. Du må laste dem ned separat
-eller generere dem lokalt.</p>
-</blockquote>
-<p><strong>🔧 For å spille av:</strong> 1. Last ned filen til din
-datamaskin 2. Åpne med din foretrukne lydspiller 3. Eller bruk en online
-lydspiller som støtter lokale filer</p>
+<p><strong>🔧 For å spille av:</strong> 1. Klikk på lenken ovenfor for å
+laste ned 2. Åpne med din foretrukne lydspiller 3. Eller høre direkte i
+nettleseren (støtter MP3/M4A)</p>
 <p><strong>💡 Tips:</strong> Du kan også høre på podcasten direkte i
 Jupyter Notebook ved å bruke:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython.display <span class="im">as</span> ipd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ipd.Audio(<span class="st">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span>)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fra repository-rot:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ipd.Audio(<span class="st">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span>, embed<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Eller fra notebooks/-mappen:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ipd.Audio(&#39;../podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;, embed=False)</span></span></code></pre></div>
+<p><strong>🎧 Eller åpne <a
+href="notebooks/00_slektstraer_og_grafer.ipynb">notebook
+00_slektstraer_og_grafer.ipynb</a> som har en forbedret audio-spiller
+med:</strong> - Automatisk path-deteksjon (fungerer både lokalt og i
+Google Colab) - HTML5 audio som fallback - Automatisk cleanup for å
+unngå store notebook-filer - Bilingual instruksjoner og feedback</p>
 <h2 id="norsk-english">🇳🇴 Norsk / 🇬🇧 English</h2>
 <h3 id="norsk-hovedspråk">Norsk (Hovedspråk)</h3>
 <p>Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike
@@ -613,9 +623,30 @@ href="SENSITIVE_DATA_GUIDE.md">SENSITIVE_DATA_GUIDE.md</a>.</strong></p>
 <code>templates/private-repo/</code>.</p>
 <p><strong>A private repository template is available in
 <code>templates/private-repo/</code>.</strong></p>
+<h3 id="public-repository-offentlig-repository">🌍 Public Repository /
+Offentlig Repository</h3>
+<p>Dette er nå et <strong>public repository</strong> som alle kan se og
+bruke. Dette betyr:</p>
+<p><strong>✅ Fordeler:</strong> - Alle kan teste notebooks i Google
+Colab uten autentisering - Bedre muligheter for å dele kunnskap og lære
+sammen - Open source-utvikling og bidrag fra samfunnet - Enklere å finne
+og bruke for nye brukere</p>
+<p><strong>⚠️ Viktig:</strong> - Ingen sensitive familie-data er
+inkludert i dette repositoryet - Kun syntetiske eksempler og
+læringsressurser - For ekte familie-data, bruk private
+repository-malen</p>
 <h3 id="bidrag-contributing">Bidrag / Contributing</h3>
-<p>Bidrag er velkommen! Vennligst opprett en issue eller pull request. /
-Contributions are welcome! Please create an issue or pull request.</p>
+<p>Bidrag er velkommen! Se <a href="DEVELOPER.md">DEVELOPER.md</a> for
+detaljerte instruksjoner.</p>
+<p><strong>Hvordan bidra:</strong> 1. Fork repositoryet 2. Lag en
+feature branch (<code>git checkout -b feature/ny-funksjon</code>) 3.
+Test endringene dine i Google Colab 4. Send en pull request</p>
+<p><strong>Contributions are welcome! See <a
+href="DEVELOPER.md">DEVELOPER.md</a> for detailed
+instructions.</strong></p>
+<p><strong>How to contribute:</strong> 1. Fork the repository 2. Create
+a feature branch (<code>git checkout -b feature/new-feature</code>) 3.
+Test your changes in Google Colab 4. Submit a pull request</p>
 <h3 id="generer-pdf-bok-generate-pdf-book">📚 Generer PDF-bok / Generate
 PDF Book</h3>
 <p>Du kan generere en komplett PDF-bok av hele prosjektet:</p>

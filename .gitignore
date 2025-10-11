@@ -26,7 +26,6 @@ __pycache__/
 
 # Jupyter Book build outputs
 _build/
-book_pdf/
 
 # Backup files
 *.backup
