@@ -12,6 +12,8 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 - [MP3 (universell kompatibilitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
 - [M4A (høy kvalitet)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
+> **📝 Merk:** Podcast-filene er ikke inkludert i Git-repositoryet på grunn av størrelse. Du må laste dem ned separat eller generere dem lokalt.
+
 **🔧 For å spille av:**
 1. Last ned filen til din datamaskin
 2. Åpne med din foretrukne lydspiller
@@ -148,6 +150,8 @@ The Slektstre project allows you to build complex family trees with rich metadat
 **📥 Download podcast files:**
 - [MP3 (universal compatibility)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
 - [M4A (high quality)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
+
+> **📝 Note:** Podcast files are not included in the Git repository due to size. You need to download them separately or generate them locally.
 
 **🔧 To play:**
 1. Download the file to your computer

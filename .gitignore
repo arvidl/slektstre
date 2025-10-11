@@ -10,6 +10,18 @@ __pycache__/
 # Logs
 */logs.log
 
+# Audio files (too large for Git)
+*.mp3
+*.m4a
+*.wav
+*.aac
+*.ogg
+
+# Large data files
+*.zip
+*.tar.gz
+*.rar
+
 
 
 
