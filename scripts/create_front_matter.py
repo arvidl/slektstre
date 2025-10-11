@@ -110,7 +110,8 @@ def create_cover_page():
         </div>
         
         <div class="author">Av Arvid Lundervold</div>
-        <div class="date">{datetime.now().strftime('%B %Y')}</div>
+        <div class="author">(etter en idé fra Helena Lundervold Pedersen)</div>
+        <div class="date">11 Oktober 2025</div>
         <div class="version">Versjon 1.0</div>
     </div>
 </body>
