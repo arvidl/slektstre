@@ -22,6 +22,76 @@ __pycache__/
 *.tar.gz
 *.rar
 
+# Jupyter Book build outputs
+_build/
+book_pdf/
 
+# Backup files
+*.backup
+*.bak
+*.old
+*_backup/
+*~
 
+# Personal notes
+mine_notater.md
+mine_notater/
+private_research/
 
+# Temporary files
+*.tmp
+*.temp
+Thumbs.db
+
+# Python build artifacts
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Archives (may contain sensitive data)
+*.tar
+*.7z
+
+# Logs
+*.log
+logs/
