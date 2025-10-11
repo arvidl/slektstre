@@ -12,7 +12,9 @@ __pycache__/
 
 # Audio files (too large for Git)
 *.mp3
+!podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3
 *.m4a
+!podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a
 *.wav
 *.aac
 *.ogg
