@@ -2,6 +2,18 @@
 
 Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved hjelp av NetworkX og Jupyter notebooks.
 
+## 🎧 Podcast / Lydinnhold
+
+**Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
+
+<audio controls>
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mp4">
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mpeg">
+  Din nettleser støtter ikke lydavspilling. <a href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">Last ned podcasten her</a>.
+</audio>
+
+*[Hvis lydspilleren ikke fungerer, kan du [laste ned podcasten direkte](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)]*
+
 ## 🇳🇴 Norsk / 🇬🇧 English
 
 ### Norsk (Hovedspråk)
@@ -117,6 +129,18 @@ ekteskap:
 ### English
 
 The Slektstre project allows you to build complex family trees with rich metadata, import/export data in multiple formats, and visualize relationships in various ways. The project supports both Norwegian and English languages.
+
+## 🎧 Podcast / Audio Content
+
+**Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
+
+<audio controls>
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mp4">
+  <source src="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mpeg">
+  Your browser does not support audio playback. <a href="https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">Download the podcast here</a>.
+</audio>
+
+*[If the audio player doesn't work, you can [download the podcast directly](https://raw.githubusercontent.com/arvidl/slektstre/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a)]*
 
 #### Key Features
 
