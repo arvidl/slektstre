@@ -85,6 +85,37 @@
         .features li {
             margin: 8px 0;
         }
+        .podcast-section {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        .podcast-section h3 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .audio-player {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .podcast-info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .podcast-info code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -114,6 +145,27 @@
                 <h3>📄 Last Ned PDF</h3>
                 <p>Complete PDF book<br>Komplett PDF-bok</p>
             </a>
+        </div>
+
+        <div class="podcast-section">
+            <h3>🎧 Podcast / Lydinnhold</h3>
+            <p><strong>Slektstre med Python og Grafteori</strong><br>
+            <em>Slik Analyserer du Din Familie</em></p>
+            
+            <div class="audio-player">
+                <audio controls style="width: 100%; margin: 15px 0;">
+                    <source src="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" type="audio/mpeg">
+                    <source src="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a" type="audio/mp4">
+                    Din nettleser støtter ikke lydavspilling. 
+                    <a href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">Last ned MP3</a> eller 
+                    <a href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">Last ned M4A</a>
+                </audio>
+            </div>
+            
+            <p class="podcast-info">
+                💡 <strong>Tips:</strong> Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:<br>
+                <code>import IPython.display as ipd<br>ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')</code>
+            </p>
         </div>
 
         <div class="description">
