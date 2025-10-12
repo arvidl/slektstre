@@ -111,12 +111,19 @@
             <p><strong>🇳🇴 Norsk:</strong> Klikk på knappene nedenfor for å se forskjellige visualiseringer. Du kan zoome, panne og utforske slektstreet interaktivt.</p>
             <p><strong>🇬🇧 English:</strong> Click the buttons below to see different visualizations. You can zoom, pan, and explore the family tree interactively.</p>
             
+            <h4>🎮 Interaktive funksjoner / Interactive Features:</h4>
+            <ul>
+                <li><strong>🖱️ Dra noder:</strong> Klikk og dra personer for å flytte dem</li>
+                <li><strong>🔍 Zoom:</strong> Scroll for å zoome inn/ut</li>
+                <li><strong>📱 Pan:</strong> Dra bakgrunnen for å flytte visningen</li>
+                <li><strong>📍 Hover:</strong> Hold musen over personer for detaljer</li>
+            </ul>
+            
             <h4>🎨 Visualiseringskonvensjoner / Visualization Conventions:</h4>
             <ul>
                 <li><strong>🔵 Blå noder:</strong> Menn / <strong>🔴 Røde noder:</strong> Kvinner</li>
-                <li><strong>➡️ Piler på rettede kanter:</strong> Foreldre-barn relasjoner</li>
+                <li><strong>➡️ Piler:</strong> Fra forelder til barn</li>
                 <li><strong>📏 Stiplede kanter:</strong> Ekteskap/partnerskap</li>
-                <li><strong>📍 Hover over noder:</strong> Se detaljer (yrke, bosted)</li>
                 <li><strong>📋 Legend:</strong> Forklarer kanttyper</li>
             </ul>
         </div>
@@ -236,16 +243,16 @@
                     parentEdgeX.push(fromNode.x, toNode.x, null);
                     parentEdgeY.push(fromNode.y, toNode.y, null);
                     
-                    // Add arrow annotation
+                    // Add arrow annotation (from parent to child)
                     const dx = toNode.x - fromNode.x;
                     const dy = toNode.y - fromNode.y;
                     const length = Math.sqrt(dx*dx + dy*dy);
                     const unitX = dx / length;
                     const unitY = dy / length;
                     
-                    // Position arrow near the child node
-                    const arrowX = toNode.x - unitX * 0.15;
-                    const arrowY = toNode.y - unitY * 0.15;
+                    // Position arrow pointing FROM parent TO child
+                    const arrowX = fromNode.x + unitX * 0.15;
+                    const arrowY = fromNode.y + unitY * 0.15;
                     
                     arrowAnnotations.push({
                         x: arrowX,
@@ -338,7 +345,53 @@
                 height: 600
             };
 
-            Plotly.newPlot('plot', data, layout, {responsive: true});
+            Plotly.newPlot('plot', data, layout, {
+                responsive: true,
+                editable: true,
+                displayModeBar: true,
+                modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'autoScale2d']
+            });
+
+            // Add event listener for node dragging
+            document.getElementById('plot').on('plotly_relayout', function(eventData) {
+                // Update node positions when dragged
+                if (eventData['xaxis.range[0]'] !== undefined) {
+                    // This is a zoom/pan event, not a drag event
+                    return;
+                }
+                
+                // Check if any nodes were moved
+                let nodesUpdated = false;
+                familyData.nodes.forEach((node, index) => {
+                    const xKey = `xaxis.range[0]`;
+                    const yKey = `yaxis.range[0]`;
+                    
+                    // Check for individual node position updates
+                    for (let key in eventData) {
+                        if (key.includes('x') && key.includes('[') && key.includes(']')) {
+                            const nodeIndex = parseInt(key.match(/\[(\d+)\]/)[1]);
+                            if (nodeIndex === index) {
+                                node.x = eventData[key];
+                                nodesUpdated = true;
+                            }
+                        }
+                        if (key.includes('y') && key.includes('[') && key.includes(']')) {
+                            const nodeIndex = parseInt(key.match(/\[(\d+)\]/)[1]);
+                            if (nodeIndex === index) {
+                                node.y = eventData[key];
+                                nodesUpdated = true;
+                            }
+                        }
+                    }
+                });
+                
+                // If nodes were moved, redraw the plot
+                if (nodesUpdated) {
+                    setTimeout(() => {
+                        createPlot('interactive');
+                    }, 100);
+                }
+            });
         }
 
         function showHierarchical() {
