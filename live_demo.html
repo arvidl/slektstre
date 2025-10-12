@@ -191,8 +191,8 @@
         
         <div class="matrix-box">
             <h4>📊 Naboskaps-matrise / Adjacency Matrix</h4>
-            <p><strong>🇳🇴 Norsk:</strong> Matrisen viser rettede koblinger mellom personene. 1 = kobling fra rad til kolonne, 0 = ingen kobling.</p>
-            <p><strong>🇬🇧 English:</strong> The matrix shows directed connections between people. 1 = connection from row to column, 0 = no connection.</p>
+            <p><strong>🇳🇴 Norsk:</strong> Matrisen viser koblinger mellom personene. Ekteskap er symmetrisk (1↔1), foreldre-barn er rettet (1→0).</p>
+            <p><strong>🇬🇧 English:</strong> The matrix shows connections between people. Marriage is symmetric (1↔1), parent-child is directed (1→0).</p>
             <div id="matrix-container"></div>
         </div>
 
@@ -286,7 +286,14 @@
                 const fromIndex = nodeIds.indexOf(edge.from);
                 const toIndex = nodeIds.indexOf(edge.to);
                 if (fromIndex !== -1 && toIndex !== -1) {
-                    matrix[fromIndex][toIndex] = 1; // Only directed connection
+                    if (edge.type === 'marriage') {
+                        // Marriage is symmetric (bidirectional)
+                        matrix[fromIndex][toIndex] = 1;
+                        matrix[toIndex][fromIndex] = 1;
+                    } else {
+                        // Parent-child is directed (parent to child only)
+                        matrix[fromIndex][toIndex] = 1;
+                    }
                 }
             });
             
