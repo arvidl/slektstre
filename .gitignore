@@ -47,6 +47,10 @@ reports/
 *.pdf
 *.tex
 
+# Version management files
+!VERSION.md
+!update_version.py
+
 # Backup files
 *.backup
 *.bak
