@@ -4,12 +4,56 @@ author: "Arvid Lundervold"
 language: "no"
 locale: "no"
 
-# PDF settings
+# HTML settings for book-like appearance
 html:
   favicon: "assets/favicon.ico"
   use_edit_page_button: false
   use_repository_button: false
   use_issues_button: false
+  theme:
+    primary: "#2E86AB"
+    accent: "#A23B72"
+    sidebar:
+      text: "#FFFFFF"
+      background: "#2E86AB"
+    navbar:
+      text: "#FFFFFF"
+      background: "#2E86AB"
+    footer:
+      text: "#FFFFFF"
+      background: "#2E86AB"
+    content:
+      text: "#000000"
+      background: "#FFFFFF"
+    code:
+      text: "#E83E8C"
+      background: "#F8F9FA"
+    border: "#E1E4E8"
+  sidebar:
+    width: "300px"
+    collapse: true
+    sticky: true
+  navbar:
+    sticky: true
+  footer:
+    sticky: true
+
+# Book-specific settings
+book:
+  logo: "assets/logo.png"
+  logo_text: "Slektstre med NetworkX"
+  path_to_book: "."
+  repository:
+    url: "https://github.com/arvidl/slektstre"
+    branch: "main"
+    path_to_book: "."
+  launch_buttons:
+    notebook_interface: "jupyterlab"
+    colab_url: "https://colab.research.google.com/"
+    binderhub_url: "https://mybinder.org/"
+    thebe: true
+    jupyterhub_url: ""
+    notebook_server: ""
 
 # PDF generation
 sphinx:
@@ -20,7 +64,9 @@ sphinx:
       polyglossia: "\\setdefaultlanguage{norwegian}"
     latex_engine: "xelatex"
 
-# Table of contents
+# Table of contents with chapter structure
 toc:
   numbering: true
   depth: 3
+  collapse_sections: false
+  titles_only: false
