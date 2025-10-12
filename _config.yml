@@ -38,6 +38,12 @@ sphinx:
       extra_usepackage: ["babel"]
       babel: "\\usepackage[norsk]{babel}"
       polyglossia: "\\setdefaultlanguage{norwegian}"
+      # Mindre font for kode-celler
+      'preamble': |
+        \\usepackage{fancyvrb}
+        \\fvset{fontsize=\\small}
+        \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\\small}
+        \\renewcommand{\\verbatimfont}[1]{\\small\\ttfamily}
     latex_engine: "xelatex"
 
 # Table of contents with chapter structure
