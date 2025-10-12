@@ -1,0 +1,44 @@
+% LaTeX template for smaller code font
+\documentclass[11pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[norsk]{babel}
+\usepackage{geometry}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Set smaller font for code blocks
+\fvset{fontsize=\small}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\small}
+
+% Configure listings for smaller code
+\lstset{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    tabsize=2,
+    showstringspaces=false,
+    showtabs=false,
+    captionpos=b,
+    aboveskip=0pt,
+    belowskip=0pt
+}
+
+% Smaller font for verbatim environments
+\makeatletter
+\renewenvironment{verbatim}{%
+    \small
+    \@verbatim
+    \fvset{fontsize=\small}%
+    \@verbatim
+}{%
+    \end@verbatim
+}
+\makeatother
+
+\begin{document}
+\input{content}
+\end{document}
