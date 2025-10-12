@@ -114,6 +114,7 @@
             <h4>🎮 Interaktive funksjoner / Interactive Features:</h4>
             <ul>
                 <li><strong>🖱️ Dra noder:</strong> Klikk og dra personer for å flytte dem</li>
+                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (30% bevegelse)</li>
                 <li><strong>🔍 Zoom:</strong> Scroll for å zoome inn/ut</li>
                 <li><strong>📱 Pan:</strong> Dra bakgrunnen for å flytte visningen</li>
                 <li><strong>📍 Hover:</strong> Hold musen over personer for detaljer</li>
@@ -352,46 +353,93 @@
                 modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'autoScale2d']
             });
 
-            // Add event listener for node dragging
+            // Add interactive node dragging with elasticity
+            let isDragging = false;
+            let draggedNodeIndex = -1;
+            let originalPositions = [];
+            
+            // Store original positions
+            familyData.nodes.forEach(node => {
+                originalPositions.push({x: node.x, y: node.y});
+            });
+            
+            // Add click event for node selection
+            document.getElementById('plot').on('plotly_click', function(eventData) {
+                const pointIndex = eventData.points[0].pointIndex;
+                if (pointIndex >= 0 && pointIndex < familyData.nodes.length) {
+                    draggedNodeIndex = pointIndex;
+                    isDragging = true;
+                }
+            });
+            
+            // Add hover event for visual feedback
+            document.getElementById('plot').on('plotly_hover', function(eventData) {
+                if (isDragging) {
+                    const pointIndex = eventData.points[0].pointIndex;
+                    if (pointIndex === draggedNodeIndex) {
+                        // Visual feedback for dragging
+                        document.getElementById('plot').style.cursor = 'grabbing';
+                    }
+                }
+            });
+            
+            // Add mouse move event for dragging
             document.getElementById('plot').on('plotly_relayout', function(eventData) {
-                // Update node positions when dragged
-                if (eventData['xaxis.range[0]'] !== undefined) {
-                    // This is a zoom/pan event, not a drag event
-                    return;
+                if (!isDragging) return;
+                
+                // Check for node position changes
+                let hasChanges = false;
+                for (let key in eventData) {
+                    if (key.startsWith('x[') || key.startsWith('y[')) {
+                        hasChanges = true;
+                        break;
+                    }
                 }
                 
-                // Check if any nodes were moved
-                let nodesUpdated = false;
-                familyData.nodes.forEach((node, index) => {
-                    const xKey = `xaxis.range[0]`;
-                    const yKey = `yaxis.range[0]`;
+                if (hasChanges) {
+                    // Apply elasticity to connected nodes
+                    applyElasticity(draggedNodeIndex);
                     
-                    // Check for individual node position updates
-                    for (let key in eventData) {
-                        if (key.includes('x') && key.includes('[') && key.includes(']')) {
-                            const nodeIndex = parseInt(key.match(/\[(\d+)\]/)[1]);
-                            if (nodeIndex === index) {
-                                node.x = eventData[key];
-                                nodesUpdated = true;
-                            }
-                        }
-                        if (key.includes('y') && key.includes('[') && key.includes(']')) {
-                            const nodeIndex = parseInt(key.match(/\[(\d+)\]/)[1]);
-                            if (nodeIndex === index) {
-                                node.y = eventData[key];
-                                nodesUpdated = true;
-                            }
-                        }
+                    // Redraw with new positions
+                    setTimeout(() => {
+                        createPlot('interactive');
+                        isDragging = false;
+                        draggedNodeIndex = -1;
+                    }, 50);
+                }
+            });
+            
+            function applyElasticity(draggedIndex) {
+                const draggedNode = familyData.nodes[draggedIndex];
+                const elasticity = 0.3; // How much connected nodes move
+                
+                // Find connected nodes
+                const connectedNodes = new Set();
+                familyData.edges.forEach(edge => {
+                    if (edge.from === draggedNode.id) {
+                        const connectedNode = familyData.nodes.find(n => n.id === edge.to);
+                        if (connectedNode) connectedNodes.add(connectedNode);
+                    }
+                    if (edge.to === draggedNode.id) {
+                        const connectedNode = familyData.nodes.find(n => n.id === edge.from);
+                        if (connectedNode) connectedNodes.add(connectedNode);
                     }
                 });
                 
-                // If nodes were moved, redraw the plot
-                if (nodesUpdated) {
-                    setTimeout(() => {
-                        createPlot('interactive');
-                    }, 100);
-                }
-            });
+                // Apply elastic movement to connected nodes
+                connectedNodes.forEach(node => {
+                    const dx = draggedNode.x - originalPositions[familyData.nodes.indexOf(node)].x;
+                    const dy = draggedNode.y - originalPositions[familyData.nodes.indexOf(node)].y;
+                    
+                    node.x += dx * elasticity;
+                    node.y += dy * elasticity;
+                });
+                
+                // Update original positions
+                familyData.nodes.forEach((node, index) => {
+                    originalPositions[index] = {x: node.x, y: node.y};
+                });
+            }
         }
 
         function showHierarchical() {
