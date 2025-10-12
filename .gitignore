@@ -34,6 +34,14 @@ reports/
 
 # Generated HTML and PDF files
 *.html
+!index.html
+!00_slektstraer_og_grafer.html
+!01_introduksjon.html
+!02_bygg_tre_manuelt.html
+!03_importer_data.html
+!04_visualisering.html
+!05_eksterne_databaser.html
+!99_podcast_player.html
 *.pdf
 *.tex
 
