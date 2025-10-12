@@ -1,0 +1,1388 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Eksterne genealogi-databaser og API-er &#8212; Slektstre med NetworkX - En komplett guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05_eksterne_databaser';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Visualisering av slektstre" href="04_visualisering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Slektstre med NetworkX - En komplett guide</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Slektstre med NetworkX
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_slektstraer_og_grafer.html">🌳 Slektstrær og Grafer - En Introduksjon</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="01_introduksjon.html">Kapittel 2: Introduksjon til NetworkX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_bygg_tre_manuelt.html">Bygge slektstre manuelt - REN VERSJON</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03_importer_data.html">Kapittel 4: Importer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_visualisering.html">Kapittel 5: Visualisering</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Kapittel 6: Eksterne databaser</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/05_eksterne_databaser.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Eksterne genealogi-databaser og API-er</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tilgjengelige-databaser">Tilgjengelige databaser</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#familysearch-api-gratis">1. <strong>FamilySearch API</strong> (Gratis)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#myheritage-api-betalt">2. <strong>MyHeritage API</strong> (Betalt)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ancestry-com-api-betalt">3. <strong>Ancestry.com API</strong> (Betalt)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nasjonale-arkiver">4. <strong>Nasjonale arkiver</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wikipedia-wikidata">5. <strong>Wikipedia/Wikidata</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fokus-i-denne-notebooken">Fokus i denne notebooken</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#familysearch-api">1. FamilySearch API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registrering-og-api-nokkel">Registrering og API-nøkkel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-endepunkter">API-endepunkter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-etter-personer">Eksempel: Søke etter personer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digitalarkivet-norge">2. Digitalarkivet (Norge)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilgjengelige-kilder">Tilgjengelige kilder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-tilgang">API-tilgang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-i-kirkeboker">Eksempel: Søke i kirkebøker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wikipedia-api">3. Wikipedia API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Wikipedia API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-etter-norske-personer">Eksempel: Søke etter norske personer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvertere-eksterne-data-til-slektstre">4. Konvertere eksterne data til slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktiske-tips-for-slektsforskning">5. Praktiske tips for slektsforskning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvor-du-kan-finne-slektsinformasjon">Hvor du kan finne slektsinformasjon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organisering-av-forskning">Organisering av forskning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagre-og-dele-slektstreet">6. Lagre og dele slektstreet</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksportere-til-forskjellige-formater">Eksportere til forskjellige formater</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppsummering">Oppsummering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neste-steg">Neste steg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anbefalte-ressurser">Anbefalte ressurser</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># =============================================================================</span>
+<span class="c1"># GOOGLE COLAB SETUP / GOOGLE COLAB SETUP</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># Sjekk om vi kjører i Google Colab</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔧 Kjører i Google Colab - installerer avhengigheter...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔧 Running in Google Colab - installing dependencies...&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Installer nødvendige pakker</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> 
+                              <span class="s2">&quot;networkx&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;plotly&quot;</span><span class="p">,</span> <span class="s2">&quot;pydantic&quot;</span><span class="p">,</span> 
+                              <span class="s2">&quot;pyyaml&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;ipywidgets&quot;</span><span class="p">,</span> <span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="s2">&quot;kaleido&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Pakker installert&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Pip install feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Fjern eksisterende slektstre-mappe hvis den finnes</span>
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/slektstre&#39;</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;/content/slektstre&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗑️ Fjernet eksisterende slektstre-mappe&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Klon repository</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;clone&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/arvidl/slektstre.git&#39;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Repository klonet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Git clone feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Legg til src-mappen til Python path og importer direkte</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/content/slektstre/src&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Path lagt til&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Importer slektstre-modulene direkte for å unngå navnekonflikt</span>
+    <span class="kn">import</span> <span class="nn">importlib.util</span>
+    <span class="kn">import</span> <span class="nn">types</span>
+    
+    <span class="c1"># Først, fjern konfliktende moduler fra sys.modules</span>
+    <span class="n">modules_to_remove</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tree&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;localization&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">modules_to_remove</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span>
+    
+    <span class="c1"># Last inn models.py først</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_models&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/models.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_models</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_models</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig models modul</span>
+        <span class="n">temp_models_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_models_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ models.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ models.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn localization.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_localization&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/localization.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_localization</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_localization</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig localization modul</span>
+        <span class="n">temp_localization_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;localization&#39;</span><span class="p">)</span>
+        <span class="n">temp_localization_module</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">slektstre_localization</span><span class="o">.</span><span class="n">t</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;localization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_localization_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ localization.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ localization.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn tree.py som slektstre_tree</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_tree&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/tree.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_tree</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_tree</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig tree modul</span>
+        <span class="n">temp_tree_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;tree&#39;</span><span class="p">)</span>
+        <span class="n">temp_tree_module</span><span class="o">.</span><span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;tree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_tree_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ tree.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ tree.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn family_io.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_io&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/family_io.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_io</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_io</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ family_io.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ family_io.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn visualization.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_viz&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/visualization.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_viz</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_viz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ visualization.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ visualization.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstre-moduler lastet inn i Colab&quot;</span><span class="p">)</span>
+    
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💻 Kjører lokalt / Running locally&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Colab setup feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💻 Fallback til lokal modus / Fallback to local mode&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📍 Miljø: </span><span class="si">{</span><span class="s1">&#39;Google Colab&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">IN_COLAB</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Lokal&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📍 Environment: </span><span class="si">{</span><span class="s1">&#39;Google Colab&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">IN_COLAB</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Local&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>💻 Kjører lokalt / Running locally
+📍 Miljø: Lokal
+📍 Environment: Local
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="eksterne-genealogi-databaser-og-api-er">
+<h1>Eksterne genealogi-databaser og API-er<a class="headerlink" href="#eksterne-genealogi-databaser-og-api-er" title="Link to this heading">#</a></h1>
+<p>I denne notebooken lærer du hvordan du kan hente slektsinformasjon fra eksterne databaser og integrere dem med ditt slektstre-program.</p>
+<section id="tilgjengelige-databaser">
+<h2>Tilgjengelige databaser<a class="headerlink" href="#tilgjengelige-databaser" title="Link to this heading">#</a></h2>
+<section id="familysearch-api-gratis">
+<h3>1. <strong>FamilySearch API</strong> (Gratis)<a class="headerlink" href="#familysearch-api-gratis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Verdens største genealogi-database</p></li>
+<li><p>Over 1 milliard personer</p></li>
+<li><p>Gratis API med registrering</p></li>
+<li><p>Støtter GEDCOM-import/eksport</p></li>
+</ul>
+</section>
+<section id="myheritage-api-betalt">
+<h3>2. <strong>MyHeritage API</strong> (Betalt)<a class="headerlink" href="#myheritage-api-betalt" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Kommersiell genealogi-tjeneste</p></li>
+<li><p>DNA-analyse og slektsforskning</p></li>
+<li><p>API tilgjengelig for utviklere</p></li>
+</ul>
+</section>
+<section id="ancestry-com-api-betalt">
+<h3>3. <strong><a class="reference external" href="http://Ancestry.com">Ancestry.com</a> API</strong> (Betalt)<a class="headerlink" href="#ancestry-com-api-betalt" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Største kommersielle genealogi-tjeneste</p></li>
+<li><p>Begrenset API-tilgang</p></li>
+<li><p>Hovedsakelig for partnere</p></li>
+</ul>
+</section>
+<section id="nasjonale-arkiver">
+<h3>4. <strong>Nasjonale arkiver</strong><a class="headerlink" href="#nasjonale-arkiver" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Digitalarkivet</strong> (Norge) - Gratis</p></li>
+<li><p><strong>Riksarkivet</strong> (Norge) - Gratis</p></li>
+<li><p><strong>Arkivverket</strong> (Norge) - Gratis</p></li>
+</ul>
+</section>
+<section id="wikipedia-wikidata">
+<h3>5. <strong>Wikipedia/Wikidata</strong><a class="headerlink" href="#wikipedia-wikidata" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Biografisk informasjon</p></li>
+<li><p>Gratis og åpen tilgang</p></li>
+<li><p>Begrenset genealogisk data</p></li>
+</ul>
+</section>
+</section>
+<section id="fokus-i-denne-notebooken">
+<h2>Fokus i denne notebooken<a class="headerlink" href="#fokus-i-denne-notebooken" title="Link to this heading">#</a></h2>
+<p>Vi fokuserer på:</p>
+<ol class="arabic simple">
+<li><p><strong>FamilySearch API</strong> - Gratis og omfattende</p></li>
+<li><p><strong>Digitalarkivet</strong> - Norske kilder</p></li>
+<li><p><strong>Wikipedia API</strong> - Biografisk informasjon</p></li>
+<li><p><strong>GEDCOM-import</strong> fra eksterne kilder</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importer nødvendige biblioteker</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+<span class="c1"># Importer slektstre-moduler (fungerer både lokalt og i Colab)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="c1"># Bruk de modulene vi lastet inn i Colab-setup</span>
+    <span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+    <span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+    <span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+    <span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+    <span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+    <span class="n">load_from_yaml</span> <span class="o">=</span> <span class="n">slektstre_io</span><span class="o">.</span><span class="n">load_from_yaml</span>
+    <span class="n">save_to_yaml</span> <span class="o">=</span> <span class="n">slektstre_io</span><span class="o">.</span><span class="n">save_to_yaml</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Lokale imports</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Ekteskap</span><span class="p">,</span> <span class="n">FamilieData</span><span class="p">,</span> <span class="n">Gender</span>
+    <span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
+    <span class="kn">from</span> <span class="nn">family_io</span> <span class="kn">import</span> <span class="n">load_from_yaml</span><span class="p">,</span> <span class="n">save_to_yaml</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle biblioteker importert!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📚 Klar for å utforske eksterne databaser!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Alle biblioteker importert!
+📚 Klar for å utforske eksterne databaser!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="familysearch-api">
+<h2>1. FamilySearch API<a class="headerlink" href="#familysearch-api" title="Link to this heading">#</a></h2>
+<p>FamilySearch er verdens største genealogi-database med over 1 milliard personer. De tilbyr et gratis API for utviklere.</p>
+<section id="registrering-og-api-nokkel">
+<h3>Registrering og API-nøkkel<a class="headerlink" href="#registrering-og-api-nokkel" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Gå til <a class="reference external" href="https://familysearch.org/developers/">FamilySearch Developer</a></p></li>
+<li><p>Opprett en gratis konto</p></li>
+<li><p>Registrer din applikasjon</p></li>
+<li><p>Få API-nøkkel og hemmelig nøkkel</p></li>
+</ol>
+</section>
+<section id="api-endepunkter">
+<h3>API-endepunkter<a class="headerlink" href="#api-endepunkter" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Personer</strong>: <code class="docutils literal notranslate"><span class="pre">/platform/tree/persons</span></code></p></li>
+<li><p><strong>Familier</strong>: <code class="docutils literal notranslate"><span class="pre">/platform/tree/families</span></code></p></li>
+<li><p><strong>Kilder</strong>: <code class="docutils literal notranslate"><span class="pre">/platform/tree/sources</span></code></p></li>
+<li><p><strong>Søk</strong>: <code class="docutils literal notranslate"><span class="pre">/platform/tree/search</span></code></p></li>
+</ul>
+</section>
+<section id="eksempel-soke-etter-personer">
+<h3>Eksempel: Søke etter personer<a class="headerlink" href="#eksempel-soke-etter-personer" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FamilySearch API eksempel (simulert)</span>
+<span class="c1"># MERK: Dette er et eksempel - du trenger ekte API-nøkler for å bruke FamilySearch</span>
+
+<span class="k">def</span> <span class="nf">familysearch_search_example</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eksempel på hvordan FamilySearch API kan brukes.</span>
+<span class="sd">    Dette er simulert data for demonstrasjon.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Simulert API-respons</span>
+    <span class="n">mock_response</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;FS123456789&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="p">:</span> <span class="s2">&quot;Erik Lundervold&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;birthDate&quot;</span><span class="p">:</span> <span class="s2">&quot;1920-05-15&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;birthPlace&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen, Norway&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deathDate&quot;</span><span class="p">:</span> <span class="s2">&quot;1995-08-22&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deathPlace&quot;</span><span class="p">:</span> <span class="s2">&quot;Oslo, Norway&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;Male&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;parents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS987654321&quot;</span><span class="p">,</span> <span class="s2">&quot;FS111222333&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;spouses&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS444555666&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS777888999&quot;</span><span class="p">,</span> <span class="s2">&quot;FS000111222&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;FS444555666&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="p">:</span> <span class="s2">&quot;Ingrid Hansen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;birthDate&quot;</span><span class="p">:</span> <span class="s2">&quot;1925-07-10&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;birthPlace&quot;</span><span class="p">:</span> <span class="s2">&quot;Trondheim, Norway&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deathDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2010-12-03&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deathPlace&quot;</span><span class="p">:</span> <span class="s2">&quot;Oslo, Norway&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;Female&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;parents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS333444555&quot;</span><span class="p">,</span> <span class="s2">&quot;FS666777888&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;spouses&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS123456789&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FS777888999&quot;</span><span class="p">,</span> <span class="s2">&quot;FS000111222&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔍 FamilySearch søkeresultat (simulert):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fant </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mock_response</span><span class="p">[</span><span class="s1">&#39;persons&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> personer&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">mock_response</span><span class="p">[</span><span class="s1">&#39;persons&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">👤 </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;displayName&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ID: </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Født: </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;birthDate&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> i </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;birthPlace&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Død: </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;deathDate&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> i </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;deathPlace&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Kjønn: </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Foreldre: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;parents&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Ektemenn/koner: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;spouses&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Barn: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;children&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">mock_response</span>
+
+<span class="c1"># Kjør eksemplet</span>
+<span class="n">familysearch_data</span> <span class="o">=</span> <span class="n">familysearch_search_example</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔍 FamilySearch søkeresultat (simulert):
+Fant 2 personer
+
+👤 Erik Lundervold
+   ID: FS123456789
+   Født: 1920-05-15 i Bergen, Norway
+   Død: 1995-08-22 i Oslo, Norway
+   Kjønn: Male
+   Foreldre: 2
+   Ektemenn/koner: 1
+   Barn: 2
+
+👤 Ingrid Hansen
+   ID: FS444555666
+   Født: 1925-07-10 i Trondheim, Norway
+   Død: 2010-12-03 i Oslo, Norway
+   Kjønn: Female
+   Foreldre: 2
+   Ektemenn/koner: 1
+   Barn: 2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="digitalarkivet-norge">
+<h2>2. Digitalarkivet (Norge)<a class="headerlink" href="#digitalarkivet-norge" title="Link to this heading">#</a></h2>
+<p>Digitalarkivet er Norges nasjonale arkiv og tilbyr tilgang til millioner av historiske dokumenter.</p>
+<section id="tilgjengelige-kilder">
+<h3>Tilgjengelige kilder<a class="headerlink" href="#tilgjengelige-kilder" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Folketellinger</strong> (1801-1910)</p></li>
+<li><p><strong>Kirkebøker</strong> (døpte, konfirmerte, gift, døde)</p></li>
+<li><p><strong>Skattelister</strong> og matrikkler</p></li>
+<li><p><strong>Emigrasjonslister</strong></p></li>
+<li><p><strong>Militære arkiver</strong></p></li>
+</ul>
+</section>
+<section id="api-tilgang">
+<h3>API-tilgang<a class="headerlink" href="#api-tilgang" title="Link to this heading">#</a></h3>
+<p>Digitalarkivet har ikke et offisielt API, men tilbyr:</p>
+<ul class="simple">
+<li><p><strong>REST API</strong> for søk</p></li>
+<li><p><strong>CSV-eksport</strong> av søkeresultater</p></li>
+<li><p><strong>GEDCOM-eksport</strong> for slektsforskning</p></li>
+</ul>
+</section>
+<section id="eksempel-soke-i-kirkeboker">
+<h3>Eksempel: Søke i kirkebøker<a class="headerlink" href="#eksempel-soke-i-kirkeboker" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Digitalarkivet søk eksempel</span>
+<span class="k">def</span> <span class="nf">digitalarkivet_search_example</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eksempel på søk i Digitalarkivet.</span>
+<span class="sd">    Dette er simulert data basert på ekte arkivstruktur.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Simulert søkeresultat fra kirkebøker</span>
+    <span class="n">kirkebok_resultat</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;søk&quot;</span><span class="p">:</span> <span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kilde&quot;</span><span class="p">:</span> <span class="s2">&quot;Kirkebøker&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;resultater&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;døpt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;navn&quot;</span><span class="p">:</span> <span class="s2">&quot;Erik Lundervold&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dato&quot;</span><span class="p">:</span> <span class="s2">&quot;1920-05-15&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sted&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen domkirke&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;foreldre&quot;</span><span class="p">:</span> <span class="s2">&quot;Arvid Lundervold og Marie Hansen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kilde&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen domkirke kirkebok 1920&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;gift&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;navn&quot;</span><span class="p">:</span> <span class="s2">&quot;Erik Lundervold&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dato&quot;</span><span class="p">:</span> <span class="s2">&quot;1947-08-20&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sted&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen domkirke&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ektefelle&quot;</span><span class="p">:</span> <span class="s2">&quot;Ingrid Hansen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kilde&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen domkirke kirkebok 1947&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;død&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;navn&quot;</span><span class="p">:</span> <span class="s2">&quot;Erik Lundervold&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dato&quot;</span><span class="p">:</span> <span class="s2">&quot;1995-08-22&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sted&quot;</span><span class="p">:</span> <span class="s2">&quot;Oslo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;alder&quot;</span><span class="p">:</span> <span class="s2">&quot;75 år&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kilde&quot;</span><span class="p">:</span> <span class="s2">&quot;Oslo kirkebok 1995&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📚 Digitalarkivet søkeresultat (simulert):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Søkte etter: </span><span class="si">{</span><span class="n">kirkebok_resultat</span><span class="p">[</span><span class="s1">&#39;søk&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kilde: </span><span class="si">{</span><span class="n">kirkebok_resultat</span><span class="p">[</span><span class="s1">&#39;kilde&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fant </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">kirkebok_resultat</span><span class="p">[</span><span class="s1">&#39;resultater&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> oppføringer&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">oppføring</span> <span class="ow">in</span> <span class="n">kirkebok_resultat</span><span class="p">[</span><span class="s1">&#39;resultater&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📄 </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;navn&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Dato: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;dato&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Sted: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;sted&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;foreldre&#39;</span> <span class="ow">in</span> <span class="n">oppføring</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Foreldre: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;foreldre&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;ektefelle&#39;</span> <span class="ow">in</span> <span class="n">oppføring</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Ektefelle: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;ektefelle&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;alder&#39;</span> <span class="ow">in</span> <span class="n">oppføring</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Alder: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;alder&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Kilde: </span><span class="si">{</span><span class="n">oppføring</span><span class="p">[</span><span class="s1">&#39;kilde&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">kirkebok_resultat</span>
+
+<span class="c1"># Kjør eksemplet</span>
+<span class="n">digitalarkivet_data</span> <span class="o">=</span> <span class="n">digitalarkivet_search_example</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📚 Digitalarkivet søkeresultat (simulert):
+Søkte etter: Lundervold
+Kilde: Kirkebøker
+Fant 3 oppføringer
+
+📄 DØPT: Erik Lundervold
+   Dato: 1920-05-15
+   Sted: Bergen domkirke
+   Foreldre: Arvid Lundervold og Marie Hansen
+   Kilde: Bergen domkirke kirkebok 1920
+
+📄 GIFT: Erik Lundervold
+   Dato: 1947-08-20
+   Sted: Bergen domkirke
+   Ektefelle: Ingrid Hansen
+   Kilde: Bergen domkirke kirkebok 1947
+
+📄 DØD: Erik Lundervold
+   Dato: 1995-08-22
+   Sted: Oslo
+   Alder: 75 år
+   Kilde: Oslo kirkebok 1995
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="wikipedia-api">
+<h2>3. Wikipedia API<a class="headerlink" href="#wikipedia-api" title="Link to this heading">#</a></h2>
+<p>Wikipedia kan gi biografisk informasjon om kjente personer, selv om det ikke er en genealogi-database.</p>
+<section id="id1">
+<h3>Wikipedia API<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Gratis</strong> og åpen tilgang</p></li>
+<li><p><strong>REST API</strong> med JSON-respons</p></li>
+<li><p><strong>Søk</strong> etter personer og steder</p></li>
+<li><p><strong>Biografisk</strong> informasjon</p></li>
+</ul>
+</section>
+<section id="eksempel-soke-etter-norske-personer">
+<h3>Eksempel: Søke etter norske personer<a class="headerlink" href="#eksempel-soke-etter-norske-personer" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wikipedia API eksempel</span>
+<span class="k">def</span> <span class="nf">wikipedia_search_example</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eksempel på søk i Wikipedia API.</span>
+<span class="sd">    Dette er simulert data for demonstrasjon.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Simulert Wikipedia-søk</span>
+    <span class="n">wikipedia_resultat</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;søk&quot;</span><span class="p">:</span> <span class="s2">&quot;norske personer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;språk&quot;</span><span class="p">:</span> <span class="s2">&quot;no&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;resultater&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tittel&quot;</span><span class="p">:</span> <span class="s2">&quot;Henrik Ibsen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;beskrivelse&quot;</span><span class="p">:</span> <span class="s2">&quot;Norsk dramatiker og dikter&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødselsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1828&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dødsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1906&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødested&quot;</span><span class="p">:</span> <span class="s2">&quot;Skien&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kjent_for&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer Gynt, Et dukkehjem&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://no.wikipedia.org/wiki/Henrik_Ibsen&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tittel&quot;</span><span class="p">:</span> <span class="s2">&quot;Edvard Grieg&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;beskrivelse&quot;</span><span class="p">:</span> <span class="s2">&quot;Norsk komponist&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødselsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1843&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dødsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1907&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødested&quot;</span><span class="p">:</span> <span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kjent_for&quot;</span><span class="p">:</span> <span class="s2">&quot;Peer Gynt-suiten, Piano Concerto&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://no.wikipedia.org/wiki/Edvard_Grieg&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tittel&quot;</span><span class="p">:</span> <span class="s2">&quot;Roald Amundsen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;beskrivelse&quot;</span><span class="p">:</span> <span class="s2">&quot;Norsk polarforsker&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødselsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1872&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dødsår&quot;</span><span class="p">:</span> <span class="s2">&quot;1928&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fødested&quot;</span><span class="p">:</span> <span class="s2">&quot;Borge&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kjent_for&quot;</span><span class="p">:</span> <span class="s2">&quot;Første til Sydpolen&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://no.wikipedia.org/wiki/Roald_Amundsen&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🌐 Wikipedia søkeresultat (simulert):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Søkte etter: </span><span class="si">{</span><span class="n">wikipedia_resultat</span><span class="p">[</span><span class="s1">&#39;søk&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Språk: </span><span class="si">{</span><span class="n">wikipedia_resultat</span><span class="p">[</span><span class="s1">&#39;språk&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fant </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">wikipedia_resultat</span><span class="p">[</span><span class="s1">&#39;resultater&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> artikler&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">artikkel</span> <span class="ow">in</span> <span class="n">wikipedia_resultat</span><span class="p">[</span><span class="s1">&#39;resultater&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📖 </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;tittel&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Beskrivelse: </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;beskrivelse&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Født: </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;fødselsår&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> i </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;fødested&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Død: </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;dødsår&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Kjent for: </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;kjent_for&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   URL: </span><span class="si">{</span><span class="n">artikkel</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">wikipedia_resultat</span>
+
+<span class="c1"># Kjør eksemplet</span>
+<span class="n">wikipedia_data</span> <span class="o">=</span> <span class="n">wikipedia_search_example</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🌐 Wikipedia søkeresultat (simulert):
+Søkte etter: norske personer
+Språk: no
+Fant 3 artikler
+
+📖 Henrik Ibsen
+   Beskrivelse: Norsk dramatiker og dikter
+   Født: 1828 i Skien
+   Død: 1906
+   Kjent for: Peer Gynt, Et dukkehjem
+   URL: https://no.wikipedia.org/wiki/Henrik_Ibsen
+
+📖 Edvard Grieg
+   Beskrivelse: Norsk komponist
+   Født: 1843 i Bergen
+   Død: 1907
+   Kjent for: Peer Gynt-suiten, Piano Concerto
+   URL: https://no.wikipedia.org/wiki/Edvard_Grieg
+
+📖 Roald Amundsen
+   Beskrivelse: Norsk polarforsker
+   Født: 1872 i Borge
+   Død: 1928
+   Kjent for: Første til Sydpolen
+   URL: https://no.wikipedia.org/wiki/Roald_Amundsen
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="konvertere-eksterne-data-til-slektstre">
+<h2>4. Konvertere eksterne data til slektstre<a class="headerlink" href="#konvertere-eksterne-data-til-slektstre" title="Link to this heading">#</a></h2>
+<p>Nå skal vi vise hvordan du kan konvertere data fra eksterne kilder til vårt slektstre-format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Konverter FamilySearch data til vårt format</span>
+<span class="k">def</span> <span class="nf">convert_familysearch_to_slektstre</span><span class="p">(</span><span class="n">familysearch_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Konverter FamilySearch data til vårt slektstre-format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">personer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ekteskap</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Konverter personer</span>
+    <span class="k">for</span> <span class="n">fs_person</span> <span class="ow">in</span> <span class="n">familysearch_data</span><span class="p">[</span><span class="s1">&#39;persons&#39;</span><span class="p">]:</span>
+        <span class="c1"># Parse navn</span>
+        <span class="n">navn_deler</span> <span class="o">=</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;displayName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">fornavn</span> <span class="o">=</span> <span class="n">navn_deler</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">etternavn</span> <span class="o">=</span> <span class="n">navn_deler</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">navn_deler</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        
+        <span class="c1"># Parse datoer</span>
+        <span class="n">fødselsdato</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">dødsdato</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;birthDate&#39;</span><span class="p">]:</span>
+                <span class="n">fødselsdato</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;birthDate&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;deathDate&#39;</span><span class="p">]:</span>
+                <span class="n">dødsdato</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;deathDate&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        
+        <span class="c1"># Bestem kjønn</span>
+        <span class="n">kjønn</span> <span class="o">=</span> <span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span> <span class="k">if</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Male&#39;</span> <span class="k">else</span> <span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span>
+        
+        <span class="c1"># Opprett Person objekt</span>
+        <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="n">fornavn</span><span class="o">=</span><span class="n">fornavn</span><span class="p">,</span>
+            <span class="n">etternavn</span><span class="o">=</span><span class="n">etternavn</span><span class="p">,</span>
+            <span class="n">fødselsdato</span><span class="o">=</span><span class="n">fødselsdato</span><span class="p">,</span>
+            <span class="n">dødsdato</span><span class="o">=</span><span class="n">dødsdato</span><span class="p">,</span>
+            <span class="n">fødested</span><span class="o">=</span><span class="n">fs_person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;birthPlace&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+            <span class="n">dødssted</span><span class="o">=</span><span class="n">fs_person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deathPlace&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+            <span class="n">kjønn</span><span class="o">=</span><span class="n">kjønn</span><span class="p">,</span>
+            <span class="n">notater</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Importert fra FamilySearch (ID: </span><span class="si">{</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+        <span class="n">personer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+    
+    <span class="c1"># Konverter ekteskap (forenklet)</span>
+    <span class="k">for</span> <span class="n">fs_person</span> <span class="ow">in</span> <span class="n">familysearch_data</span><span class="p">[</span><span class="s1">&#39;persons&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;spouses&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">spouse_id</span> <span class="ow">in</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;spouses&#39;</span><span class="p">]:</span>
+                <span class="c1"># Sjekk om ekteskapet allerede eksisterer</span>
+                <span class="n">eksisterer</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">partner1_id</span> <span class="o">==</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">partner2_id</span> <span class="o">==</span> <span class="n">spouse_id</span><span class="p">)</span> <span class="ow">or</span>
+                    <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">partner1_id</span> <span class="o">==</span> <span class="n">spouse_id</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">partner2_id</span> <span class="o">==</span> <span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ekteskap</span>
+                <span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">eksisterer</span><span class="p">:</span>
+                    <span class="n">ekteskap_obj</span> <span class="o">=</span> <span class="n">Ekteskap</span><span class="p">(</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;e_</span><span class="si">{</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">spouse_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">partner1_id</span><span class="o">=</span><span class="n">fs_person</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                        <span class="n">partner2_id</span><span class="o">=</span><span class="n">spouse_id</span><span class="p">,</span>
+                        <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Importert fra FamilySearch&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">ekteskap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ekteskap_obj</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">FamilieData</span><span class="p">(</span><span class="n">personer</span><span class="o">=</span><span class="n">personer</span><span class="p">,</span> <span class="n">ekteskap</span><span class="o">=</span><span class="n">ekteskap</span><span class="p">)</span>
+
+<span class="c1"># Konverter dataene</span>
+<span class="n">konvertert_data</span> <span class="o">=</span> <span class="n">convert_familysearch_to_slektstre</span><span class="p">(</span><span class="n">familysearch_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔄 Konverterte FamilySearch data til slektstre-format:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">konvertert_data</span><span class="o">.</span><span class="n">personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskap: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">konvertert_data</span><span class="o">.</span><span class="n">ekteskap</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Vis første person</span>
+<span class="k">if</span> <span class="n">konvertert_data</span><span class="o">.</span><span class="n">personer</span><span class="p">:</span>
+    <span class="n">første_person</span> <span class="o">=</span> <span class="n">konvertert_data</span><span class="o">.</span><span class="n">personer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">👤 Eksempel person: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ID: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Født: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">fødselsdato</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Død: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">dødsdato</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Kjønn: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">kjønn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Notater: </span><span class="si">{</span><span class="n">første_person</span><span class="o">.</span><span class="n">notater</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔄 Konverterte FamilySearch data til slektstre-format:
+Personer: 2
+Ekteskap: 1
+
+👤 Eksempel person: Erik Lundervold
+   ID: FS123456789
+   Født: 1920-05-15
+   Død: 1995-08-22
+   Kjønn: male
+   Notater: Importert fra FamilySearch (ID: FS123456789)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Opprett slektstre fra konverterte data</span>
+<span class="n">slektstre_ekstern</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">(</span><span class="n">konvertert_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🌳 Opprettet slektstre fra eksterne data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slektstre_ekstern</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Totalt antall ekteskap: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slektstre_ekstern</span><span class="o">.</span><span class="n">familie_data</span><span class="o">.</span><span class="n">ekteskap</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Vis slektstreet</span>
+<span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="n">plot_hierarchical_tree</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_hierarchical_tree</span><span class="p">(</span><span class="n">slektstre_ekstern</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Slektstre fra eksterne databaser&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🌳 Opprettet slektstre fra eksterne data:
+Totalt antall personer: 2
+Totalt antall ekteskap: 1
+</pre></div>
+</div>
+<img alt="../_images/1fe2d3e8b7233fe998cac874b585ca2fcfc717eb3a0f1b11e7dfd4d64a0138f3.png" src="../_images/1fe2d3e8b7233fe998cac874b585ca2fcfc717eb3a0f1b11e7dfd4d64a0138f3.png" />
+</div>
+</div>
+</section>
+<section id="praktiske-tips-for-slektsforskning">
+<h2>5. Praktiske tips for slektsforskning<a class="headerlink" href="#praktiske-tips-for-slektsforskning" title="Link to this heading">#</a></h2>
+<section id="hvor-du-kan-finne-slektsinformasjon">
+<h3>Hvor du kan finne slektsinformasjon<a class="headerlink" href="#hvor-du-kan-finne-slektsinformasjon" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Start med familien</strong></p>
+<ul class="simple">
+<li><p>Spør eldre familiemedlemmer</p></li>
+<li><p>Sjekk gamle fotoalbum og dokumenter</p></li>
+<li><p>Se etter fødselsattester, dødsattester, ekteskapsattester</p></li>
+</ul>
+</li>
+<li><p><strong>Digitale arkiver</strong></p>
+<ul class="simple">
+<li><p><strong>Digitalarkivet</strong> (Norge) - Gratis</p></li>
+<li><p><strong>FamilySearch</strong> - Gratis</p></li>
+<li><p><strong><a class="reference external" href="http://Ancestry.com">Ancestry.com</a></strong> - Betalt</p></li>
+<li><p><strong>MyHeritage</strong> - Betalt</p></li>
+</ul>
+</li>
+<li><p><strong>Lokale kilder</strong></p>
+<ul class="simple">
+<li><p>Kirkebøker</p></li>
+<li><p>Skattelister</p></li>
+<li><p>Folketellinger</p></li>
+<li><p>Emigrasjonslister</p></li>
+</ul>
+</li>
+<li><p><strong>DNA-testing</strong></p>
+<ul class="simple">
+<li><p><strong>MyHeritage DNA</strong></p></li>
+<li><p><strong>AncestryDNA</strong></p></li>
+<li><p><strong>23andMe</strong></p></li>
+<li><p><strong>FamilyTreeDNA</strong></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="organisering-av-forskning">
+<h3>Organisering av forskning<a class="headerlink" href="#organisering-av-forskning" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Bruk konsistente ID-er</strong></p></li>
+<li><p><strong>Dokumenter alle kilder</strong></p></li>
+<li><p><strong>Verifiser informasjon fra flere kilder</strong></p></li>
+<li><p><strong>Hold backup av dataene</strong></p></li>
+<li><p><strong>Del funnene med familien</strong></p></li>
+</ol>
+</section>
+</section>
+<section id="lagre-og-dele-slektstreet">
+<h2>6. Lagre og dele slektstreet<a class="headerlink" href="#lagre-og-dele-slektstreet" title="Link to this heading">#</a></h2>
+<section id="eksportere-til-forskjellige-formater">
+<h3>Eksportere til forskjellige formater<a class="headerlink" href="#eksportere-til-forskjellige-formater" title="Link to this heading">#</a></h3>
+<p>Nå kan du eksportere ditt slektstre til forskjellige formater for å dele med andre eller bruke i andre programmer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eksporter slektstreet til forskjellige formater</span>
+<span class="kn">from</span> <span class="nn">family_io</span> <span class="kn">import</span> <span class="n">save_to_yaml</span><span class="p">,</span> <span class="n">save_to_json</span><span class="p">,</span> <span class="n">save_to_csv</span><span class="p">,</span> <span class="n">export_to_gedcom</span>
+
+<span class="c1"># Lagre til YAML (anbefalt for redigering)</span>
+<span class="n">save_to_yaml</span><span class="p">(</span><span class="n">konvertert_data</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.yaml&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Eksportert til YAML: ekstern_slektstre.yaml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Lagre til JSON (for programmatisk bruk)</span>
+<span class="n">save_to_json</span><span class="p">(</span><span class="n">konvertert_data</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Eksportert til JSON: ekstern_slektstre.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Lagre til CSV (for Excel/Google Sheets)</span>
+<span class="n">save_to_csv</span><span class="p">(</span><span class="n">konvertert_data</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.csv&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Eksportert til CSV: ekstern_slektstre.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Lagre til GEDCOM (for andre genealogi-programmer)</span>
+<span class="n">export_to_gedcom</span><span class="p">(</span><span class="n">konvertert_data</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.ged&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Eksportert til GEDCOM: ekstern_slektstre.ged&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📊 Filstørrelser:&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">filer</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ekstern_slektstre.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.json&quot;</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;ekstern_slektstre.ged&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">fil</span> <span class="ow">in</span> <span class="n">filer</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fil</span><span class="p">):</span>
+        <span class="n">størrelse</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fil</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fil</span><span class="si">:</span><span class="s2">25s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">størrelse</span><span class="si">:</span><span class="s2">6d</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Eksportert til YAML: ekstern_slektstre.yaml
+✅ Eksportert til JSON: ekstern_slektstre.json
+✅ Eksportert til CSV: ekstern_slektstre.csv
+✅ Eksportert til GEDCOM: ekstern_slektstre.ged
+
+📊 Filstørrelser:
+ekstern_slektstre.yaml   :   1078 bytes
+ekstern_slektstre.json   :   1452 bytes
+ekstern_slektstre.csv    :    412 bytes
+ekstern_slektstre.ged    :    565 bytes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="oppsummering">
+<h2>Oppsummering<a class="headerlink" href="#oppsummering" title="Link to this heading">#</a></h2>
+<p>I denne notebooken har du lært:</p>
+<ol class="arabic simple">
+<li><p>✅ <strong>FamilySearch API</strong> - Verdens største genealogi-database</p></li>
+<li><p>✅ <strong>Digitalarkivet</strong> - Norske historiske kilder</p></li>
+<li><p>✅ <strong>Wikipedia API</strong> - Biografisk informasjon</p></li>
+<li><p>✅ <strong>Data-konvertering</strong> - Fra eksterne formater til vårt slektstre</p></li>
+<li><p>✅ <strong>Eksport</strong> - Til forskjellige formater for deling</p></li>
+<li><p>✅ <strong>Praktiske tips</strong> - For slektsforskning</p></li>
+</ol>
+<section id="neste-steg">
+<h3>Neste steg<a class="headerlink" href="#neste-steg" title="Link to this heading">#</a></h3>
+<p>Du kan nå:</p>
+<ol class="arabic simple">
+<li><p><strong>Registrere deg</strong> på FamilySearch for å få ekte API-tilgang</p></li>
+<li><p><strong>Søke i Digitalarkivet</strong> for norske slektskilder</p></li>
+<li><p><strong>Bygge ditt eget slektstre</strong> ved å kombinere:</p>
+<ul class="simple">
+<li><p>Familie-informasjon</p></li>
+<li><p>Eksterne databaser</p></li>
+<li><p>Historiske kilder</p></li>
+</ul>
+</li>
+<li><p><strong>Dele slektstreet</strong> med familien i forskjellige formater</p></li>
+</ol>
+</section>
+<section id="anbefalte-ressurser">
+<h3>Anbefalte ressurser<a class="headerlink" href="#anbefalte-ressurser" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>FamilySearch</strong>: <a class="reference external" href="https://familysearch.org">https://familysearch.org</a></p></li>
+<li><p><strong>Digitalarkivet</strong>: <a class="reference external" href="https://digitalarkivet.no">https://digitalarkivet.no</a></p></li>
+<li><p><strong>Wikipedia API</strong>: <a class="reference external" href="https://no.wikipedia.org">https://no.wikipedia.org</a></p></li>
+<li><p><strong>Slektsforskning</strong>: <a class="reference external" href="https://slektsforskning.no">https://slektsforskning.no</a></p></li>
+</ul>
+<p><strong>Lykke til med slektsforskningen!</strong> 🎯✨</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_visualisering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Visualisering av slektstre</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tilgjengelige-databaser">Tilgjengelige databaser</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#familysearch-api-gratis">1. <strong>FamilySearch API</strong> (Gratis)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#myheritage-api-betalt">2. <strong>MyHeritage API</strong> (Betalt)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ancestry-com-api-betalt">3. <strong>Ancestry.com API</strong> (Betalt)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nasjonale-arkiver">4. <strong>Nasjonale arkiver</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wikipedia-wikidata">5. <strong>Wikipedia/Wikidata</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fokus-i-denne-notebooken">Fokus i denne notebooken</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#familysearch-api">1. FamilySearch API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registrering-og-api-nokkel">Registrering og API-nøkkel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-endepunkter">API-endepunkter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-etter-personer">Eksempel: Søke etter personer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digitalarkivet-norge">2. Digitalarkivet (Norge)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tilgjengelige-kilder">Tilgjengelige kilder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-tilgang">API-tilgang</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-i-kirkeboker">Eksempel: Søke i kirkebøker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wikipedia-api">3. Wikipedia API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Wikipedia API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-soke-etter-norske-personer">Eksempel: Søke etter norske personer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvertere-eksterne-data-til-slektstre">4. Konvertere eksterne data til slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktiske-tips-for-slektsforskning">5. Praktiske tips for slektsforskning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvor-du-kan-finne-slektsinformasjon">Hvor du kan finne slektsinformasjon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organisering-av-forskning">Organisering av forskning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagre-og-dele-slektstreet">6. Lagre og dele slektstreet</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksportere-til-forskjellige-formater">Eksportere til forskjellige formater</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppsummering">Oppsummering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neste-steg">Neste steg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anbefalte-ressurser">Anbefalte ressurser</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Arvid Lundervold
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
