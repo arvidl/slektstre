@@ -1,3 +1,4 @@
+<!-- Last updated: 12 Oktober 2025 -->
 # Slektstre med NetworkX
 
 Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved hjelp av NetworkX og Jupyter notebooks.
