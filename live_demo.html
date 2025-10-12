@@ -110,6 +110,14 @@
             <h4>🎯 Hvordan bruke demo-en / How to use the demo:</h4>
             <p><strong>🇳🇴 Norsk:</strong> Klikk på knappene nedenfor for å se forskjellige visualiseringer. Du kan zoome, panne og utforske slektstreet interaktivt.</p>
             <p><strong>🇬🇧 English:</strong> Click the buttons below to see different visualizations. You can zoom, pan, and explore the family tree interactively.</p>
+            
+            <h4>🎨 Visualiseringskonvensjoner / Visualization Conventions:</h4>
+            <ul>
+                <li><strong>🔵 Blå noder:</strong> Menn / <strong>🔴 Røde noder:</strong> Kvinner</li>
+                <li><strong>📏 Rettede kanter:</strong> Foreldre-barn relasjoner</li>
+                <li><strong>📏 Stiplede kanter:</strong> Ekteskap/partnerskap</li>
+                <li><strong>📍 Hover over noder:</strong> Se detaljer (yrke, bosted)</li>
+            </ul>
         </div>
 
         <div class="demo-section">
@@ -163,15 +171,15 @@
     </div>
 
     <script>
-        // Sample family data
+        // Sample family data with more attributes
         const familyData = {
             nodes: [
-                {id: 'p1', name: 'Erik Hansen', birth_year: 1950, gender: 'mann', x: 0, y: 2},
-                {id: 'p2', name: 'Anna Larsen', birth_year: 1955, gender: 'kvinne', x: 1, y: 2},
-                {id: 'p3', name: 'Lars Hansen', birth_year: 1980, gender: 'mann', x: 0.5, y: 1},
-                {id: 'p4', name: 'Maria Hansen', birth_year: 1982, gender: 'kvinne', x: 1.5, y: 1},
-                {id: 'p5', name: 'Ole Hansen', birth_year: 2010, gender: 'mann', x: 0.2, y: 0},
-                {id: 'p6', name: 'Kari Hansen', birth_year: 2012, gender: 'kvinne', x: 0.8, y: 0},
+                {id: 'p1', name: 'Erik Hansen', birth_year: 1950, gender: 'mann', occupation: 'Ingeniør', residence: 'Oslo', x: 0, y: 2},
+                {id: 'p2', name: 'Anna Larsen', birth_year: 1955, gender: 'kvinne', occupation: 'Lærer', residence: 'Oslo', x: 1, y: 2},
+                {id: 'p3', name: 'Lars Hansen', birth_year: 1980, gender: 'mann', occupation: 'IT-konsulent', residence: 'Bergen', x: 0.5, y: 1},
+                {id: 'p4', name: 'Maria Hansen', birth_year: 1982, gender: 'kvinne', occupation: 'Arkitekt', residence: 'Bergen', x: 1.5, y: 1},
+                {id: 'p5', name: 'Ole Hansen', birth_year: 2010, gender: 'mann', occupation: 'Student', residence: 'Bergen', x: 0.2, y: 0},
+                {id: 'p6', name: 'Kari Hansen', birth_year: 2012, gender: 'kvinne', occupation: 'Student', residence: 'Bergen', x: 0.8, y: 0},
             ],
             edges: [
                 {from: 'p1', to: 'p2', type: 'marriage'},
@@ -191,31 +199,64 @@
             // Prepare node data
             const nodeX = nodes.map(n => n.x);
             const nodeY = nodes.map(n => n.y);
-            const nodeText = nodes.map(n => `${n.name}<br>Født: ${n.birth_year}`);
+            const nodeText = nodes.map(n => 
+                `${n.name}<br>Født: ${n.birth_year}<br>Yrke: ${n.occupation}<br>Bosted: ${n.residence}`
+            );
             const nodeColors = nodes.map(n => n.gender === 'mann' ? '#3498db' : '#e74c3c');
 
-            // Prepare edge data
-            const edgeX = [];
-            const edgeY = [];
+            // Prepare edge data - separate marriage and parent-child relationships
+            const marriageEdges = edges.filter(e => e.type === 'marriage');
+            const parentEdges = edges.filter(e => e.type === 'parent');
             
-            edges.forEach(edge => {
+            // Marriage edges (curved, dashed)
+            const marriageEdgeX = [];
+            const marriageEdgeY = [];
+            marriageEdges.forEach(edge => {
                 const fromNode = nodes.find(n => n.id === edge.from);
                 const toNode = nodes.find(n => n.id === edge.to);
                 if (fromNode && toNode) {
-                    edgeX.push(fromNode.x, toNode.x, null);
-                    edgeY.push(fromNode.y, toNode.y, null);
+                    // Create curved line for marriage
+                    const midX = (fromNode.x + toNode.x) / 2;
+                    const midY = (fromNode.y + toNode.y) / 2 + 0.1;
+                    marriageEdgeX.push(fromNode.x, midX, toNode.x, null);
+                    marriageEdgeY.push(fromNode.y, midY, toNode.y, null);
+                }
+            });
+
+            // Parent-child edges (straight, solid)
+            const parentEdgeX = [];
+            const parentEdgeY = [];
+            parentEdges.forEach(edge => {
+                const fromNode = nodes.find(n => n.id === edge.from);
+                const toNode = nodes.find(n => n.id === edge.to);
+                if (fromNode && toNode) {
+                    parentEdgeX.push(fromNode.x, toNode.x, null);
+                    parentEdgeY.push(fromNode.y, toNode.y, null);
                 }
             });
 
             const data = [
+                // Marriage edges (curved, dashed)
                 {
-                    x: edgeX,
-                    y: edgeY,
+                    x: marriageEdgeX,
+                    y: marriageEdgeY,
                     mode: 'lines',
-                    line: {width: 2, color: '#888'},
+                    line: {width: 3, color: '#9b59b6', dash: 'dash'},
                     hoverinfo: 'none',
-                    showlegend: false
+                    showlegend: false,
+                    name: 'Ekteskap'
                 },
+                // Parent-child edges (straight, solid)
+                {
+                    x: parentEdgeX,
+                    y: parentEdgeY,
+                    mode: 'lines',
+                    line: {width: 2, color: '#2c3e50'},
+                    hoverinfo: 'none',
+                    showlegend: false,
+                    name: 'Foreldre-barn'
+                },
+                // Nodes
                 {
                     x: nodeX,
                     y: nodeY,
@@ -223,9 +264,9 @@
                     text: nodes.map(n => n.name),
                     textposition: 'middle center',
                     marker: {
-                        size: 30,
+                        size: 35,
                         color: nodeColors,
-                        line: {width: 2, color: 'white'}
+                        line: {width: 3, color: 'white'}
                     },
                     hoverinfo: 'text',
                     hovertext: nodeText,
@@ -252,14 +293,23 @@
         }
 
         function showHierarchical() {
-            // Hierarchical layout
+            // Hierarchical layout with proper positioning
             familyData.nodes.forEach(node => {
                 if (node.birth_year >= 2000) {
                     node.y = 0; // Children
+                    // Position children side by side
+                    if (node.id === 'p5') node.x = 0.2;
+                    if (node.id === 'p6') node.x = 0.8;
                 } else if (node.birth_year >= 1970) {
                     node.y = 1; // Parents
+                    // Position parents side by side
+                    if (node.id === 'p3') node.x = 0.5;
+                    if (node.id === 'p4') node.x = 1.5;
                 } else {
                     node.y = 2; // Grandparents
+                    // Position grandparents side by side
+                    if (node.id === 'p1') node.x = 0;
+                    if (node.id === 'p2') node.x = 1;
                 }
             });
             createPlot('hierarchical');
