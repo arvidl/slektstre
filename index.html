@@ -77,6 +77,26 @@
         .notebook-card a:hover {
             background: #2980b9;
         }
+        .notebook-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .notebook-buttons a {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .colab-badge {
+            background: #ff6f00 !important;
+            font-size: 12px;
+            padding: 8px 16px;
+        }
+        .colab-badge:hover {
+            background: #e65100 !important;
+        }
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -166,37 +186,55 @@
             <div class="notebook-card">
                 <h3>📚 00 - Slektstrær og Grafer</h3>
                 <p>Introduksjon til slektstrær og grafteori, og hvordan NetworkX kan brukes til å bygge og analysere familie-trær.</p>
-                <a href="00_slektstraer_og_grafer.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="00_slektstraer_og_grafer.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
             
             <div class="notebook-card">
                 <h3>📖 01 - Introduksjon</h3>
                 <p>Oversikt over slektstre-prosjektet og grunnleggende konsepter for å bygge og analysere familie-trær.</p>
-                <a href="01_introduksjon.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="01_introduksjon.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
             
             <div class="notebook-card">
                 <h3>🔨 02 - Bygge Slektstre Manuelt</h3>
                 <p>Lær å bygge slektstrær programmatisk ved å opprette personer og relasjoner manuelt.</p>
-                <a href="02_bygg_tre_manuelt.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="02_bygg_tre_manuelt.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
             
             <div class="notebook-card">
                 <h3>📥 03 - Importere og Eksportere Data</h3>
                 <p>Hvordan importere og eksportere familie-data i forskjellige formater (YAML, JSON, CSV, GEDCOM).</p>
-                <a href="03_importer_data.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="03_importer_data.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
             
             <div class="notebook-card">
                 <h3>📊 04 - Visualisering</h3>
                 <p>Alle visualiseringsalternativer: hierarkisk, vifte-diagram, interaktiv og timeglass-visning.</p>
-                <a href="04_visualisering.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="04_visualisering.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
             
             <div class="notebook-card">
                 <h3>🌐 05 - Eksterne Databaser</h3>
                 <p>Integrasjon med genealogi-databaser og API-er som FamilySearch, Digitalarkivet og Wikipedia.</p>
-                <a href="05_eksterne_databaser.html">Åpne Notebook</a>
+                <div class="notebook-buttons">
+                    <a href="05_eksterne_databaser.html">Åpne Notebook</a>
+                    <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb" class="colab-badge">🚀 Colab</a>
+                </div>
             </div>
         </div>
         
