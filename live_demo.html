@@ -114,9 +114,10 @@
             <h4>🎨 Visualiseringskonvensjoner / Visualization Conventions:</h4>
             <ul>
                 <li><strong>🔵 Blå noder:</strong> Menn / <strong>🔴 Røde noder:</strong> Kvinner</li>
-                <li><strong>📏 Rettede kanter:</strong> Foreldre-barn relasjoner</li>
+                <li><strong>➡️ Piler på rettede kanter:</strong> Foreldre-barn relasjoner</li>
                 <li><strong>📏 Stiplede kanter:</strong> Ekteskap/partnerskap</li>
                 <li><strong>📍 Hover over noder:</strong> Se detaljer (yrke, bosted)</li>
+                <li><strong>📋 Legend:</strong> Forklarer kanttyper</li>
             </ul>
         </div>
 
@@ -223,15 +224,44 @@
                 }
             });
 
-            // Parent-child edges (straight, solid)
+            // Parent-child edges (straight, solid with arrows)
             const parentEdgeX = [];
             const parentEdgeY = [];
+            const arrowAnnotations = [];
+            
             parentEdges.forEach(edge => {
                 const fromNode = nodes.find(n => n.id === edge.from);
                 const toNode = nodes.find(n => n.id === edge.to);
                 if (fromNode && toNode) {
                     parentEdgeX.push(fromNode.x, toNode.x, null);
                     parentEdgeY.push(fromNode.y, toNode.y, null);
+                    
+                    // Add arrow annotation
+                    const dx = toNode.x - fromNode.x;
+                    const dy = toNode.y - fromNode.y;
+                    const length = Math.sqrt(dx*dx + dy*dy);
+                    const unitX = dx / length;
+                    const unitY = dy / length;
+                    
+                    // Position arrow near the child node
+                    const arrowX = toNode.x - unitX * 0.15;
+                    const arrowY = toNode.y - unitY * 0.15;
+                    
+                    arrowAnnotations.push({
+                        x: arrowX,
+                        y: arrowY,
+                        ax: arrowX + unitX * 0.1,
+                        ay: arrowY + unitY * 0.1,
+                        xref: 'x',
+                        yref: 'y',
+                        axref: 'x',
+                        ayref: 'y',
+                        showarrow: true,
+                        arrowhead: 2,
+                        arrowsize: 1,
+                        arrowwidth: 2,
+                        arrowcolor: '#2c3e50'
+                    });
                 }
             });
 
@@ -243,17 +273,17 @@
                     mode: 'lines',
                     line: {width: 3, color: '#9b59b6', dash: 'dash'},
                     hoverinfo: 'none',
-                    showlegend: false,
-                    name: 'Ekteskap'
+                    showlegend: true,
+                    name: 'Ekteskap/Partnerskap'
                 },
-                // Parent-child edges (straight, solid)
+                // Parent-child edges (straight, solid with arrows)
                 {
                     x: parentEdgeX,
                     y: parentEdgeY,
                     mode: 'lines',
                     line: {width: 2, color: '#2c3e50'},
                     hoverinfo: 'none',
-                    showlegend: false,
+                    showlegend: true,
                     name: 'Foreldre-barn'
                 },
                 // Nodes
@@ -279,9 +309,28 @@
                     text: '🌳 Interaktiv Slektstre Demo',
                     font: {size: 16}
                 },
-                showlegend: false,
+                showlegend: true,
+                legend: {
+                    x: 0.02,
+                    y: 0.98,
+                    bgcolor: 'rgba(255,255,255,0.8)',
+                    bordercolor: '#ccc',
+                    borderwidth: 1,
+                    font: {size: 12}
+                },
                 hovermode: 'closest',
                 margin: {b: 20, l: 5, r: 5, t: 40},
+                annotations: [
+                    {
+                        text: "Klikk og dra for å utforske slektstreet!<br>Click and drag to explore the family tree!",
+                        showarrow: false,
+                        xref: "paper", yref: "paper",
+                        x: 0.005, y: -0.002,
+                        xanchor: 'left', yanchor: 'bottom',
+                        font: {color: '#666', size: 12}
+                    },
+                    ...arrowAnnotations
+                ],
                 xaxis: {showgrid: false, zeroline: false, showticklabels: false},
                 yaxis: {showgrid: false, zeroline: false, showticklabels: false},
                 plot_bgcolor: 'white',
