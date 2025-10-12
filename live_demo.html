@@ -113,8 +113,8 @@
             
             <h4>🎮 Interaktive funksjoner / Interactive Features:</h4>
             <ul>
-                <li><strong>🖱️ Dra noder:</strong> Klikk og dra personer for å flytte dem</li>
-                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (30% bevegelse)</li>
+                <li><strong>🖱️ Dra noder:</strong> Klikk på en person, deretter dra dem rundt</li>
+                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (20% bevegelse)</li>
                 <li><strong>🔍 Zoom:</strong> Scroll for å zoome inn/ut</li>
                 <li><strong>📱 Pan:</strong> Dra bakgrunnen for å flytte visningen</li>
                 <li><strong>📍 Hover:</strong> Hold musen over personer for detaljer</li>
@@ -353,15 +353,9 @@
                 modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'autoScale2d']
             });
 
-            // Add interactive node dragging with elasticity
+            // Simple interactive node dragging
             let isDragging = false;
             let draggedNodeIndex = -1;
-            let originalPositions = [];
-            
-            // Store original positions
-            familyData.nodes.forEach(node => {
-                originalPositions.push({x: node.x, y: node.y});
-            });
             
             // Add click event for node selection
             document.getElementById('plot').on('plotly_click', function(eventData) {
@@ -369,75 +363,70 @@
                 if (pointIndex >= 0 && pointIndex < familyData.nodes.length) {
                     draggedNodeIndex = pointIndex;
                     isDragging = true;
-                }
-            });
-            
-            // Add hover event for visual feedback
-            document.getElementById('plot').on('plotly_hover', function(eventData) {
-                if (isDragging) {
-                    const pointIndex = eventData.points[0].pointIndex;
-                    if (pointIndex === draggedNodeIndex) {
-                        // Visual feedback for dragging
-                        document.getElementById('plot').style.cursor = 'grabbing';
-                    }
+                    console.log('Selected node:', familyData.nodes[pointIndex].name);
                 }
             });
             
             // Add mouse move event for dragging
             document.getElementById('plot').on('plotly_relayout', function(eventData) {
-                if (!isDragging) return;
+                if (!isDragging || draggedNodeIndex === -1) return;
                 
                 // Check for node position changes
                 let hasChanges = false;
+                let newX = null, newY = null;
+                
                 for (let key in eventData) {
-                    if (key.startsWith('x[') || key.startsWith('y[')) {
+                    if (key.startsWith('x[') && key.includes(`[${draggedNodeIndex}]`)) {
+                        newX = eventData[key];
                         hasChanges = true;
-                        break;
+                    }
+                    if (key.startsWith('y[') && key.includes(`[${draggedNodeIndex}]`)) {
+                        newY = eventData[key];
+                        hasChanges = true;
                     }
                 }
                 
-                if (hasChanges) {
-                    // Apply elasticity to connected nodes
-                    applyElasticity(draggedNodeIndex);
+                if (hasChanges && newX !== null && newY !== null) {
+                    // Update node position
+                    familyData.nodes[draggedNodeIndex].x = newX;
+                    familyData.nodes[draggedNodeIndex].y = newY;
+                    
+                    // Apply simple elasticity to connected nodes
+                    applySimpleElasticity(draggedNodeIndex, newX, newY);
                     
                     // Redraw with new positions
                     setTimeout(() => {
                         createPlot('interactive');
                         isDragging = false;
                         draggedNodeIndex = -1;
-                    }, 50);
+                    }, 100);
                 }
             });
             
-            function applyElasticity(draggedIndex) {
+            function applySimpleElasticity(draggedIndex, newX, newY) {
                 const draggedNode = familyData.nodes[draggedIndex];
-                const elasticity = 0.3; // How much connected nodes move
+                const elasticity = 0.2; // How much connected nodes move
                 
                 // Find connected nodes
-                const connectedNodes = new Set();
+                const connectedNodes = [];
                 familyData.edges.forEach(edge => {
                     if (edge.from === draggedNode.id) {
                         const connectedNode = familyData.nodes.find(n => n.id === edge.to);
-                        if (connectedNode) connectedNodes.add(connectedNode);
+                        if (connectedNode) connectedNodes.push(connectedNode);
                     }
                     if (edge.to === draggedNode.id) {
                         const connectedNode = familyData.nodes.find(n => n.id === edge.from);
-                        if (connectedNode) connectedNodes.add(connectedNode);
+                        if (connectedNode) connectedNodes.push(connectedNode);
                     }
                 });
                 
                 // Apply elastic movement to connected nodes
                 connectedNodes.forEach(node => {
-                    const dx = draggedNode.x - originalPositions[familyData.nodes.indexOf(node)].x;
-                    const dy = draggedNode.y - originalPositions[familyData.nodes.indexOf(node)].y;
+                    const dx = newX - draggedNode.x;
+                    const dy = newY - draggedNode.y;
                     
                     node.x += dx * elasticity;
                     node.y += dy * elasticity;
-                });
-                
-                // Update original positions
-                familyData.nodes.forEach((node, index) => {
-                    originalPositions[index] = {x: node.x, y: node.y};
                 });
             }
         }
