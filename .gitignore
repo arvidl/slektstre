@@ -35,6 +35,7 @@ reports/
 # Generated HTML and PDF files
 *.html
 !index.html
+!README.html
 !00_slektstraer_og_grafer.html
 !01_introduksjon.html
 !02_bygg_tre_manuelt.html
