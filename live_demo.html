@@ -191,8 +191,8 @@
         
         <div class="matrix-box">
             <h4>📊 Naboskaps-matrise / Adjacency Matrix</h4>
-            <p><strong>🇳🇴 Norsk:</strong> Matrisen viser koblingene mellom personene. 1 = koblet, 0 = ikke koblet.</p>
-            <p><strong>🇬🇧 English:</strong> The matrix shows connections between people. 1 = connected, 0 = not connected.</p>
+            <p><strong>🇳🇴 Norsk:</strong> Matrisen viser rettede koblinger mellom personene. 1 = kobling fra rad til kolonne, 0 = ingen kobling.</p>
+            <p><strong>🇬🇧 English:</strong> The matrix shows directed connections between people. 1 = connection from row to column, 0 = no connection.</p>
             <div id="matrix-container"></div>
         </div>
 
@@ -281,13 +281,12 @@
                 }
             }
             
-            // Fill matrix with connections
+            // Fill matrix with connections (directed graph)
             edges.forEach(edge => {
                 const fromIndex = nodeIds.indexOf(edge.from);
                 const toIndex = nodeIds.indexOf(edge.to);
                 if (fromIndex !== -1 && toIndex !== -1) {
-                    matrix[fromIndex][toIndex] = 1;
-                    matrix[toIndex][fromIndex] = 1; // Undirected graph
+                    matrix[fromIndex][toIndex] = 1; // Only directed connection
                 }
             });
             
