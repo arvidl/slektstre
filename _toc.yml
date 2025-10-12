@@ -1,0 +1,11 @@
+format: jb-book
+root: README.md
+parts:
+  - caption: "📚 Notebooks"
+    chapters:
+      - file: notebooks/00_slektstraer_og_grafer.ipynb
+      - file: notebooks/01_introduksjon.ipynb
+      - file: notebooks/02_bygg_tre_manuelt.ipynb
+      - file: notebooks/03_importer_data.ipynb
+      - file: notebooks/04_visualisering.ipynb
+      - file: notebooks/05_eksterne_databaser.ipynb

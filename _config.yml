@@ -1,0 +1,11 @@
+title: "Slektstre med NetworkX"
+author: "Arvid Lundervold"
+
+execute:
+  execute_notebooks: "off"
+
+sphinx:
+  config:
+    extensions:
+      - myst_nb
+      - sphinx_book_theme
