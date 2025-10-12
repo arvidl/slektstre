@@ -340,18 +340,16 @@
             const marriageEdges = edges.filter(e => e.type === 'marriage');
             const parentEdges = edges.filter(e => e.type === 'parent');
             
-            // Marriage edges (curved, dashed)
+            // Marriage edges (straight, dashed)
             const marriageEdgeX = [];
             const marriageEdgeY = [];
             marriageEdges.forEach(edge => {
                 const fromNode = nodes.find(n => n.id === edge.from);
                 const toNode = nodes.find(n => n.id === edge.to);
                 if (fromNode && toNode) {
-                    // Create curved line for marriage
-                    const midX = (fromNode.x + toNode.x) / 2;
-                    const midY = (fromNode.y + toNode.y) / 2 + 0.1;
-                    marriageEdgeX.push(fromNode.x, midX, toNode.x, null);
-                    marriageEdgeY.push(fromNode.y, midY, toNode.y, null);
+                    // Create straight line for marriage
+                    marriageEdgeX.push(fromNode.x, toNode.x, null);
+                    marriageEdgeY.push(fromNode.y, toNode.y, null);
                 }
             });
 
@@ -397,7 +395,7 @@
             });
 
             const data = [
-                // Marriage edges (curved, dashed)
+                // Marriage edges (straight, dashed)
                 {
                     x: marriageEdgeX,
                     y: marriageEdgeY,
@@ -443,8 +441,9 @@
                 showlegend: true,
                 legend: {
                     x: 0.98,
-                    y: 0.98,
+                    y: 0.02,
                     xanchor: 'right',
+                    yanchor: 'bottom',
                     bgcolor: 'rgba(255,255,255,0.8)',
                     bordercolor: '#ccc',
                     borderwidth: 1,
