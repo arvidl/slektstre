@@ -68,23 +68,49 @@ def convert_notebooks():
                     "pandoc", notebook, "-o", html_file, "--standalone"
                 ], check=True)
                 
-                # Convert HTML to PDF using Chrome
-                subprocess.run([
-                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-                    "--headless",
-                    "--disable-gpu",
-                    f"--print-to-pdf={pdf_file}",
-                    "--print-to-pdf-no-header",
-                    f"file://{os.path.abspath(html_file)}"
-                ], check=True)
+                # Convert HTML to PDF using Chrome (Linux)
+                chrome_paths = [
+                    "/usr/bin/google-chrome",
+                    "/usr/bin/chromium-browser",
+                    "/usr/bin/chromium",
+                    "/snap/bin/chromium"
+                ]
+                
+                chrome_cmd = None
+                for path in chrome_paths:
+                    if os.path.exists(path):
+                        chrome_cmd = path
+                        break
+                
+                if chrome_cmd:
+                    subprocess.run([
+                        chrome_cmd,
+                        "--headless",
+                        "--disable-gpu",
+                        f"--print-to-pdf={pdf_file}",
+                        "--print-to-pdf-no-header",
+                        f"file://{os.path.abspath(html_file)}"
+                    ], check=True)
+                else:
+                    print(f"⚠️ Chrome not found, skipping PDF conversion for {notebook}")
+                    continue
                 
             else:
-                # Convert notebook to PDF
+                # Convert notebook to PDF using nbconvert
                 pdf_file = f"book_pdf/{Path(notebook).stem}.pdf"
-                subprocess.run([
-                    "jupyter", "nbconvert", "--to", "webpdf", notebook, 
-                    "--output-dir", "book_pdf", "--output", f"{Path(notebook).stem}.pdf"
-                ], check=True)
+                try:
+                    subprocess.run([
+                        "jupyter", "nbconvert", "--to", "pdf", notebook, 
+                        "--output-dir", "book_pdf", "--output", f"{Path(notebook).stem}.pdf"
+                    ], check=True)
+                except subprocess.CalledProcessError:
+                    print(f"⚠️ PDF conversion failed for {notebook}, trying HTML conversion")
+                    # Fallback to HTML conversion
+                    html_file = f"book_pdf/{Path(notebook).stem}.html"
+                    subprocess.run([
+                        "jupyter", "nbconvert", "--to", "html", notebook,
+                        "--output-dir", "book_pdf", "--output", f"{Path(notebook).stem}.html"
+                    ], check=True)
             
             print(f"✅ Converted {notebook}")
             
