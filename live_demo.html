@@ -97,6 +97,66 @@
             margin-top: 0;
             color: #1976d2;
         }
+        
+        .matrix-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .matrix-box h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+        
+        .matrix-box p {
+            color: #856404;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        #matrix-container {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+        
+        .adjacency-matrix {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .adjacency-matrix th,
+        .adjacency-matrix td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            min-width: 30px;
+        }
+        
+        .adjacency-matrix th {
+            background-color: #74b9ff;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .adjacency-matrix td {
+            background-color: white;
+        }
+        
+        .adjacency-matrix td.connected {
+            background-color: #00b894;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .adjacency-matrix td.not-connected {
+            background-color: #ddd;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +187,13 @@
                 <li><strong>📏 Stiplede kanter:</strong> Ekteskap/partnerskap</li>
                 <li><strong>📋 Legend:</strong> Forklarer kanttyper</li>
             </ul>
+        </div>
+        
+        <div class="matrix-box">
+            <h4>📊 Naboskaps-matrise / Adjacency Matrix</h4>
+            <p><strong>🇳🇴 Norsk:</strong> Matrisen viser koblingene mellom personene. 1 = koblet, 0 = ikke koblet.</p>
+            <p><strong>🇬🇧 English:</strong> The matrix shows connections between people. 1 = connected, 0 = not connected.</p>
+            <div id="matrix-container"></div>
         </div>
 
         <div class="demo-section">
@@ -197,6 +264,59 @@
                 {from: 'p3', to: 'p6', type: 'parent'},
             ]
         };
+
+        function generateAdjacencyMatrix() {
+            const nodes = familyData.nodes;
+            const edges = familyData.edges;
+            
+            // Create adjacency matrix
+            const matrix = [];
+            const nodeIds = nodes.map(n => n.id);
+            
+            // Initialize matrix with zeros
+            for (let i = 0; i < nodes.length; i++) {
+                matrix[i] = [];
+                for (let j = 0; j < nodes.length; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+            
+            // Fill matrix with connections
+            edges.forEach(edge => {
+                const fromIndex = nodeIds.indexOf(edge.from);
+                const toIndex = nodeIds.indexOf(edge.to);
+                if (fromIndex !== -1 && toIndex !== -1) {
+                    matrix[fromIndex][toIndex] = 1;
+                    matrix[toIndex][fromIndex] = 1; // Undirected graph
+                }
+            });
+            
+            // Create HTML table
+            let tableHTML = '<table class="adjacency-matrix"><thead><tr><th></th>';
+            
+            // Add column headers
+            nodes.forEach(node => {
+                tableHTML += `<th>${node.name.split(' ')[0]}</th>`;
+            });
+            tableHTML += '</tr></thead><tbody>';
+            
+            // Add rows
+            nodes.forEach((node, i) => {
+                tableHTML += `<tr><th>${node.name.split(' ')[0]}</th>`;
+                nodes.forEach((_, j) => {
+                    const isConnected = matrix[i][j] === 1;
+                    const cellClass = isConnected ? 'connected' : 'not-connected';
+                    const cellValue = isConnected ? '1' : '0';
+                    tableHTML += `<td class="${cellClass}">${cellValue}</td>`;
+                });
+                tableHTML += '</tr>';
+            });
+            
+            tableHTML += '</tbody></table>';
+            
+            // Update matrix container
+            document.getElementById('matrix-container').innerHTML = tableHTML;
+        }
 
         function createPlot(layoutType = 'hierarchical') {
             const nodes = familyData.nodes;
@@ -538,6 +658,9 @@
 
         // Initialize with hierarchical view
         showHierarchical();
+        
+        // Generate adjacency matrix
+        generateAdjacencyMatrix();
     </script>
 </body>
 </html>
