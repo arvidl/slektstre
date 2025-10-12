@@ -18,20 +18,11 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 2. Åpne med din foretrukne lydspiller
 3. Eller høre direkte i nettleseren (støtter MP3/M4A)
 
-**💡 Tips:** Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:
-```python
-import IPython.display as ipd
-# Fra repository-rot:
-ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3', embed=False)
-# Eller fra notebooks/-mappen:
-# ipd.Audio('../podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3', embed=False)
-```
 
-**🎧 Eller åpne [notebook 00_slektstraer_og_grafer.ipynb](notebooks/00_slektstraer_og_grafer.ipynb) som har en forbedret audio-spiller med:**
-- Automatisk path-deteksjon (fungerer både lokalt og i Google Colab)
-- HTML5 audio som fallback
-- **Enhanced cleanup** for å unngå store notebook-filer (fjerner embedded audio/bilder)
-- Bilingual instruksjoner og feedback
+**🎧 Podcasten er tilgjengelig direkte fra denne README-filen:**
+- Klikk på lenkene ovenfor for å laste ned podcast-filene
+- Spill av med din foretrukne lydspiller
+- Eller høre direkte i nettleseren (støtter MP3/M4A)
 
 ### 🧹 Enhanced Notebook Cleanup
 
@@ -202,11 +193,10 @@ The Slektstre project allows you to build complex family trees with rich metadat
 2. Open with your preferred audio player
 3. Or use an online audio player that supports local files
 
-**💡 Tip:** You can also listen to the podcast directly in Jupyter Notebook using:
-```python
-import IPython.display as ipd
-ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3')
-```
+**🎧 The podcast is available directly from this README file:**
+- Click the links above to download the podcast files
+- Play with your preferred audio player
+- Or listen directly in the browser (supports MP3/M4A)
 
 #### Key Features
 
