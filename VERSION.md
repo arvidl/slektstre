@@ -1,6 +1,6 @@
 # Slektstre med NetworkX - Versjonshistorikk
 
-## Versjon 1.1 - 12 Oktober 2025
+## Versjon 1.1 - 13 Oktober 2025
 
 ### 🎉 Ny funksjonalitet:
 - ✅ Live Demo med interaktive visualiseringer
