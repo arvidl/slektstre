@@ -29,8 +29,33 @@ ipd.Audio('podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Fam
 **🎧 Eller åpne [notebook 00_slektstraer_og_grafer.ipynb](notebooks/00_slektstraer_og_grafer.ipynb) som har en forbedret audio-spiller med:**
 - Automatisk path-deteksjon (fungerer både lokalt og i Google Colab)
 - HTML5 audio som fallback
-- Automatisk cleanup for å unngå store notebook-filer
+- **Enhanced cleanup** for å unngå store notebook-filer (fjerner embedded audio/bilder)
 - Bilingual instruksjoner og feedback
+
+### 🧹 Enhanced Notebook Cleanup
+
+Notebooks kan bli store på grunn av embedded audio/bilde-data. Vi har laget en forbedret cleanup-løsning:
+
+**Automatisk cleanup i notebook:**
+- Kjør cleanup-cellen i notebooken før commit/push
+- Fjerner automatisk embedded audio og bilder
+- Reduserer filstørrelse med opptil 99% (fra 27MB til 43KB)
+
+**Manuell cleanup fra kommandolinje:**
+```bash
+# Bruk det forbedrede cleanup-scriptet
+python scripts/enhanced_notebook_cleanup.py notebooks/00_slektstraer_og_grafer.ipynb
+
+# Eller bruk bash-scriptet
+./scripts/cleanup_notebook.sh notebooks/00_slektstraer_og_grafer.ipynb
+```
+
+**Hva cleanup gjør:**
+- ✅ Fjerner alle cell outputs
+- ✅ Fjerner embedded base64 audio-data
+- ✅ Fjerner embedded base64 bilder
+- ✅ Beholder notebook-strukturen intakt
+- ✅ Audio-spilleren fungerer fortsatt når notebooken kjøres på nytt
 
 ## 🇳🇴 Norsk / 🇬🇧 English
 
