@@ -1,0 +1,1609 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bygge slektstre manuelt - REN VERSJON &#8212; Slektstre med NetworkX - En komplett guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/02_bygg_tre_manuelt';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Import/eksport av data" href="03_importer_data.html" />
+    <link rel="prev" title="Slektstre med NetworkX - Introduksjon" href="01_introduksjon.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Slektstre med NetworkX - En komplett guide</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Slektstre med NetworkX
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_slektstraer_og_grafer.html">🌳 Slektstrær og Grafer - En Introduksjon</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="01_introduksjon.html">Kapittel 2: Introduksjon til NetworkX</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bygge slektstre manuelt - REN VERSJON</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03_importer_data.html">Kapittel 4: Importer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_visualisering.html">Kapittel 5: Visualisering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_eksterne_databaser.html">Kapittel 6: Eksterne databaser</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/02_bygg_tre_manuelt.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bygge slektstre manuelt - REN VERSJON</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bygge slektstre manuelt - REN VERSJON</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importer-biblioteker">Importer biblioteker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-et-tomt-slektstre">Opprett et tomt slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legg-til-personer">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bekreft-at-alle-personer-er-lagt-til-med-riktige-id-er">Bekreft at alle personer er lagt til med riktige ID-er</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-relasjoner">Opprett relasjoner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiser-slektstreet">Visualiser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppsummering">Oppsummering</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bygge-slektstre-manuelt">Bygge slektstre manuelt</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Importer biblioteker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Opprett et tomt slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rydd-opp-i-eksisterende-data">Rydd opp i eksisterende data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Opprett relasjoner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyser-slektstreet">Analyser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Visualiser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistikk">Statistikk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valider-slektstreet">Valider slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagre-slektstreet">Lagre slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Oppsummering</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># =============================================================================</span>
+<span class="c1"># GOOGLE COLAB SETUP / GOOGLE COLAB SETUP</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># Sjekk om vi kjører i Google Colab</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔧 Kjører i Google Colab - installerer avhengigheter...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔧 Running in Google Colab - installing dependencies...&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Installer nødvendige pakker</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> 
+                              <span class="s2">&quot;networkx&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;plotly&quot;</span><span class="p">,</span> <span class="s2">&quot;pydantic&quot;</span><span class="p">,</span> 
+                              <span class="s2">&quot;pyyaml&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;ipywidgets&quot;</span><span class="p">,</span> <span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="s2">&quot;kaleido&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Pakker installert&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Pip install feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Fjern eksisterende slektstre-mappe hvis den finnes</span>
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/slektstre&#39;</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;/content/slektstre&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗑️ Fjernet eksisterende slektstre-mappe&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Klon repository</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;clone&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/arvidl/slektstre.git&#39;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Repository klonet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Git clone feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Legg til src-mappen til Python path og importer direkte</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/content/slektstre/src&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Path lagt til&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Importer slektstre-modulene direkte for å unngå navnekonflikt</span>
+    <span class="kn">import</span> <span class="nn">importlib.util</span>
+    <span class="kn">import</span> <span class="nn">types</span>
+    
+    <span class="c1"># Først, fjern konfliktende moduler fra sys.modules</span>
+    <span class="n">modules_to_remove</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tree&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;localization&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">modules_to_remove</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span>
+    
+    <span class="c1"># Last inn models.py først</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_models&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/models.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_models</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_models</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig models modul</span>
+        <span class="n">temp_models_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+        <span class="n">temp_models_module</span><span class="o">.</span><span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_models_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ models.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ models.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn localization.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_localization&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/localization.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_localization</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_localization</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig localization modul</span>
+        <span class="n">temp_localization_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;localization&#39;</span><span class="p">)</span>
+        <span class="n">temp_localization_module</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">slektstre_localization</span><span class="o">.</span><span class="n">t</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;localization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_localization_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ localization.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ localization.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn tree.py som slektstre_tree</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_tree&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/tree.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_tree</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_tree</span><span class="p">)</span>
+        
+        <span class="c1"># Opprett midlertidig tree modul</span>
+        <span class="n">temp_tree_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="s1">&#39;tree&#39;</span><span class="p">)</span>
+        <span class="n">temp_tree_module</span><span class="o">.</span><span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;tree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_tree_module</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ tree.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ tree.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn family_io.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_io&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/family_io.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_io</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_io</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ family_io.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ family_io.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Last inn visualization.py</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s2">&quot;slektstre_viz&quot;</span><span class="p">,</span> <span class="s2">&quot;/content/slektstre/src/visualization.py&quot;</span><span class="p">)</span>
+        <span class="n">slektstre_viz</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">slektstre_viz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ visualization.py lastet&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ visualization.py feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstre-moduler lastet inn i Colab&quot;</span><span class="p">)</span>
+    
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💻 Kjører lokalt / Running locally&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Colab setup feilet: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💻 Fallback til lokal modus / Fallback to local mode&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📍 Miljø: </span><span class="si">{</span><span class="s1">&#39;Google Colab&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">IN_COLAB</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Lokal&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📍 Environment: </span><span class="si">{</span><span class="s1">&#39;Google Colab&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">IN_COLAB</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Local&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>💻 Kjører lokalt / Running locally
+📍 Miljø: Lokal
+📍 Environment: Local
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="bygge-slektstre-manuelt-ren-versjon">
+<h1>Bygge slektstre manuelt - REN VERSJON<a class="headerlink" href="#bygge-slektstre-manuelt-ren-versjon" title="Link to this heading">#</a></h1>
+<p>I denne notebooken lærer du hvordan du bygger et slektstre programmatisk ved å legge til personer og relasjoner en etter en.</p>
+<section id="importer-biblioteker">
+<h2>Importer biblioteker<a class="headerlink" href="#importer-biblioteker" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importer nødvendige biblioteker</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+<span class="c1"># Importer slektstre-moduler (fungerer både lokalt og i Colab)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="c1"># Bruk de modulene vi lastet inn i Colab-setup</span>
+    <span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+    <span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+    <span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+    <span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+    <span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Lokale imports</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Ekteskap</span><span class="p">,</span> <span class="n">Gender</span>
+    <span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Biblioteker importert!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Biblioteker importert!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="opprett-et-tomt-slektstre">
+<h2>Opprett et tomt slektstre<a class="headerlink" href="#opprett-et-tomt-slektstre" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Opprett et tomt slektstre</span>
+<span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tomt slektstre opprettet med </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">())</span><span class="si">}</span><span class="s2"> personer&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tomt slektstre opprettet med 0 personer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="legg-til-personer">
+<h2>Legg til personer<a class="headerlink" href="#legg-til-personer" title="Link to this heading">#</a></h2>
+<p>La oss legge til personer fra tre generasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 1: Bestefar</span>
+<span class="n">bestefar</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Erik&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Første generasjon i slektstreet&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">bestefar</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">bestefar</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lagt til: Erik Lundervold
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 2: Foreldre</span>
+<span class="n">far</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p2&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Arvid&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Oslo&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Andre generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">mor</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p3&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Pedersen&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1952</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Trondheim&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Andre generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">far</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">mor</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lagt til: Arvid Lundervold
+Lagt til: Anna Pedersen
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 3: Barn</span>
+<span class="n">barn1</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p4&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Lars&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Tredje generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">barn2</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p5&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Kari&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1983</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Tredje generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">barn2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">barn2</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lagt til: Lars Lundervold
+Lagt til: Kari Lundervold
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bekreft-at-alle-personer-er-lagt-til-med-riktige-id-er">
+<h2>Bekreft at alle personer er lagt til med riktige ID-er<a class="headerlink" href="#bekreft-at-alle-personer-er-lagt-til-med-riktige-id-er" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bekreft at alle personer er lagt til med riktige ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">kjønn</span><span class="si">}</span><span class="s2">) - f. </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fødselsdato</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sjekk at alle ID-er er riktige</span>
+<span class="n">forventede_id</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;p3&quot;</span><span class="p">,</span> <span class="s2">&quot;p4&quot;</span><span class="p">,</span> <span class="s2">&quot;p5&quot;</span><span class="p">]</span>
+<span class="n">faktiske_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle ID-er er riktige!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Noen ID-er er feil!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forventet: </span><span class="si">{</span><span class="n">forventede_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faktisk: </span><span class="si">{</span><span class="n">faktiske_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📋 Alle personer i slektstreet:
+  p1: Erik Lundervold (male) - f. 1920
+  p2: Arvid Lundervold (male) - f. 1950
+  p3: Anna Pedersen (female) - f. 1952
+  p4: Lars Lundervold (male) - f. 1980
+  p5: Kari Lundervold (female) - f. 1983
+
+Totalt antall personer: 5
+✅ Alle ID-er er riktige!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="opprett-relasjoner">
+<h2>Opprett relasjoner<a class="headerlink" href="#opprett-relasjoner" title="Link to this heading">#</a></h2>
+<p>Nå må vi koble personene sammen med relasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til forelder-barn relasjoner</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">bestefar</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">far</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> er barn av </span><span class="si">{</span><span class="n">bestefar</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arvid Lundervold er barn av Erik Lundervold
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til ekteskap</span>
+<span class="n">ekteskap</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">add_marriage</span><span class="p">(</span>
+    <span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">ekteskapsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1978</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">ekteskapssted</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskap opprettet mellom </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskapsdato: </span><span class="si">{</span><span class="n">ekteskap</span><span class="o">.</span><span class="n">ekteskapsdato</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskapssted: </span><span class="si">{</span><span class="n">ekteskap</span><span class="o">.</span><span class="n">ekteskapssted</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekteskap opprettet mellom Arvid Lundervold og Anna Pedersen
+Ekteskapsdato: 1978-08-20
+Ekteskapssted: Bergen
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til barn til foreldre</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn2</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">barn2</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> er barn av </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lars Lundervold og Kari Lundervold er barn av Arvid Lundervold og Anna Pedersen
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualiser-slektstreet">
+<h2>Visualiser slektstreet<a class="headerlink" href="#visualiser-slektstreet" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="n">plot_hierarchical_tree</span>
+
+<span class="c1"># Plott hierarkisk slektstre</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_hierarchical_tree</span><span class="p">(</span><span class="n">slektstre</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Manuelt bygget slektstre&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a8c6708f19da6566b64e7333aa7a7a8e4d512aff92609599a78e22ed8b093cde.png" src="../_images/a8c6708f19da6566b64e7333aa7a7a8e4d512aff92609599a78e22ed8b093cde.png" />
+</div>
+</div>
+</section>
+<section id="oppsummering">
+<h2>Oppsummering<a class="headerlink" href="#oppsummering" title="Link to this heading">#</a></h2>
+<p>I denne notebooken har du lært:</p>
+<ol class="arabic simple">
+<li><p>✅ Opprette et tomt slektstre</p></li>
+<li><p>✅ Legge til personer med metadata</p></li>
+<li><p>✅ Opprette forelder-barn relasjoner</p></li>
+<li><p>✅ Legge til ekteskap</p></li>
+<li><p>✅ Visualisere slektstreet</p></li>
+</ol>
+<p><strong>Neste steg</strong>: Gå til <code class="docutils literal notranslate"><span class="pre">03_importer_data.ipynb</span></code> for å lære om import/eksport av data.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bygge-slektstre-manuelt">
+<h1>Bygge slektstre manuelt<a class="headerlink" href="#bygge-slektstre-manuelt" title="Link to this heading">#</a></h1>
+<p>I denne notebooken lærer du hvordan du bygger et slektstre programmatisk ved å legge til personer og relasjoner en etter en.</p>
+<section id="id1">
+<h2>Importer biblioteker<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ALTERNATIV STRATEGI - Opprett et HELT NYTT slektstre med unikt navn</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔄 ALTERNATIV STRATEGI: Oppretter helt nytt slektstre...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Importer biblioteker (fungerer både lokalt og i Colab)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="c1"># Bruk de modulene vi lastet inn i Colab-setup</span>
+    <span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+    <span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+    <span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+    <span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+    <span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Lokale imports</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Ekteskap</span><span class="p">,</span> <span class="n">Gender</span>
+    <span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Biblioteker importert!&quot;</span><span class="p">)</span>
+
+<span class="c1"># OPPRETT ET HELT NYTT SLEKTSTRE MED UNIKT NAVN</span>
+<span class="n">manuelt_slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>  <span class="c1"># Bruk unikt navn i stedet for &#39;slektstre&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Nytt tomt slektstre opprettet med navn &#39;manuelt_slektstre&#39;!&quot;</span><span class="p">)</span>
+
+<span class="c1"># SJEKK AT SLEKTSTREET ER HELT TOMT</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">manuelt_slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Det finnes fortsatt personer i slektstreet!&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet er tomt - vi kan begynne!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔄 ALTERNATIV STRATEGI: Oppretter helt nytt slektstre...
+✅ Biblioteker importert!
+✅ Nytt tomt slektstre opprettet med navn &#39;manuelt_slektstre&#39;!
+Antall personer: 0
+✅ Slektstreet er tomt - vi kan begynne!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DRAMATISK OPPRYDDING - Slett alle variabler og start helt på nytt</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗑️ DRAMATISK OPPRYDDING - Sletter alle variabler...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Slett alle eksisterende variabler</span>
+<span class="o">%</span><span class="k">reset</span> -f
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle variabler slettet!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Importer biblioteker på nytt (fungerer både lokalt og i Colab)</span>
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="c1"># Bruk de modulene vi lastet inn i Colab-setup</span>
+    <span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+    <span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+    <span class="n">Ekteskap</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Ekteskap</span>
+    <span class="n">FamilieData</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">FamilieData</span>
+    <span class="n">Slektstre</span> <span class="o">=</span> <span class="n">slektstre_tree</span><span class="o">.</span><span class="n">Slektstre</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Lokale imports</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Ekteskap</span><span class="p">,</span> <span class="n">Gender</span>
+    <span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Biblioteker importert på nytt!&quot;</span><span class="p">)</span>
+
+<span class="c1"># OPPRETT ET HELT NYTT SLEKTSTRE</span>
+<span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Nytt tomt slektstre opprettet!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🗑️ DRAMATISK OPPRYDDING - Sletter alle variabler...
+✅ Alle variabler slettet!
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle variabler slettet!&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Importer biblioteker på nytt (fungerer både lokalt og i Colab)</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="c1"># Bruk de modulene vi lastet inn i Colab-setup</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">Person</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Person</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">Gender</span> <span class="o">=</span> <span class="n">slektstre_models</span><span class="o">.</span><span class="n">Gender</span>
+
+<span class="ne">NameError</span>: name &#39;IN_COLAB&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SJEKK AT SLEKTSTREET ER HELT TOMT</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔍 SJEKK: Er slektstreet tomt?&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Det finnes fortsatt personer i slektstreet!&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;STOPP! Noe er galt. Kjør første celle på nytt.&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Slektstreet er ikke tomt! Kjør første celle på nytt.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet er tomt - vi kan begynne!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FORCE DELETE ALL PERSONS - Slett alle personer eksplisitt</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗑️ FORCE DELETE: Sletter alle personer eksplisitt...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Hent alle personer</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fant </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2"> personer å slette:&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Sletter </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Slett alle personer</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="n">slektstre</span><span class="o">.</span><span class="n">remove_person</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+<span class="c1"># Bekreft at slektstreet er tomt</span>
+<span class="n">alle_personer_etter</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Antall personer etter sletting: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer_etter</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">alle_personer_etter</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Det finnes fortsatt personer!&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer_etter</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet er nå HELT tomt!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>Opprett et tomt slektstre<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FORCE OPPRYDDING - Slett alt og start på nytt</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗑️ FORCERER KOMPLETT OPPRYDDING...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Opprett et helt nytt slektstre (dette overskriver det gamle)</span>
+<span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
+
+<span class="c1"># Bekreft at slektstreet er helt tomt</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tomt slektstre opprettet med </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2"> personer&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️ FEIL: Det finnes fortsatt personer i slektstreet!&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dette skal ikke skje - noe er galt!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet er HELT tomt og klart for nye personer&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rydd-opp-i-eksisterende-data">
+<h2>Rydd opp i eksisterende data<a class="headerlink" href="#rydd-opp-i-eksisterende-data" title="Link to this heading">#</a></h2>
+<p>Hvis notebooken har kjørt tidligere, kan det være gamle personer i slektstreet. La oss rydde opp:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rydd opp i eksisterende data</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🗑️ Rydder opp i </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2"> eksisterende personer:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Sletter </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Opprett et helt nytt slektstre</span>
+    <span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Nytt tomt slektstre opprettet&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Ingen eksisterende data å rydde opp i&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SISTE SJEKK - Bekreft at slektstreet er tomt før vi begynner</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔍 SISTE SJEKK før vi begynner å legge til personer:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Det finnes fortsatt personer i slektstreet!&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;STOPP! Noe er galt. Kjør opprydding-cellen på nytt.&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Slektstreet er ikke tomt! Kjør opprydding-cellen på nytt.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet er tomt - vi kan begynne!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Legg til personer<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>La oss legge til personer fra tre generasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 1: Bestefar</span>
+<span class="n">bestefar</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Erik&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Første generasjon i slektstreet&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">bestefar</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">bestefar</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 2: Foreldre</span>
+<span class="n">far</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p2&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Arvid&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Oslo&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Andre generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">mor</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p3&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Pedersen&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1952</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Trondheim&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Andre generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">far</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">mor</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 3: Barn</span>
+<span class="n">barn1</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p4&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Lars&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Tredje generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">barn2</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;p5&quot;</span><span class="p">,</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Kari&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1983</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Tredje generasjon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">barn2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">barn2</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Legg til personer<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>La oss bygge en enkel familie med 3 generasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjon 1: Besteforeldre</span>
+<span class="n">bestefar</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Erik&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Hansen&quot;</span><span class="p">,</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">dødsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Oslo&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Arbeidet som ingeniør&quot;</span>
+<span class="p">)</span>
+
+<span class="n">bestemor</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Ingrid&quot;</span><span class="p">,</span>
+    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Hansen&quot;</span><span class="p">,</span>
+    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1925</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">dødsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Trondheim&quot;</span><span class="p">,</span>
+    <span class="n">notater</span><span class="o">=</span><span class="s2">&quot;Lærer og mor til 3 barn&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Legg til i slektstreet</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">bestefar</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">bestemor</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lagt til: </span><span class="si">{</span><span class="n">bestefar</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">bestemor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bekreft at alle personer er lagt til med riktige ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="c1"># Håndter både Gender enum og string verdier</span>
+    <span class="n">kjønn_str</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">kjønn</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">kjønn</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">kjønn</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">kjønn_str</span><span class="si">}</span><span class="s2">) - f. </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fødselsdato</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enklere versjon - vis kjønn som streng</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 Alle personer i slektstreet (enkel versjon):&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">kjønn</span><span class="si">}</span><span class="s2">) - f. </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fødselsdato</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># BEKREFTELSE - Vis alle personer med deres ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 BEKREFTELSE: Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sjekk at alle ID-er er riktige</span>
+<span class="n">forventede_id</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;p3&quot;</span><span class="p">,</span> <span class="s2">&quot;p4&quot;</span><span class="p">,</span> <span class="s2">&quot;p5&quot;</span><span class="p">]</span>
+<span class="n">faktiske_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle ID-er er riktige!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Noen ID-er er feil!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forventet: </span><span class="si">{</span><span class="n">forventede_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faktisk: </span><span class="si">{</span><span class="n">faktiske_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FINAL BEKREFTELSE - Vis alle personer med deres ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 FINAL BEKREFTELSE: Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sjekk at alle ID-er er riktige</span>
+<span class="n">forventede_id</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;p3&quot;</span><span class="p">,</span> <span class="s2">&quot;p4&quot;</span><span class="p">,</span> <span class="s2">&quot;p5&quot;</span><span class="p">]</span>
+<span class="n">faktiske_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle ID-er er riktige!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Noen ID-er er feil!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forventet: </span><span class="si">{</span><span class="n">forventede_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faktisk: </span><span class="si">{</span><span class="n">faktiske_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Vis hvilke ID-er som er feil</span>
+    <span class="n">feil_id</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">feil_id</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feil ID-er: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">feil_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dette er UUID-lignende ID-er fra tidligere kjøringer!&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LØSNING: Kjør &#39;FORCE DELETE&#39; cellen på nytt!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FINAL BEKREFTELSE - Vis alle personer med deres ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 FINAL BEKREFTELSE: Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sjekk at alle ID-er er riktige</span>
+<span class="n">forventede_id</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;p3&quot;</span><span class="p">,</span> <span class="s2">&quot;p4&quot;</span><span class="p">,</span> <span class="s2">&quot;p5&quot;</span><span class="p">]</span>
+<span class="n">faktiske_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle ID-er er riktige!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Noen ID-er er feil!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forventet: </span><span class="si">{</span><span class="n">forventede_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faktisk: </span><span class="si">{</span><span class="n">faktiske_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Vis hvilke ID-er som er feil</span>
+    <span class="n">feil_id</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">feil_id</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feil ID-er: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">feil_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dette er UUID-lignende ID-er fra tidligere kjøringer!&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LØSNING: Stopp Jupyter kernel og start på nytt!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># FINAL BEKREFTELSE - Vis alle personer med deres ID-er</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 FINAL BEKREFTELSE: Alle personer i slektstreet:&quot;</span><span class="p">)</span>
+<span class="n">alle_personer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Totalt antall personer: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">alle_personer</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sjekk at alle ID-er er riktige</span>
+<span class="n">forventede_id</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;p3&quot;</span><span class="p">,</span> <span class="s2">&quot;p4&quot;</span><span class="p">,</span> <span class="s2">&quot;p5&quot;</span><span class="p">]</span>
+<span class="n">faktiske_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">alle_personer</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Alle ID-er er riktige!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FEIL: Noen ID-er er feil!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forventet: </span><span class="si">{</span><span class="n">forventede_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faktisk: </span><span class="si">{</span><span class="n">faktiske_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Vis hvilke ID-er som er feil</span>
+    <span class="n">feil_id</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">faktiske_id</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">forventede_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">feil_id</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feil ID-er: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">feil_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dette er UUID-lignende ID-er fra tidligere kjøringer!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>Opprett relasjoner<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Nå må vi koble personene sammen med relasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til forelder-barn relasjoner</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">bestefar</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">far</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> er barn av </span><span class="si">{</span><span class="n">bestefar</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til ekteskap</span>
+<span class="n">ekteskap</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">add_marriage</span><span class="p">(</span>
+    <span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">ekteskapsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1978</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">ekteskapssted</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskap opprettet mellom </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskapsdato: </span><span class="si">{</span><span class="n">ekteskap</span><span class="o">.</span><span class="n">ekteskapsdato</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ekteskapssted: </span><span class="si">{</span><span class="n">ekteskap</span><span class="o">.</span><span class="n">ekteskapssted</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legg til barn til foreldre</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">far</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn2</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn1</span><span class="p">)</span>
+<span class="n">slektstre</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">mor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">barn2</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> er barn av </span><span class="si">{</span><span class="n">far</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">mor</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analyser-slektstreet">
+<h2>Analyser slektstreet<a class="headerlink" href="#analyser-slektstreet" title="Link to this heading">#</a></h2>
+<p>La oss se på slektskap og relasjoner:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hent søsken</span>
+<span class="n">søsken</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_siblings</span><span class="p">(</span><span class="n">barn1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Søsken til </span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">søsken_person</span> <span class="ow">in</span> <span class="n">søsken</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">søsken_person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hent forfedre</span>
+<span class="n">forfedre</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_ancestors</span><span class="p">(</span><span class="n">barn1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forfedre til </span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">forfader</span> <span class="ow">in</span> <span class="n">forfedre</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">forfader</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finn slektskap</span>
+<span class="n">relasjon</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">find_relation</span><span class="p">(</span><span class="n">barn1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">barn2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slektskap mellom </span><span class="si">{</span><span class="n">barn1</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2"> og </span><span class="si">{</span><span class="n">barn2</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">relasjon</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generasjonsnivåer</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generasjonsnivåer:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_all_persons</span><span class="p">():</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_generation</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">fullt_navn</span><span class="si">}</span><span class="s2">: Generasjon </span><span class="si">{</span><span class="n">gen</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>Visualiser slektstreet<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="n">plot_hierarchical_tree</span>
+
+<span class="c1"># Plott hierarkisk slektstre</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_hierarchical_tree</span><span class="p">(</span><span class="n">slektstre</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Manuelt bygget slektstre&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="statistikk">
+<h2>Statistikk<a class="headerlink" href="#statistikk" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hent statistikk</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Statistikk:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Totalt antall personer: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_persons&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Antall generasjoner: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;max_generation&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gjennomsnittsalder: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;average_age&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> år&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Totalt antall ekteskap: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_marriages&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="valider-slektstreet">
+<h2>Valider slektstreet<a class="headerlink" href="#valider-slektstreet" title="Link to this heading">#</a></h2>
+<p>La oss sjekke om det er noen problemer med slektstreet:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valider slektstreet</span>
+<span class="n">problemer</span> <span class="o">=</span> <span class="n">slektstre</span><span class="o">.</span><span class="n">validate_tree</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">problemer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️ Problemer funnet:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">problem</span> <span class="ow">in</span> <span class="n">problemer</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">problem</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Ingen problemer funnet i slektstreet!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lagre-slektstreet">
+<h2>Lagre slektstreet<a class="headerlink" href="#lagre-slektstreet" title="Link to this heading">#</a></h2>
+<p>Du kan lagre slektstreet til fil:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">family_io</span> <span class="kn">import</span> <span class="n">save_to_yaml</span>
+
+<span class="c1"># Lagre til YAML</span>
+<span class="n">save_to_yaml</span><span class="p">(</span><span class="n">slektstre</span><span class="o">.</span><span class="n">export_to_familie_data</span><span class="p">(),</span> <span class="s2">&quot;mitt_slektstre.yaml&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Slektstreet lagret til mitt_slektstre.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>Oppsummering<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>I denne notebooken har du lært:</p>
+<ol class="arabic simple">
+<li><p>✅ Opprette et tomt slektstre</p></li>
+<li><p>✅ Legge til personer med metadata</p></li>
+<li><p>✅ Opprette forelder-barn relasjoner</p></li>
+<li><p>✅ Legge til ekteskap</p></li>
+<li><p>✅ Analysere slektskap og generasjoner</p></li>
+<li><p>✅ Visualisere slektstreet</p></li>
+<li><p>✅ Validere og lagre data</p></li>
+</ol>
+<p><strong>Neste steg</strong>: Gå til <code class="docutils literal notranslate"><span class="pre">03_importer_data.ipynb</span></code> for å lære om import/eksport av data.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_introduksjon.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Slektstre med NetworkX - Introduksjon</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_importer_data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Import/eksport av data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bygge slektstre manuelt - REN VERSJON</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importer-biblioteker">Importer biblioteker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-et-tomt-slektstre">Opprett et tomt slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legg-til-personer">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bekreft-at-alle-personer-er-lagt-til-med-riktige-id-er">Bekreft at alle personer er lagt til med riktige ID-er</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-relasjoner">Opprett relasjoner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiser-slektstreet">Visualiser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppsummering">Oppsummering</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bygge-slektstre-manuelt">Bygge slektstre manuelt</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Importer biblioteker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Opprett et tomt slektstre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rydd-opp-i-eksisterende-data">Rydd opp i eksisterende data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Legg til personer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Opprett relasjoner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyser-slektstreet">Analyser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Visualiser slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistikk">Statistikk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valider-slektstreet">Valider slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagre-slektstreet">Lagre slektstreet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Oppsummering</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Arvid Lundervold
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
