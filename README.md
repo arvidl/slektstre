@@ -6,7 +6,7 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb)  -> slektstrær og grafer |  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 
-<!--
+
 <div style="text-align: center; margin: 20px 0;">
   <h3>🎧 Podcast: Slektstre med Python og Grafteori - Slik Analyserer du Din Familie</h3>
   <audio controls style="width: 100%; max-width: 400px; height: 40px;">
@@ -15,7 +15,8 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
   </audio>
   <p><small>En omfattende introduksjon til slektstre-prosjektet (NotebookLM) </small></p>
 </div>
--->
+
+<!--
 
 ## 🎧 Podcast: Slektstre med Python og Grafteori - Slik Analyserer du Din Familie
 
@@ -28,6 +29,7 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
   </p>
   <p><small>En omfattende introduksjon til slektstre-prosjektet (NotebookLM)</small></p>
 </div>
+-->
 
 <!--
 - [🎵 MP3-fil (20MB)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - Klikk for å spille i nettleseren
