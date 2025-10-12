@@ -253,10 +253,10 @@
                     const arrowY = fromNode.y + unitY * 0.15;
                     
                     arrowAnnotations.push({
-                        x: arrowX,
-                        y: arrowY,
-                        ax: arrowX + unitX * 0.1,
-                        ay: arrowY + unitY * 0.1,
+                        x: arrowX + unitX * 0.1,  // Arrow head (pointing towards child)
+                        y: arrowY + unitY * 0.1,
+                        ax: arrowX,               // Arrow tail (at parent)
+                        ay: arrowY,
                         xref: 'x',
                         yref: 'y',
                         axref: 'x',
