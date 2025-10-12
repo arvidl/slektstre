@@ -111,8 +111,8 @@ def create_cover_page():
         
         <div class="author">Av Arvid Lundervold</div>
         <div class="author">(etter en idé fra Helena Lundervold Pedersen)</div>
-        <div class="date">11 Oktober 2025</div>
-        <div class="version">Versjon 1.0</div>
+        <div class="date">12 Oktober 2025</div>
+        <div class="version">Versjon 1.01</div>
     </div>
 </body>
 </html>
