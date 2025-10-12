@@ -1,266 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stikkordregister - Slektstre med NetworkX</title>
+    <title>Slektstre med NetworkX - Komplett Bok</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 40px;
-            background: #f8f9fa;
-            color: #333;
-        }
-        .index-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .index-title {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
+        h1 {
             color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 20px;
-        }
-        .index-section {
+            text-align: center;
             margin-bottom: 30px;
         }
-        .section-title {
-            font-size: 1.4em;
+        .download-section {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .download-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
             font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #ecf0f1;
-            border-left: 4px solid #3498db;
+            margin: 10px 0;
+            transition: background-color 0.3s;
         }
-        .index-entry {
-            margin-bottom: 8px;
-            padding: 5px 0;
-            border-bottom: 1px solid #ecf0f1;
+        .download-link:hover {
+            background-color: #2980b9;
         }
-        .term {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .definition {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-left: 10px;
-        }
-        .page-ref {
-            float: right;
-            color: #3498db;
-            font-weight: bold;
-        }
-        .clear {
-            clear: both;
+        .version-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <div class="index-container">
-        <div class="index-title">📖 Stikkordregister</div>
+    <div class="container">
+        <h1>🌳 Slektstre med NetworkX</h1>
         
-        <div class="index-section">
-            <div class="section-title">A</div>
-            <div class="index-entry">
-                <span class="term">Ancestor</span>
-                <span class="page-ref">15, 45</span>
-                <div class="definition">Forfader, person som er i slekt med en annen person gjennom tidligere generasjoner</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">API</span>
-                <span class="page-ref">125</span>
-                <div class="definition">Application Programming Interface, grensesnitt for å kommunisere med eksterne tjenester</div>
-            </div>
+        <div class="version-info">
+            <strong>Oppdatert versjon:</strong> 1.01<br>
+            <strong>Dato:</strong> 12 Oktober 2025
         </div>
         
-        <div class="index-section">
-            <div class="section-title">B</div>
-            <div class="index-entry">
-                <span class="term">Barn</span>
-                <span class="page-ref">15, 65</span>
-                <div class="definition">Person som er direkte etterkommer av foreldre</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Bidirectional edge</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Kant i en graf som kan traverseres i begge retninger</div>
-            </div>
+        <div class="download-section">
+            <h2>📚 Komplett Bok</h2>
+            <a href="Slektstre_med_NetworkX_Komplett_Bok.pdf" class="download-link">
+                📖 Last ned komplett bok (PDF)
+            </a>
+            <a href="Slektstre_med_NetworkX_Komplett_Bok_v1.01.pdf" class="download-link">
+                📖 Last ned versjon 1.01 (PDF)
+            </a>
         </div>
         
-        <div class="index-section">
-            <div class="section-title">C</div>
-            <div class="index-entry">
-                <span class="term">CSV</span>
-                <span class="page-ref">85</span>
-                <div class="definition">Comma-Separated Values, tekstformat for tabulære data</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Cycle</span>
-                <span class="page-ref">25, 35</span>
-                <div class="definition">Sykel, sti i en graf som returnerer til startnoden</div>
-            </div>
+        <div class="download-section">
+            <h2>📄 Individuelle Kapitler</h2>
+            <a href="00_slektstraer_og_grafer.pdf" class="download-link">
+                Kapitel 0: Slektstrær og Grafer
+            </a>
+            <a href="01_introduksjon.pdf" class="download-link">
+                Kapitel 1: Introduksjon
+            </a>
+            <a href="02_bygg_tre_manuelt.pdf" class="download-link">
+                Kapitel 2: Bygge tre manuelt
+            </a>
+            <a href="03_importer_data.pdf" class="download-link">
+                Kapitel 3: Importer data
+            </a>
+            <a href="04_visualisering.pdf" class="download-link">
+                Kapitel 4: Visualisering
+            </a>
+            <a href="05_eksterne_databaser.pdf" class="download-link">
+                Kapitel 5: Eksterne databaser
+            </a>
         </div>
         
-        <div class="index-section">
-            <div class="section-title">D</div>
-            <div class="index-entry">
-                <span class="term">Descendant</span>
-                <span class="page-ref">15, 45</span>
-                <div class="definition">Etterkommer, person som er i slekt med en annen person gjennom senere generasjoner</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Directed graph</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Retnet graf, graf hvor kanter har retning</div>
-            </div>
+        <div class="download-section">
+            <h2>📋 Front Matter</h2>
+            <a href="cover.pdf" class="download-link">
+                Forside
+            </a>
+            <a href="table_of_contents.pdf" class="download-link">
+                Innholdsfortegnelse
+            </a>
+            <a href="index.pdf" class="download-link">
+                Stikkordregister
+            </a>
         </div>
         
-        <div class="index-section">
-            <div class="section-title">E</div>
-            <div class="index-entry">
-                <span class="term">Edge</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Kant, linje som kobler to noder i en graf</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Ekteskap</span>
-                <span class="page-ref">15, 65</span>
-                <div class="definition">Partnerskap mellom to personer, representert som uretnede kanter</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">F</div>
-            <div class="index-entry">
-                <span class="term">Family tree</span>
-                <span class="page-ref">15</span>
-                <div class="definition">Slektstre, visuell representasjon av slektskap og familierelasjoner</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Forelder</span>
-                <span class="page-ref">15, 65</span>
-                <div class="definition">Person som er direkte forfader til barn</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">G</div>
-            <div class="index-entry">
-                <span class="term">GEDCOM</span>
-                <span class="page-ref">85</span>
-                <div class="definition">Genealogical Data Communication, standardformat for genealogi-data</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Generation</span>
-                <span class="page-ref">15, 45</span>
-                <div class="definition">Generasjon, nivå i slektskapet basert på avstand fra rot</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Graph theory</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Grafteori, matematisk studie av grafer og deres egenskaper</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">J</div>
-            <div class="index-entry">
-                <span class="term">JSON</span>
-                <span class="page-ref">85</span>
-                <div class="definition">JavaScript Object Notation, tekstformat for strukturert data</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">K</div>
-            <div class="index-entry">
-                <span class="term">Kinship</span>
-                <span class="page-ref">15, 45</span>
-                <div class="definition">Slektskap, relasjon mellom personer basert på familieforhold</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">N</div>
-            <div class="index-entry">
-                <span class="term">NetworkX</span>
-                <span class="page-ref">25, 45</span>
-                <div class="definition">Python-bibliotek for analyse av komplekse nettverk og grafer</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Node</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Node, punkt i en graf som representerer en enhet</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">P</div>
-            <div class="index-entry">
-                <span class="term">Path</span>
-                <span class="page-ref">25, 35</span>
-                <div class="definition">Sti, sekvens av noder koblet med kanter</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Pedigree</span>
-                <span class="page-ref">15</span>
-                <div class="definition">Stamtavle, visuell representasjon av forfedre</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">S</div>
-            <div class="index-entry">
-                <span class="term">Slektstre</span>
-                <span class="page-ref">15</span>
-                <div class="definition">Family tree, visuell representasjon av slektskap og familierelasjoner</div>
-            </div>
-            <div class="index-entry">
-                <span class="term">Søsken</span>
-                <span class="page-ref">15, 45</span>
-                <div class="definition">Personer som deler samme foreldre</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">T</div>
-            <div class="index-entry">
-                <span class="term">Tree</span>
-                <span class="page-ref">25, 35</span>
-                <div class="definition">Tre, spesiell type graf uten sykler og sammenkoblet</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">V</div>
-            <div class="index-entry">
-                <span class="term">Vertex</span>
-                <span class="page-ref">25</span>
-                <div class="definition">Hjørne, alternativt navn for node i en graf</div>
-            </div>
-        </div>
-        
-        <div class="index-section">
-            <div class="section-title">Y</div>
-            <div class="index-entry">
-                <span class="term">YAML</span>
-                <span class="page-ref">85</span>
-                <div class="definition">YAML Ain't Markup Language, menneskelesbart dataformat</div>
-            </div>
-        </div>
-        
-        <div class="clear"></div>
+        <p style="text-align: center; margin-top: 40px; color: #7f8c8d;">
+            <strong>Av Arvid Lundervold</strong><br>
+            (etter en idé fra Helena Lundervold Pedersen)
+        </p>
     </div>
 </body>
 </html>
