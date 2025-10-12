@@ -1,52 +1,29 @@
-# Makefile for generating the slektstre book
+# Makefile for slektstre project
 
-.PHONY: help install build clean book pdf watch validate
+.PHONY: help install clean test
 
 help:
-	@echo "🌳 Slektstre Book Generator"
-	@echo "=========================="
+	@echo "🌳 Slektstre Project"
+	@echo "==================="
 	@echo "Available commands:"
 	@echo "  make install    - Install dependencies"
-	@echo "  make build      - Build HTML book"
-	@echo "  make pdf        - Generate PDF book"
-	@echo "  make book       - Generate both HTML and PDF"
-	@echo "  make watch      - Watch for changes and auto-rebuild"
-	@echo "  make validate   - Validate book and notebooks"
-	@echo "  make clean      - Clean build files"
+	@echo "  make test       - Run tests"
+	@echo "  make clean      - Clean temporary files"
 
 install:
 	@echo "📦 Installing dependencies..."
 	pip install -r requirements.txt
 
-install-book:
-	@echo "📦 Installing book generation dependencies only..."
-	pip install -r requirements-book.txt
-
-build:
-	@echo "📚 Building HTML book..."
-	jupyter-book build . --builder html
-
-pdf:
-	@echo "📚 Generating PDF book..."
-	jupyter-book build . --builder pdfhtml
-
-book: build pdf
-	@echo "📚 Building complete book with front matter..."
-	@python scripts/generate_book.py
-
-watch:
-	@echo "👀 Starting file watcher..."
-	python scripts/watch_and_rebuild.py
-
-validate:
-	@echo "🔍 Validating book..."
-	python scripts/validate_book.py
+test:
+	@echo "🧪 Running tests..."
+	python -m pytest tests/ -v
 
 clean:
-	@echo "🧹 Cleaning build files..."
-	rm -rf _build/
-	rm -rf .jupyter_cache/
-	rm -rf book_pdf/
-
-# Default target
-all: book
+	@echo "🧹 Cleaning temporary files..."
+	rm -rf __pycache__/
+	rm -rf .ipynb_checkpoints/
+	rm -rf src/__pycache__/
+	find . -name "*.pyc" -delete
+	find . -name "*.pyo" -delete
+	find . -name "*.pyd" -delete
+	find . -name ".DS_Store" -delete

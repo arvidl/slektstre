@@ -24,8 +24,18 @@ __pycache__/
 *.tar.gz
 *.rar
 
-# Jupyter Book build outputs
+# Jupyter Book build outputs (no longer used)
 _build/
+_downloads/
+_images/
+_static/
+reports/
+book_pdf/
+
+# Generated HTML and PDF files
+*.html
+*.pdf
+*.tex
 
 # Backup files
 *.backup
