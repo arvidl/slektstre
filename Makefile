@@ -35,20 +35,22 @@ clean:
 	find . -name "*.pyd" -delete
 	find . -name ".DS_Store" -delete
 
-# Book generation commands
+# Book generation commands (using nbconvert as fallback)
 book: book-html book-pdf
 	@echo "📚 Book generation complete!"
 	@echo "📚 HTML version: _build/html/index.html"
 	@echo "📚 PDF version: _build/latex/book.pdf"
 
 book-html:
-	@echo "🌐 Building HTML version..."
-	jupyter-book build . --builder html --all
+	@echo "🌐 Building HTML version with nbconvert..."
+	@mkdir -p _build/html
+	@jupyter nbconvert --to html notebooks/*.ipynb --output-dir=_build/html
 	@echo "✅ HTML book built successfully!"
 
 book-pdf:
 	@echo "📄 Building PDF version..."
-	jupyter-book build . --builder pdf --all
+	@mkdir -p _build/latex
+	@jupyter nbconvert --to pdf notebooks/*.ipynb --output-dir=_build/latex
 	@echo "✅ PDF book built successfully!"
 
 book-clean:

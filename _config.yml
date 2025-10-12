@@ -9,3 +9,11 @@ sphinx:
     extensions:
       - myst_nb
       - sphinx_book_theme
+      - sphinx_copybutton
+    # Disable problematic extensions
+    exclude_patterns:
+      - "**/.*"
+    # Suppress warnings
+    suppress_warnings:
+      - myst.header
+      - myst.note
