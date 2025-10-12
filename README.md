@@ -154,7 +154,7 @@ plt.show()
 
 Slektstreet støtter flere formater:
 
-**YAML (anbefalt)**:
+**YAML (anbefalt) / YAML (recommended) **:
 ```yaml
 personer:
   - id: "p1"
@@ -169,64 +169,24 @@ ekteskap:
     ekteskapsdato: "2010-06-18"
 ```
 
-**JSON, CSV og GEDCOM** støttes også.
+**JSON, CSV og GEDCOM** støttes også / are also supported
 
-#### Visualiseringer
+#### Visualiseringer / Visualizations
 
-- **Hierarkisk slektstre**: Tradisjonell tre-struktur
-- **Vifte-diagram**: Sirkulær visning av forfedre
-- **Interaktiv visning**: Plotly-basert med hover-info
-- **Timeglass-visning**: Fokusperson i midten
-- **Statistikk-diagrammer**: Kjønnsfordeling, aldersfordeling, etc.
+- **Hierarkisk slektstre / Hierarchical family tree**: Tradisjonell tre-strukturv / Traditional tree structure
+- **Vifte-diagram / Fan chart**: Sirkulær visning av forfedrev / Circular ancestor view
+- **Interaktiv visning / Interactive view**: Plotly-basert med hover-info / Plotly-based with hover info
+- **Timeglass-visning / Hourglass view**: Fokusperson i midten / Focus person in center
+- **Statistikk-diagrammer / Statistics charts**: Kjønnsfordeling, aldersfordeling, etc. / Gender distribution, age distribution, etc. 
 
-#### Eksterne databaser
+#### Eksterne databaser / External Databases
 
-- **FamilySearch API**: Verdens største genealogi-database (gratis)
-- **Digitalarkivet**: Norske historiske kilder og arkiver (gratis)
-- **Wikipedia API**: Biografisk informasjon om kjente personer (gratis)
-- **Data-konvertering**: Automatisk konvertering fra eksterne formater
-- **Eksport**: Til forskjellige formater for deling med andre
+- **FamilySearch API**: Verdens største genealogi-database (gratis) / World's largest genealogy database (free)
+- **Digitalarkivet**: Norske historiske kilder og arkiver (gratis) / Norwegian historical sources and archives (free)
+- **Wikipedia API**: Biografisk informasjon om kjente personer (gratis) / Biographical information about notable people (free)
+- **Data-konvertering**: Automatisk konvertering fra eksterne formater / Automatic conversion from external formats
+- **Eksport**: Til forskjellige formater for deling med andre / To various formats for sharing with others
 
-
-
-
-
-#### Data Format
-
-The family tree supports multiple formats:
-
-**YAML (recommended)**:
-```yaml
-personer:
-  - id: "p1"
-    fornavn: "Arvid"
-    etternavn: "Lundervold"
-    kjønn: "male"
-    fødselsdato: "1985-12-10"
-    fødested: "Bergen"
-ekteskap:
-  - partner1_id: "p1"
-    partner2_id: "p2"
-    ekteskapsdato: "2010-06-18"
-```
-
-**JSON, CSV and GEDCOM** are also supported.
-
-#### Visualizations
-
-- **Hierarchical family tree**: Traditional tree structure
-- **Fan chart**: Circular ancestor view
-- **Interactive view**: Plotly-based with hover info
-- **Hourglass view**: Focus person in center
-- **Statistics charts**: Gender distribution, age distribution, etc.
-
-#### External Databases
-
-- **FamilySearch API**: World's largest genealogy database (free)
-- **Digitalarkivet**: Norwegian historical sources and archives (free)
-- **Wikipedia API**: Biographical information about notable people (free)
-- **Data conversion**: Automatic conversion from external formats
-- **Export**: To various formats for sharing with others
 
 ## Teknisk informasjon / Technical Information
 
