@@ -35,15 +35,31 @@ book:
 sphinx:
   config:
     latex_elements:
-      extra_usepackage: ["babel"]
+      extra_usepackage: ["babel", "listings", "xcolor"]
       babel: "\\usepackage[norsk]{babel}"
       polyglossia: "\\setdefaultlanguage{norwegian}"
       # Mindre font for kode-celler
       'preamble': |
+        \\usepackage{listings}
+        \\usepackage{xcolor}
+        \\lstset{
+          basicstyle=\\small\\ttfamily,
+          breaklines=true,
+          frame=single,
+          numbers=left,
+          numberstyle=\\tiny,
+          stepnumber=1,
+          tabsize=2,
+          showstringspaces=false,
+          showtabs=false,
+          captionpos=b,
+          aboveskip=0pt,
+          belowskip=0pt
+        }
         \\usepackage{fancyvrb}
-        \\fvset{fontsize=\\small}
-        \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\\small}
-        \\renewcommand{\\verbatimfont}[1]{\\small\\ttfamily}
+        \\fvset{fontsize=\\footnotesize}
+        \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\\footnotesize}
+        \\renewcommand{\\verbatimfont}[1]{\\footnotesize\\ttfamily}
     latex_engine: "xelatex"
 
 # Table of contents with chapter structure
