@@ -113,8 +113,8 @@
             
             <h4>🎮 Interaktive funksjoner / Interactive Features:</h4>
             <ul>
-                <li><strong>🖱️ Dra noder:</strong> Hold nede museknappen og dra personer direkte</li>
-                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (30% bevegelse)</li>
+                <li><strong>🖱️ Dra noder:</strong> Klikk på en person, deretter dra musen for å flytte dem</li>
+                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (25% bevegelse)</li>
                 <li><strong>🔍 Zoom:</strong> Scroll for å zoome inn/ut</li>
                 <li><strong>📱 Pan:</strong> Dra bakgrunnen for å flytte visningen</li>
                 <li><strong>📍 Hover:</strong> Hold musen over personer for detaljer</li>
@@ -350,93 +350,85 @@
                 modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'autoScale2d']
             });
 
-            // Advanced interactive node dragging with mouse events
+            // Enhanced interactive node dragging for MacBook Pro + Chrome
             let isDragging = false;
             let draggedNodeIndex = -1;
             let startMousePos = {x: 0, y: 0};
             let startNodePos = {x: 0, y: 0};
+            let plotRect = null;
             
             const plotDiv = document.getElementById('plot');
             
-            // Mouse down event
-            plotDiv.addEventListener('mousedown', function(event) {
-                const rect = plotDiv.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                
-                // Check if click is near any node
-                const clickedNodeIndex = findNodeNearPosition(x, y);
-                if (clickedNodeIndex !== -1) {
-                    isDragging = true;
-                    draggedNodeIndex = clickedNodeIndex;
-                    startMousePos = {x: x, y: y};
-                    startNodePos = {
-                        x: familyData.nodes[clickedNodeIndex].x,
-                        y: familyData.nodes[clickedNodeIndex].y
-                    };
-                    
-                    plotDiv.style.cursor = 'grabbing';
-                    console.log('Started dragging:', familyData.nodes[clickedNodeIndex].name);
+            // Use Plotly's click event for better compatibility
+            plotDiv.on('plotly_click', function(eventData) {
+                if (eventData.points.length > 0) {
+                    const pointIndex = eventData.points[0].pointIndex;
+                    if (pointIndex >= 0 && pointIndex < familyData.nodes.length) {
+                        draggedNodeIndex = pointIndex;
+                        isDragging = true;
+                        startNodePos = {
+                            x: familyData.nodes[pointIndex].x,
+                            y: familyData.nodes[pointIndex].y
+                        };
+                        
+                        // Get plot dimensions for coordinate conversion
+                        plotRect = plotDiv.getBoundingClientRect();
+                        
+                        console.log('Selected node for dragging:', familyData.nodes[pointIndex].name);
+                        
+                        // Add visual feedback
+                        plotDiv.style.cursor = 'grabbing';
+                        
+                        // Add mouse move and up listeners
+                        document.addEventListener('mousemove', handleMouseMove);
+                        document.addEventListener('mouseup', handleMouseUp);
+                    }
                 }
             });
             
-            // Mouse move event
-            plotDiv.addEventListener('mousemove', function(event) {
-                if (!isDragging) return;
+            function handleMouseMove(event) {
+                if (!isDragging || draggedNodeIndex === -1) return;
                 
-                const rect = plotDiv.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
+                // Get current mouse position
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
                 
-                // Calculate movement
-                const deltaX = (x - startMousePos.x) / 200; // Scale factor
-                const deltaY = -(y - startMousePos.y) / 200; // Invert Y axis
+                // Convert to plot coordinates
+                const plotX = (mouseX - plotRect.left) / plotRect.width * 4 - 2; // Scale to plot range
+                const plotY = 2 - (mouseY - plotRect.top) / plotRect.height * 4; // Invert Y axis
+                
+                // Calculate movement delta
+                const deltaX = plotX - startNodePos.x;
+                const deltaY = plotY - startNodePos.y;
                 
                 // Update node position
-                familyData.nodes[draggedNodeIndex].x = startNodePos.x + deltaX;
-                familyData.nodes[draggedNodeIndex].y = startNodePos.y + deltaY;
+                familyData.nodes[draggedNodeIndex].x = plotX;
+                familyData.nodes[draggedNodeIndex].y = plotY;
                 
                 // Apply elasticity to connected nodes
                 applyElasticity(draggedNodeIndex, deltaX, deltaY);
                 
                 // Redraw plot
                 createPlot('interactive');
-            });
+            }
             
-            // Mouse up event
-            plotDiv.addEventListener('mouseup', function(event) {
+            function handleMouseUp(event) {
                 if (isDragging) {
                     isDragging = false;
                     draggedNodeIndex = -1;
                     plotDiv.style.cursor = 'grab';
+                    
+                    // Remove event listeners
+                    document.removeEventListener('mousemove', handleMouseMove);
+                    document.removeEventListener('mouseup', handleMouseUp);
+                    
                     console.log('Stopped dragging');
                 }
-            });
-            
-            function findNodeNearPosition(mouseX, mouseY) {
-                const tolerance = 30; // pixels
-                
-                for (let i = 0; i < familyData.nodes.length; i++) {
-                    const node = familyData.nodes[i];
-                    // Convert node coordinates to screen coordinates
-                    const screenX = (node.x + 2) * 200; // Approximate conversion
-                    const screenY = (2 - node.y) * 200; // Approximate conversion
-                    
-                    const distance = Math.sqrt(
-                        Math.pow(mouseX - screenX, 2) + 
-                        Math.pow(mouseY - screenY, 2)
-                    );
-                    
-                    if (distance < tolerance) {
-                        return i;
-                    }
-                }
-                return -1;
             }
             
             function applyElasticity(draggedIndex, deltaX, deltaY) {
                 const draggedNode = familyData.nodes[draggedIndex];
-                const elasticity = 0.3; // How much connected nodes move
+                const elasticity = 0.25; // How much connected nodes move
                 
                 // Find connected nodes
                 const connectedNodes = [];
