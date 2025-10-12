@@ -113,8 +113,8 @@
             
             <h4>🎮 Interaktive funksjoner / Interactive Features:</h4>
             <ul>
-                <li><strong>🖱️ Dra noder:</strong> Klikk på en person for å velge den, deretter dra musen for å flytte</li>
-                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (15% bevegelse)</li>
+                <li><strong>🖱️ Dra noder:</strong> Trykk og hold på en person med trackpad/mus, deretter dra for å flytte</li>
+                <li><strong>🔗 Elastisk bevegelse:</strong> Koblede personer følger med (10% bevegelse)</li>
                 <li><strong>🔍 Zoom:</strong> Scroll for å zoome inn/ut</li>
                 <li><strong>📱 Pan:</strong> Dra bakgrunnen for å flytte visningen</li>
                 <li><strong>📍 Hover:</strong> Hold musen over personer for detaljer</li>
@@ -350,69 +350,98 @@
                 modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'autoScale2d']
             });
 
-            // Simple and intuitive node dragging with better control
+            // Trackpad-friendly node dragging for MacBook Pro
             let isDragging = false;
             let draggedNodeIndex = -1;
-            let dragStartPos = {x: 0, y: 0};
             let nodeStartPos = {x: 0, y: 0};
             let plotRect = null;
+            let lastMousePos = {x: 0, y: 0};
             
             const plotDiv = document.getElementById('plot');
             
-            // Click to select node for dragging
+            // Support both click and trackpad events
             plotDiv.on('plotly_click', function(eventData) {
                 if (eventData.points.length > 0) {
                     const pointIndex = eventData.points[0].pointIndex;
                     if (pointIndex >= 0 && pointIndex < familyData.nodes.length) {
-                        // Start dragging mode
-                        draggedNodeIndex = pointIndex;
-                        isDragging = true;
-                        
-                        // Store initial positions
-                        nodeStartPos = {
-                            x: familyData.nodes[pointIndex].x,
-                            y: familyData.nodes[pointIndex].y
-                        };
-                        
-                        // Get plot dimensions
-                        plotRect = plotDiv.getBoundingClientRect();
-                        
-                        // Visual feedback
-                        plotDiv.style.cursor = 'grabbing';
-                        
-                        console.log('Selected node:', familyData.nodes[pointIndex].name);
-                        
-                        // Add global mouse tracking
-                        document.addEventListener('mousemove', handleDrag);
-                        document.addEventListener('mouseup', stopDrag);
-                        
-                        // Prevent default behaviors
+                        startDragging(pointIndex);
+                    }
+                }
+            });
+            
+            // Add mousedown event for trackpad support
+            plotDiv.addEventListener('mousedown', function(event) {
+                // Check if click is on a node using Plotly's hover data
+                const hoverData = event.target.__plotly || {};
+                if (hoverData.points && hoverData.points.length > 0) {
+                    const pointIndex = hoverData.points[0].pointIndex;
+                    if (pointIndex >= 0 && pointIndex < familyData.nodes.length) {
+                        startDragging(pointIndex);
                         event.preventDefault();
                     }
                 }
             });
             
+            function startDragging(pointIndex) {
+                if (isDragging) return; // Already dragging
+                
+                draggedNodeIndex = pointIndex;
+                isDragging = true;
+                
+                // Store initial positions
+                nodeStartPos = {
+                    x: familyData.nodes[pointIndex].x,
+                    y: familyData.nodes[pointIndex].y
+                };
+                
+                // Get plot dimensions
+                plotRect = plotDiv.getBoundingClientRect();
+                
+                // Initialize last mouse position
+                lastMousePos = {
+                    x: event.clientX || 0,
+                    y: event.clientY || 0
+                };
+                
+                // Visual feedback
+                plotDiv.style.cursor = 'grabbing';
+                
+                console.log('Started dragging node:', familyData.nodes[pointIndex].name);
+                
+                // Add event listeners for both mouse and trackpad
+                document.addEventListener('mousemove', handleDrag, {passive: false});
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('mouseleave', stopDrag); // Stop if mouse leaves window
+                
+                // Prevent default behaviors
+                event.preventDefault();
+            }
+            
             function handleDrag(event) {
                 if (!isDragging || draggedNodeIndex === -1) return;
                 
-                // Calculate mouse movement in plot coordinates
+                // Get current mouse position
                 const mouseX = event.clientX;
                 const mouseY = event.clientY;
                 
-                // Convert to plot coordinates with proper scaling
-                const plotX = (mouseX - plotRect.left) / plotRect.width * 4 - 2;
-                const plotY = 2 - (mouseY - plotRect.top) / plotRect.height * 4;
+                // Calculate movement delta from last position
+                const deltaX = mouseX - lastMousePos.x;
+                const deltaY = mouseY - lastMousePos.y;
                 
-                // Calculate movement from start position
-                const deltaX = plotX - nodeStartPos.x;
-                const deltaY = plotY - nodeStartPos.y;
+                // Convert pixel movement to plot coordinates
+                const plotDeltaX = (deltaX / plotRect.width) * 4;
+                const plotDeltaY = -(deltaY / plotRect.height) * 4; // Invert Y axis
                 
-                // Update dragged node position
-                familyData.nodes[draggedNodeIndex].x = plotX;
-                familyData.nodes[draggedNodeIndex].y = plotY;
+                // Update node position
+                familyData.nodes[draggedNodeIndex].x += plotDeltaX;
+                familyData.nodes[draggedNodeIndex].y += plotDeltaY;
                 
-                // Apply gentle elasticity to connected nodes (reduced for better control)
-                applyGentleElasticity(draggedNodeIndex, deltaX, deltaY);
+                // Apply gentle elasticity to connected nodes
+                applyGentleElasticity(draggedNodeIndex, plotDeltaX, plotDeltaY);
+                
+                // Update last position
+                lastMousePos.x = mouseX;
+                lastMousePos.y = mouseY;
                 
                 // Redraw the plot
                 createPlot('interactive');
@@ -430,6 +459,7 @@
                     // Remove event listeners
                     document.removeEventListener('mousemove', handleDrag);
                     document.removeEventListener('mouseup', stopDrag);
+                    document.removeEventListener('mouseleave', stopDrag);
                     
                     console.log('Stopped dragging');
                 }
@@ -437,7 +467,7 @@
             
             function applyGentleElasticity(draggedIndex, deltaX, deltaY) {
                 const draggedNode = familyData.nodes[draggedIndex];
-                const elasticity = 0.15; // Reduced for better control
+                const elasticity = 0.1; // Very gentle for trackpad control
                 
                 // Find connected nodes
                 const connectedNodes = [];
