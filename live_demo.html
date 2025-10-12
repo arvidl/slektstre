@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slektstre Live Demo - Interactive Family Tree</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .demo-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .demo-controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            margin: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .demo-controls button:hover {
+            background: #2980b9;
+        }
+        .demo-controls button.secondary {
+            background: #6c757d;
+        }
+        .demo-controls button.secondary:hover {
+            background: #5a6268;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .plot-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .info-box h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 Slektstre Live Demo</h1>
+        <div style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">
+            Interactive Family Tree Visualization with NetworkX
+        </div>
+
+        <div class="info-box">
+            <h4>🎯 Hvordan bruke demo-en / How to use the demo:</h4>
+            <p><strong>🇳🇴 Norsk:</strong> Klikk på knappene nedenfor for å se forskjellige visualiseringer. Du kan zoome, panne og utforske slektstreet interaktivt.</p>
+            <p><strong>🇬🇧 English:</strong> Click the buttons below to see different visualizations. You can zoom, pan, and explore the family tree interactively.</p>
+        </div>
+
+        <div class="demo-section">
+            <h3>📊 Familie-statistikk / Family Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-people">6</div>
+                    <div class="stat-label">Totalt antall personer<br>Total People</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-relationships">7</div>
+                    <div class="stat-label">Totalt antall relasjoner<br>Total Relationships</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="generations">3</div>
+                    <div class="stat-label">Antall generasjoner<br>Generations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="oldest">1950</div>
+                    <div class="stat-label">Eldste person<br>Oldest Person</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🎮 Interaktiv Visualisering / Interactive Visualization</h3>
+            <div class="demo-controls">
+                <button onclick="showHierarchical()">📊 Hierarkisk Visning</button>
+                <button onclick="showNetwork()">🕸️ Nettverk Visning</button>
+                <button onclick="showTimeline()">⏰ Tidslinje</button>
+                <button onclick="resetView()" class="secondary">🔄 Tilbakestill</button>
+            </div>
+            <div id="plot" class="plot-container"></div>
+        </div>
+
+        <div class="demo-section">
+            <h3>💡 Om denne demo-en / About this demo</h3>
+            <p>Denne interaktive demo-en viser hvordan NetworkX kan brukes til å bygge og visualisere slektstrær. Du kan:</p>
+            <ul>
+                <li><strong>Zoome og panne:</strong> Bruk musen til å utforske slektstreet</li>
+                <li><strong>Hover for info:</strong> Hold musen over personer for å se detaljer</li>
+                <li><strong>Prøv forskjellige visninger:</strong> Klikk på knappene over for å se ulike visualiseringer</li>
+            </ul>
+            <p><strong>This interactive demo shows how NetworkX can be used to build and visualize family trees. You can:</strong></p>
+            <ul>
+                <li><strong>Zoom and pan:</strong> Use your mouse to explore the family tree</li>
+                <li><strong>Hover for info:</strong> Hover over people to see details</li>
+                <li><strong>Try different views:</strong> Click the buttons above to see different visualizations</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Sample family data
+        const familyData = {
+            nodes: [
+                {id: 'p1', name: 'Erik Hansen', birth_year: 1950, gender: 'mann', x: 0, y: 2},
+                {id: 'p2', name: 'Anna Larsen', birth_year: 1955, gender: 'kvinne', x: 1, y: 2},
+                {id: 'p3', name: 'Lars Hansen', birth_year: 1980, gender: 'mann', x: 0.5, y: 1},
+                {id: 'p4', name: 'Maria Hansen', birth_year: 1982, gender: 'kvinne', x: 1.5, y: 1},
+                {id: 'p5', name: 'Ole Hansen', birth_year: 2010, gender: 'mann', x: 0.2, y: 0},
+                {id: 'p6', name: 'Kari Hansen', birth_year: 2012, gender: 'kvinne', x: 0.8, y: 0},
+            ],
+            edges: [
+                {from: 'p1', to: 'p2', type: 'marriage'},
+                {from: 'p1', to: 'p3', type: 'parent'},
+                {from: 'p2', to: 'p3', type: 'parent'},
+                {from: 'p1', to: 'p4', type: 'parent'},
+                {from: 'p2', to: 'p4', type: 'parent'},
+                {from: 'p3', to: 'p5', type: 'parent'},
+                {from: 'p3', to: 'p6', type: 'parent'},
+            ]
+        };
+
+        function createPlot(layoutType = 'hierarchical') {
+            const nodes = familyData.nodes;
+            const edges = familyData.edges;
+
+            // Prepare node data
+            const nodeX = nodes.map(n => n.x);
+            const nodeY = nodes.map(n => n.y);
+            const nodeText = nodes.map(n => `${n.name}<br>Født: ${n.birth_year}`);
+            const nodeColors = nodes.map(n => n.gender === 'mann' ? '#3498db' : '#e74c3c');
+
+            // Prepare edge data
+            const edgeX = [];
+            const edgeY = [];
+            
+            edges.forEach(edge => {
+                const fromNode = nodes.find(n => n.id === edge.from);
+                const toNode = nodes.find(n => n.id === edge.to);
+                if (fromNode && toNode) {
+                    edgeX.push(fromNode.x, toNode.x, null);
+                    edgeY.push(fromNode.y, toNode.y, null);
+                }
+            });
+
+            const data = [
+                {
+                    x: edgeX,
+                    y: edgeY,
+                    mode: 'lines',
+                    line: {width: 2, color: '#888'},
+                    hoverinfo: 'none',
+                    showlegend: false
+                },
+                {
+                    x: nodeX,
+                    y: nodeY,
+                    mode: 'markers+text',
+                    text: nodes.map(n => n.name),
+                    textposition: 'middle center',
+                    marker: {
+                        size: 30,
+                        color: nodeColors,
+                        line: {width: 2, color: 'white'}
+                    },
+                    hoverinfo: 'text',
+                    hovertext: nodeText,
+                    showlegend: false
+                }
+            ];
+
+            const layout = {
+                title: {
+                    text: '🌳 Interaktiv Slektstre Demo',
+                    font: {size: 16}
+                },
+                showlegend: false,
+                hovermode: 'closest',
+                margin: {b: 20, l: 5, r: 5, t: 40},
+                xaxis: {showgrid: false, zeroline: false, showticklabels: false},
+                yaxis: {showgrid: false, zeroline: false, showticklabels: false},
+                plot_bgcolor: 'white',
+                width: 800,
+                height: 600
+            };
+
+            Plotly.newPlot('plot', data, layout, {responsive: true});
+        }
+
+        function showHierarchical() {
+            // Hierarchical layout
+            familyData.nodes.forEach(node => {
+                if (node.birth_year >= 2000) {
+                    node.y = 0; // Children
+                } else if (node.birth_year >= 1970) {
+                    node.y = 1; // Parents
+                } else {
+                    node.y = 2; // Grandparents
+                }
+            });
+            createPlot('hierarchical');
+        }
+
+        function showNetwork() {
+            // Network layout (circular)
+            familyData.nodes.forEach((node, index) => {
+                const angle = (index / familyData.nodes.length) * 2 * Math.PI;
+                node.x = Math.cos(angle) * 1.5;
+                node.y = Math.sin(angle) * 1.5;
+            });
+            createPlot('network');
+        }
+
+        function showTimeline() {
+            // Timeline layout
+            familyData.nodes.forEach(node => {
+                node.x = (node.birth_year - 1950) / 10; // Scale by birth year
+                node.y = Math.random() * 0.5 - 0.25; // Random vertical position
+            });
+            createPlot('timeline');
+        }
+
+        function resetView() {
+            showHierarchical();
+        }
+
+        // Initialize with hierarchical view
+        showHierarchical();
+    </script>
+</body>
+</html>
