@@ -1,1022 +1,166 @@
-
 <!DOCTYPE html>
-
-
-<html lang="en" data-content_root="./" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Slektstre med NetworkX &#8212; Slektstre med NetworkX - En komplett guide</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
-
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="🌳 Slektstrær og Grafer - En Introduksjon" href="notebooks/00_slektstraer_og_grafer.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slektstre med NetworkX - HTML-versjon</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .version-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .chapter-section {
+            margin: 30px 0;
+        }
+        .chapter-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-left: 4px solid #3498db;
+        }
+        .chapter-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+        }
+        .chapter-link:hover {
+            background-color: #2980b9;
+        }
+        .description {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .colab-link {
+            background-color: #ff6b35;
+        }
+        .colab-link:hover {
+            background-color: #e55a2b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 Slektstre med NetworkX - HTML-versjon</h1>
         
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="#">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">Slektstre med NetworkX - En komplett guide</p>
-  
-</a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
-                    Slektstre med NetworkX
-                </a>
-            </li>
-        </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notebooks/00_slektstraer_og_grafer.html">🌳 Slektstrær og Grafer - En Introduksjon</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="notebooks/01_introduksjon.html">Kapittel 2: Introduksjon til NetworkX</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/02_bygg_tre_manuelt.html">Bygge slektstre manuelt - REN VERSJON</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="notebooks/03_importer_data.html">Kapittel 4: Importer data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/04_visualisering.html">Kapittel 5: Visualisering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/05_eksterne_databaser.html">Kapittel 6: Eksterne databaser</a></li>
-</ul>
-
-    </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</button></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/README.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Slektstre med NetworkX</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podcast-lydinnhold">🎧 Podcast / Lydinnhold</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-notebook-cleanup">🧹 Enhanced Notebook Cleanup</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk-english">🇳🇴 Norsk / 🇬🇧 English</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk-hovedsprak">Norsk (Hovedspråk)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hovedfunksjoner">Hovedfunksjoner</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installasjon">Installasjon</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rask-start">Rask start</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apne-i-google-colab-open-in-google-colab">Åpne i Google Colab / Open in Google Colab</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataformat">Dataformat</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiseringer">Visualiseringer</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksterne-databaser">Eksterne databaser</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#english">English</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podcast-audio-content">🎧 Podcast / Audio Content</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Jupyter Notebooks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizations">Visualizations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-databases">External Databases</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teknisk-informasjon-technical-information">Teknisk informasjon / Technical Information</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avhengigheter-dependencies">Avhengigheter / Dependencies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prosjektstruktur-project-structure">Prosjektstruktur / Project Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lisens-license">Lisens / License</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handtering-av-sensitive-data-handling-sensitive-data">🔒 Håndtering av sensitive data / Handling Sensitive Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#public-repository-offentlig-repository">🌍 Public Repository / Offentlig Repository</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bidrag-contributing">Bidrag / Contributing</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generer-pdf-bok-generate-pdf-book">📚 Generer PDF-bok / Generate PDF Book</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bok-redigering-book-editing">📖 Bok-redigering / Book Editing</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rask-start-for-bok-redigering-quick-start-for-book-editing">🚀 Rask start for bok-redigering / Quick start for book editing</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utviklingsverktoy-development-tools">🛠️ Utviklingsverktøy / Development Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kontakt-contact">Kontakt / Contact</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
+        <div class="version-info">
+            <strong>Oppdatert versjon:</strong> 1.01<br>
+            <strong>Dato:</strong> 12 Oktober 2025
         </div>
-    </div>
-</div>
-
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <!-- Last updated: 12 Oktober 2025 -->
-<section class="tex2jax_ignore mathjax_ignore" id="slektstre-med-networkx">
-<h1>Slektstre med NetworkX<a class="headerlink" href="#slektstre-med-networkx" title="Link to this heading">#</a></h1>
-<p>Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved hjelp av NetworkX og Jupyter notebooks.</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a> <a class="reference external" href="https://www.python.org/downloads/"><img alt="Python 3.8+" src="https://img.shields.io/badge/python-3.8+-blue.svg" /></a></p>
-<section id="podcast-lydinnhold">
-<h2>🎧 Podcast / Lydinnhold<a class="headerlink" href="#podcast-lydinnhold" title="Link to this heading">#</a></h2>
-<p><strong>Slektstre med Python og Grafteori - Slik Analyserer du Din Familie</strong></p>
-<p><strong>📥 Last ned podcast-filer:</strong></p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3">MP3 (universell kompatibilitet)</a> - 20MB</p></li>
-<li><p><a class="reference external" href="https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a">M4A (høy kvalitet)</a> - 40MB</p></li>
-</ul>
-<p><strong>🔧 For å spille av:</strong></p>
-<ol class="arabic simple">
-<li><p>Klikk på lenken ovenfor for å laste ned</p></li>
-<li><p>Åpne med din foretrukne lydspiller</p></li>
-<li><p>Eller høre direkte i nettleseren (støtter MP3/M4A)</p></li>
-</ol>
-<p><strong>💡 Tips:</strong> Du kan også høre på podcasten direkte i Jupyter Notebook ved å bruke:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">IPython.display</span> <span class="k">as</span> <span class="nn">ipd</span>
-<span class="c1"># Fra repository-rot:</span>
-<span class="n">ipd</span><span class="o">.</span><span class="n">Audio</span><span class="p">(</span><span class="s1">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># Eller fra notebooks/-mappen:</span>
-<span class="c1"># ipd.Audio(&#39;../podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;, embed=False)</span>
-</pre></div>
-</div>
-<p><strong>🎧 Eller åpne <a class="reference internal" href="notebooks/00_slektstraer_og_grafer.html"><span class="std std-doc">notebook 00_slektstraer_og_grafer.ipynb</span></a> som har en forbedret audio-spiller med:</strong></p>
-<ul class="simple">
-<li><p>Automatisk path-deteksjon (fungerer både lokalt og i Google Colab)</p></li>
-<li><p>HTML5 audio som fallback</p></li>
-<li><p><strong>Enhanced cleanup</strong> for å unngå store notebook-filer (fjerner embedded audio/bilder)</p></li>
-<li><p>Bilingual instruksjoner og feedback</p></li>
-</ul>
-<section id="enhanced-notebook-cleanup">
-<h3>🧹 Enhanced Notebook Cleanup<a class="headerlink" href="#enhanced-notebook-cleanup" title="Link to this heading">#</a></h3>
-<p>Notebooks kan bli store på grunn av embedded audio/bilde-data. Vi har laget en forbedret cleanup-løsning:</p>
-<p><strong>Automatisk cleanup i notebook:</strong></p>
-<ul class="simple">
-<li><p>Kjør cleanup-cellen i notebooken før commit/push</p></li>
-<li><p>Fjerner automatisk embedded audio og bilder</p></li>
-<li><p>Reduserer filstørrelse med opptil 99% (fra 27MB til 43KB)</p></li>
-</ul>
-<p><strong>Manuell cleanup fra kommandolinje:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bruk det forbedrede cleanup-scriptet</span>
-python<span class="w"> </span>scripts/enhanced_notebook_cleanup.py<span class="w"> </span>notebooks/00_slektstraer_og_grafer.ipynb
-
-<span class="c1"># Eller bruk bash-scriptet</span>
-./scripts/cleanup_notebook.sh<span class="w"> </span>notebooks/00_slektstraer_og_grafer.ipynb
-</pre></div>
-</div>
-<p><strong>Hva cleanup gjør:</strong></p>
-<ul class="simple">
-<li><p>✅ Fjerner alle cell outputs</p></li>
-<li><p>✅ Fjerner embedded base64 audio-data</p></li>
-<li><p>✅ Fjerner embedded base64 bilder</p></li>
-<li><p>✅ Beholder notebook-strukturen intakt</p></li>
-<li><p>✅ Audio-spilleren fungerer fortsatt når notebooken kjøres på nytt</p></li>
-</ul>
-</section>
-</section>
-<section id="norsk-english">
-<h2>🇳🇴 Norsk / 🇬🇧 English<a class="headerlink" href="#norsk-english" title="Link to this heading">#</a></h2>
-<section id="norsk-hovedsprak">
-<h3>Norsk (Hovedspråk)<a class="headerlink" href="#norsk-hovedsprak" title="Link to this heading">#</a></h3>
-<p>Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, importere/eksportere data i flere formater, og visualisere slektskap på forskjellige måter. Prosjektet støtter både norsk og engelsk språk.</p>
-<section id="hovedfunksjoner">
-<h4>Hovedfunksjoner<a class="headerlink" href="#hovedfunksjoner" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>📊 <strong>Rike metadata</strong>: Fødselsdatoer, steder, bilder, historier og notater</p></li>
-<li><p>🔄 <strong>Fleksibel datainput</strong>: Manuell programmatisk opprettelse og fil-basert import</p></li>
-<li><p>📈 <strong>Avanserte visualiseringer</strong>: Hierarkisk, vifte-diagram, interaktiv og timeglass-visning</p></li>
-<li><p>🌍 <strong>Tospråklig støtte</strong>: Norsk (primær) og engelsk</p></li>
-<li><p>📁 <strong>Flere dataformater</strong>: YAML, JSON, CSV og GEDCOM</p></li>
-<li><p>🔍 <strong>Slektsanalyse</strong>: Beregning av slektskap, generasjonsnivåer og statistikk</p></li>
-<li><p>🌐 <strong>Eksterne databaser</strong>: Integrasjon med FamilySearch, Digitalarkivet og Wikipedia API</p></li>
-</ul>
-</section>
-<section id="installasjon">
-<h4>Installasjon<a class="headerlink" href="#installasjon" title="Link to this heading">#</a></h4>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Opprett conda-miljø (anbefalt)</span>
-conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
-conda<span class="w"> </span>activate<span class="w"> </span>slektstre
-
-<span class="c1"># Eller installer pakker direkte</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-
-<span class="c1"># For kun bok-generering</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-book.txt
-</pre></div>
-</div>
-</section>
-<section id="rask-start">
-<h4>Rask start<a class="headerlink" href="#rask-start" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importer modulene direkte fra src-mappen</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Gender</span>
-<span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-
-<span class="c1"># Opprett personer</span>
-<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
-    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Arvid&quot;</span><span class="p">,</span>
-    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span> 
-    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
-    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span>
-<span class="p">)</span>
-
-<span class="c1"># Opprett slektstre</span>
-<span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
-<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
-
-<span class="c1"># Visualiser</span>
-<span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="n">plot_hierarchical_tree</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_hierarchical_tree</span><span class="p">(</span><span class="n">slektstre</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="jupyter-notebooks">
-<h4>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Link to this heading">#</a></h4>
-<p>Prosjektet inkluderer seks omfattende notebooks:</p>
-<ol class="arabic simple" start="0">
-<li><p><strong>00_slektstraer_og_grafer.ipynb</strong> - Introduksjon til slektstrær og grafteori</p></li>
-<li><p><strong>01_introduksjon.ipynb</strong> - Oversikt og grunnleggende konsepter</p></li>
-<li><p><strong>02_bygg_tre_manuelt.ipynb</strong> - Bygge slektstreet programmatisk</p></li>
-<li><p><strong>03_importer_data.ipynb</strong> - Import/eksport av data</p></li>
-<li><p><strong>04_visualisering.ipynb</strong> - Alle visualiseringsalternativer</p></li>
-<li><p><strong>05_eksterne_databaser.ipynb</strong> - Integrasjon med genealogi-databaser og API-er</p></li>
-</ol>
-<p><strong>📚 Nytt: 00_slektstraer_og_grafer.ipynb</strong> er en omfattende introduksjonsnotebook som kobler sammen genealogi og grafteori. Den dekker grunnleggende konsepter, praktiske øvelser, og viser hvordan NetworkX brukes til å bygge og analysere slektstrær. Perfekt for nybegynnere som vil forstå både slektstrær og den underliggende matematikken.</p>
-</section>
-<section id="apne-i-google-colab-open-in-google-colab">
-<h4>Åpne i Google Colab / Open in Google Colab<a class="headerlink" href="#apne-i-google-colab-open-in-google-colab" title="Link to this heading">#</a></h4>
-<p>Alle notebooks kan kjøres direkte i Google Colab uten installasjon:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>00_slektstraer_og_grafer.ipynb</strong> - Introduksjon til slektstrær og grafteori</p></li>
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>01_introduksjon.ipynb</strong> - Oversikt og grunnleggende konsepter</p></li>
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>02_bygg_tre_manuelt.ipynb</strong> - Bygge slektstreet programmatisk</p></li>
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>03_importer_data.ipynb</strong> - Import/eksport av data</p></li>
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>04_visualisering.ipynb</strong> - Alle visualiseringsalternativer</p></li>
-<li><p><a class="reference external" href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb"><img alt="Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> <strong>05_eksterne_databaser.ipynb</strong> - Integrasjon med genealogi-databaser og API-er</p></li>
-</ul>
-<p><strong>💡 Tips:</strong> Klikk på Colab-badgen for å åpne notebooken direkte i Google Colab. Alle avhengigheter installeres automatisk!</p>
-</section>
-<section id="dataformat">
-<h4>Dataformat<a class="headerlink" href="#dataformat" title="Link to this heading">#</a></h4>
-<p>Slektstreet støtter flere formater:</p>
-<p><strong>YAML (anbefalt)</strong>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">personer</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1&quot;</span>
-<span class="w">    </span><span class="nt">fornavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Arvid&quot;</span>
-<span class="w">    </span><span class="nt">etternavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lundervold&quot;</span>
-<span class="w">    </span><span class="nt">kjønn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;male&quot;</span>
-<span class="w">    </span><span class="nt">fødselsdato</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1985-12-10&quot;</span>
-<span class="w">    </span><span class="nt">fødested</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bergen&quot;</span>
-<span class="nt">ekteskap</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">partner1_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1&quot;</span>
-<span class="w">    </span><span class="nt">partner2_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p2&quot;</span>
-<span class="w">    </span><span class="nt">ekteskapsdato</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2010-06-18&quot;</span>
-</pre></div>
-</div>
-<p><strong>JSON, CSV og GEDCOM</strong> støttes også.</p>
-</section>
-<section id="visualiseringer">
-<h4>Visualiseringer<a class="headerlink" href="#visualiseringer" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><strong>Hierarkisk slektstre</strong>: Tradisjonell tre-struktur</p></li>
-<li><p><strong>Vifte-diagram</strong>: Sirkulær visning av forfedre</p></li>
-<li><p><strong>Interaktiv visning</strong>: Plotly-basert med hover-info</p></li>
-<li><p><strong>Timeglass-visning</strong>: Fokusperson i midten</p></li>
-<li><p><strong>Statistikk-diagrammer</strong>: Kjønnsfordeling, aldersfordeling, etc.</p></li>
-</ul>
-</section>
-<section id="eksterne-databaser">
-<h4>Eksterne databaser<a class="headerlink" href="#eksterne-databaser" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><strong>FamilySearch API</strong>: Verdens største genealogi-database (gratis)</p></li>
-<li><p><strong>Digitalarkivet</strong>: Norske historiske kilder og arkiver (gratis)</p></li>
-<li><p><strong>Wikipedia API</strong>: Biografisk informasjon om kjente personer (gratis)</p></li>
-<li><p><strong>Data-konvertering</strong>: Automatisk konvertering fra eksterne formater</p></li>
-<li><p><strong>Eksport</strong>: Til forskjellige formater for deling med andre</p></li>
-</ul>
-</section>
-</section>
-<section id="english">
-<h3>English<a class="headerlink" href="#english" title="Link to this heading">#</a></h3>
-<p>The Slektstre project allows you to build complex family trees with rich metadata, import/export data in multiple formats, and visualize relationships in various ways. The project supports both Norwegian and English languages.</p>
-</section>
-</section>
-<section id="podcast-audio-content">
-<h2>🎧 Podcast / Audio Content<a class="headerlink" href="#podcast-audio-content" title="Link to this heading">#</a></h2>
-<p><strong>Slektstre med Python og Grafteori - Slik Analyserer du Din Familie</strong></p>
-<blockquote>
-<div><p><strong>📝 Note:</strong> Since this is a private repository, you need to download the podcast files locally to play them.</p>
-</div></blockquote>
-<p><strong>📥 Download podcast files:</strong></p>
-<ul class="simple">
-<li><p><a class="reference download internal" download="" href="_downloads/153336173156810867b273b9e9614bea/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3"><span class="xref download myst">MP3 (universal compatibility)</span></a> - 20MB</p></li>
-<li><p><a class="reference download internal" download="" href="_downloads/2792d27b90ac936095cb3aa32cd6dc7b/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a"><span class="xref download myst">M4A (high quality)</span></a> - 40MB</p></li>
-</ul>
-<blockquote>
-<div><p><strong>📝 Note:</strong> Podcast files are not included in the Git repository due to size. You need to download them separately or generate them locally.</p>
-</div></blockquote>
-<p><strong>🔧 To play:</strong></p>
-<ol class="arabic simple">
-<li><p>Download the file to your computer</p></li>
-<li><p>Open with your preferred audio player</p></li>
-<li><p>Or use an online audio player that supports local files</p></li>
-</ol>
-<p><strong>💡 Tip:</strong> You can also listen to the podcast directly in Jupyter Notebook using:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">IPython.display</span> <span class="k">as</span> <span class="nn">ipd</span>
-<span class="n">ipd</span><span class="o">.</span><span class="n">Audio</span><span class="p">(</span><span class="s1">&#39;podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<section id="key-features">
-<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>📊 <strong>Rich metadata</strong>: Birth dates, places, photos, stories and notes</p></li>
-<li><p>🔄 <strong>Flexible data input</strong>: Manual programmatic creation and file-based import</p></li>
-<li><p>📈 <strong>Advanced visualizations</strong>: Hierarchical, fan chart, interactive and hourglass views</p></li>
-<li><p>🌍 <strong>Bilingual support</strong>: Norwegian (primary) and English</p></li>
-<li><p>📁 <strong>Multiple data formats</strong>: YAML, JSON, CSV and GEDCOM</p></li>
-<li><p>🔍 <strong>Family analysis</strong>: Relationship calculation, generation levels and statistics</p></li>
-<li><p>🌐 <strong>External databases</strong>: Integration with FamilySearch, Digitalarkivet and Wikipedia API</p></li>
-</ul>
-</section>
-<section id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create conda environment (recommended)</span>
-conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
-conda<span class="w"> </span>activate<span class="w"> </span>slektstre
-
-<span class="c1"># Or install packages directly</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-
-<span class="c1"># For book generation only</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-book.txt
-</pre></div>
-</div>
-</section>
-<section id="quick-start">
-<h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import modules directly from src folder</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Gender</span>
-<span class="kn">from</span> <span class="nn">tree</span> <span class="kn">import</span> <span class="n">Slektstre</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-
-<span class="c1"># Create person</span>
-<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span>
-    <span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Arvid&quot;</span><span class="p">,</span>
-    <span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Lundervold&quot;</span><span class="p">,</span>
-    <span class="n">kjønn</span><span class="o">=</span><span class="n">Gender</span><span class="o">.</span><span class="n">MALE</span><span class="p">,</span>
-    <span class="n">fødselsdato</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">fødested</span><span class="o">=</span><span class="s2">&quot;Bergen&quot;</span>
-<span class="p">)</span>
-
-<span class="c1"># Create family tree</span>
-<span class="n">slektstre</span> <span class="o">=</span> <span class="n">Slektstre</span><span class="p">()</span>
-<span class="n">slektstre</span><span class="o">.</span><span class="n">add_person</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
-
-<span class="c1"># Visualize</span>
-<span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="n">plot_hierarchical_tree</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_hierarchical_tree</span><span class="p">(</span><span class="n">slektstre</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="id1">
-<h3>Jupyter Notebooks<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>The project includes six comprehensive notebooks:</p>
-<ol class="arabic simple" start="0">
-<li><p><strong>00_slektstraer_og_grafer.ipynb</strong> - Introduction to family trees and graph theory</p></li>
-<li><p><strong>01_introduksjon.ipynb</strong> - Overview and basic concepts</p></li>
-<li><p><strong>02_bygg_tre_manuelt.ipynb</strong> - Building family trees programmatically</p></li>
-<li><p><strong>03_importer_data.ipynb</strong> - Data import/export</p></li>
-<li><p><strong>04_visualisering.ipynb</strong> - All visualization options</p></li>
-<li><p><strong>05_eksterne_databaser.ipynb</strong> - Integration with genealogy databases and APIs</p></li>
-</ol>
-<p><strong>📚 New: 00_slektstraer_og_grafer.ipynb</strong> is a comprehensive introductory notebook that bridges genealogy and graph theory. It covers fundamental concepts, practical exercises, and shows how NetworkX is used to build and analyze family trees. Perfect for beginners who want to understand both family trees and the underlying mathematics.</p>
-</section>
-<section id="data-format">
-<h3>Data Format<a class="headerlink" href="#data-format" title="Link to this heading">#</a></h3>
-<p>The family tree supports multiple formats:</p>
-<p><strong>YAML (recommended)</strong>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">personer</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1&quot;</span>
-<span class="w">    </span><span class="nt">fornavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Arvid&quot;</span>
-<span class="w">    </span><span class="nt">etternavn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lundervold&quot;</span>
-<span class="w">    </span><span class="nt">kjønn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;male&quot;</span>
-<span class="w">    </span><span class="nt">fødselsdato</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1985-12-10&quot;</span>
-<span class="w">    </span><span class="nt">fødested</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bergen&quot;</span>
-<span class="nt">ekteskap</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">partner1_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1&quot;</span>
-<span class="w">    </span><span class="nt">partner2_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p2&quot;</span>
-<span class="w">    </span><span class="nt">ekteskapsdato</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2010-06-18&quot;</span>
-</pre></div>
-</div>
-<p><strong>JSON, CSV and GEDCOM</strong> are also supported.</p>
-</section>
-<section id="visualizations">
-<h3>Visualizations<a class="headerlink" href="#visualizations" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Hierarchical family tree</strong>: Traditional tree structure</p></li>
-<li><p><strong>Fan chart</strong>: Circular ancestor view</p></li>
-<li><p><strong>Interactive view</strong>: Plotly-based with hover info</p></li>
-<li><p><strong>Hourglass view</strong>: Focus person in center</p></li>
-<li><p><strong>Statistics charts</strong>: Gender distribution, age distribution, etc.</p></li>
-</ul>
-</section>
-<section id="external-databases">
-<h3>External Databases<a class="headerlink" href="#external-databases" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>FamilySearch API</strong>: World’s largest genealogy database (free)</p></li>
-<li><p><strong>Digitalarkivet</strong>: Norwegian historical sources and archives (free)</p></li>
-<li><p><strong>Wikipedia API</strong>: Biographical information about notable people (free)</p></li>
-<li><p><strong>Data conversion</strong>: Automatic conversion from external formats</p></li>
-<li><p><strong>Export</strong>: To various formats for sharing with others</p></li>
-</ul>
-</section>
-</section>
-<section id="teknisk-informasjon-technical-information">
-<h2>Teknisk informasjon / Technical Information<a class="headerlink" href="#teknisk-informasjon-technical-information" title="Link to this heading">#</a></h2>
-<section id="avhengigheter-dependencies">
-<h3>Avhengigheter / Dependencies<a class="headerlink" href="#avhengigheter-dependencies" title="Link to this heading">#</a></h3>
-<p><strong>Core slektstre packages:</strong></p>
-<ul class="simple">
-<li><p>Python 3.12+</p></li>
-<li><p>NetworkX 3.0+</p></li>
-<li><p>Matplotlib 3.7+</p></li>
-<li><p>Plotly 5.0+</p></li>
-<li><p>Pydantic 2.0+</p></li>
-<li><p>PyYAML 6.0+</p></li>
-<li><p>Pandas 2.0+</p></li>
-<li><p>Jupyter 1.0+</p></li>
-</ul>
-<p><strong>Book generation packages:</strong></p>
-<ul class="simple">
-<li><p>Jupyter Book 0.15+</p></li>
-<li><p>Sphinx 5.0+</p></li>
-<li><p>nbconvert[webpdf] 7.0+</p></li>
-<li><p>Playwright 1.55+</p></li>
-<li><p>PyPDF2 3.0+</p></li>
-<li><p>Pandoc 3.0+</p></li>
-</ul>
-</section>
-<section id="prosjektstruktur-project-structure">
-<h3>Prosjektstruktur / Project Structure<a class="headerlink" href="#prosjektstruktur-project-structure" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>slektstre/
-├── src/                    # Kildekode / Source code
-│   ├── __init__.py
-│   ├── models.py          # Pydantic modeller / Models
-│   ├── tree.py            # Slektstre-klasse / Main class
-│   ├── family_io.py       # Import/eksport / I/O functions
-│   ├── visualization.py   # Visualisering / Visualization
-│   └── localization.py    # Lokalisering / Localization
-├── notebooks/             # Jupyter notebooks
-├── data/                  # Eksempeldata / Sample data
-├── assets/                # Bilder og media / Images and media
-├── environment.yml         # Conda miljø / Conda environment
-├── requirements.txt       # Python pakker / Python packages
-└── README.md              # Dokumentasjon / Documentation
-</pre></div>
-</div>
-</section>
-<section id="lisens-license">
-<h3>Lisens / License<a class="headerlink" href="#lisens-license" title="Link to this heading">#</a></h3>
-<p>MIT License - se LICENSE fil for detaljer / see LICENSE file for details.</p>
-</section>
-<section id="handtering-av-sensitive-data-handling-sensitive-data">
-<h3>🔒 Håndtering av sensitive data / Handling Sensitive Data<a class="headerlink" href="#handtering-av-sensitive-data-handling-sensitive-data" title="Link to this heading">#</a></h3>
-<p>For detaljert veiledning om å håndtere private familie-data, se <a class="reference internal" href="SENSITIVE_DATA_GUIDE.html"><span class="std std-doc">SENSITIVE_DATA_GUIDE.md</span></a>.</p>
-<p><strong>For detailed guidance on managing private family data, see <a class="reference internal" href="SENSITIVE_DATA_GUIDE.html"><span class="std std-doc">SENSITIVE_DATA_GUIDE.md</span></a>.</strong></p>
-<p>En privat repository template er tilgjengelig i <code class="docutils literal notranslate"><span class="pre">templates/private-repo/</span></code>.</p>
-<p><strong>A private repository template is available in <code class="docutils literal notranslate"><span class="pre">templates/private-repo/</span></code>.</strong></p>
-</section>
-<section id="public-repository-offentlig-repository">
-<h3>🌍 Public Repository / Offentlig Repository<a class="headerlink" href="#public-repository-offentlig-repository" title="Link to this heading">#</a></h3>
-<p>Dette er nå et <strong>public repository</strong> som alle kan se og bruke. Dette betyr:</p>
-<p><strong>✅ Fordeler:</strong></p>
-<ul class="simple">
-<li><p>Alle kan teste notebooks i Google Colab uten autentisering</p></li>
-<li><p>Bedre muligheter for å dele kunnskap og lære sammen</p></li>
-<li><p>Open source-utvikling og bidrag fra samfunnet</p></li>
-<li><p>Enklere å finne og bruke for nye brukere</p></li>
-</ul>
-<p><strong>⚠️ Viktig:</strong></p>
-<ul class="simple">
-<li><p>Ingen sensitive familie-data er inkludert i dette repositoryet</p></li>
-<li><p>Kun syntetiske eksempler og læringsressurser</p></li>
-<li><p>For ekte familie-data, bruk private repository-malen</p></li>
-</ul>
-</section>
-<section id="bidrag-contributing">
-<h3>Bidrag / Contributing<a class="headerlink" href="#bidrag-contributing" title="Link to this heading">#</a></h3>
-<p>Bidrag er velkommen! Se <a class="reference internal" href="DEVELOPER.html"><span class="std std-doc">DEVELOPER.md</span></a> for detaljerte instruksjoner.</p>
-<p><strong>Hvordan bidra:</strong></p>
-<ol class="arabic simple">
-<li><p>Fork repositoryet</p></li>
-<li><p>Lag en feature branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/ny-funksjon</span></code>)</p></li>
-<li><p>Test endringene dine i Google Colab</p></li>
-<li><p>Send en pull request</p></li>
-</ol>
-<p><strong>Contributions are welcome! See <a class="reference internal" href="DEVELOPER.html"><span class="std std-doc">DEVELOPER.md</span></a> for detailed instructions.</strong></p>
-<p><strong>How to contribute:</strong></p>
-<ol class="arabic simple">
-<li><p>Fork the repository</p></li>
-<li><p>Create a feature branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/new-feature</span></code>)</p></li>
-<li><p>Test your changes in Google Colab</p></li>
-<li><p>Submit a pull request</p></li>
-</ol>
-</section>
-<section id="generer-pdf-bok-generate-pdf-book">
-<h3>📚 Generer PDF-bok / Generate PDF Book<a class="headerlink" href="#generer-pdf-bok-generate-pdf-book" title="Link to this heading">#</a></h3>
-<p>Du kan generere en komplett PDF-bok av hele prosjektet:</p>
-<p><strong>You can generate a complete PDF book of the entire project:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enkel metode / Simple method</span>
-make<span class="w"> </span>book
-
-<span class="c1"># Eller manuelt / Or manually</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-book.txt
-jupyter-book<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>--builder<span class="w"> </span>pdfhtml
-</pre></div>
-</div>
-<p>Boken vil inkludere <a class="reference external" href="http://README.md">README.md</a> som introduksjon, fulgt av alle notebooks som separate kapitler.</p>
-<p><strong>The book will include <a class="reference external" href="http://README.md">README.md</a> as introduction, followed by all notebooks as separate chapters.</strong></p>
-<section id="bok-redigering-book-editing">
-<h4>📖 Bok-redigering / Book Editing<a class="headerlink" href="#bok-redigering-book-editing" title="Link to this heading">#</a></h4>
-<p>For detaljerte instruksjoner om hvordan du redigerer boken, legger til kapitler, eller setter opp automatisk oppdatering, se <a class="reference internal" href="BOK-REDIGERING.html"><span class="std std-doc">BOK-REDIGERING.md</span></a>.</p>
-<p><strong>For detailed instructions on how to edit the book, add chapters, or set up automatic updates, see <a class="reference internal" href="BOK-REDIGERING.html"><span class="std std-doc">BOK-REDIGERING.md</span></a>.</strong></p>
-</section>
-<section id="rask-start-for-bok-redigering-quick-start-for-book-editing">
-<h4>🚀 Rask start for bok-redigering / Quick start for book editing<a class="headerlink" href="#rask-start-for-bok-redigering-quick-start-for-book-editing" title="Link to this heading">#</a></h4>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valider eksisterende bok / Validate existing book</span>
-make<span class="w"> </span>validate
-
-<span class="c1"># Start automatisk overvåkning / Start automatic monitoring</span>
-make<span class="w"> </span>watch
-
-<span class="c1"># Generer bok på nytt / Regenerate book</span>
-make<span class="w"> </span>book
-</pre></div>
-</div>
-</section>
-</section>
-<section id="utviklingsverktoy-development-tools">
-<h3>🛠️ Utviklingsverktøy / Development Tools<a class="headerlink" href="#utviklingsverktoy-development-tools" title="Link to this heading">#</a></h3>
-<p>For detaljerte instruksjoner om utvikling og repository-vedlikehold, se <a class="reference internal" href="DEVELOPER.html"><span class="std std-doc">DEVELOPER.md</span></a>.</p>
-<p><strong>For detailed instructions on development and repository maintenance, see <a class="reference internal" href="DEVELOPER.html"><span class="std std-doc">DEVELOPER.md</span></a>.</strong></p>
-<p><strong>Hurtigreferanse / Quick reference:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fjern store filer / Remove large files</span>
-pip<span class="w"> </span>install<span class="w"> </span>git-filter-repo
-git<span class="w"> </span>filter-repo<span class="w"> </span>--path<span class="w"> </span>large_file.ipynb<span class="w"> </span>--invert-paths<span class="w"> </span>--force
-
-<span class="c1"># Rydd notebook outputs / Clean notebook outputs</span>
-jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--clear-output<span class="w"> </span>--inplace<span class="w"> </span>notebook.ipynb
-</pre></div>
-</div>
-</section>
-<section id="kontakt-contact">
-<h3>Kontakt / Contact<a class="headerlink" href="#kontakt-contact" title="Link to this heading">#</a></h3>
-<p>Arvid Lundervold - <a class="reference external" href="https://github.com/arvid">GitHub</a></p>
-</section>
-</section>
-<div class="toctree-wrapper compound">
-</div>
-</section>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="right-next"
-       href="notebooks/00_slektstraer_og_grafer.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🌳 Slektstrær og Grafer - En Introduksjon</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podcast-lydinnhold">🎧 Podcast / Lydinnhold</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-notebook-cleanup">🧹 Enhanced Notebook Cleanup</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk-english">🇳🇴 Norsk / 🇬🇧 English</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#norsk-hovedsprak">Norsk (Hovedspråk)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hovedfunksjoner">Hovedfunksjoner</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installasjon">Installasjon</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rask-start">Rask start</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apne-i-google-colab-open-in-google-colab">Åpne i Google Colab / Open in Google Colab</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataformat">Dataformat</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiseringer">Visualiseringer</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksterne-databaser">Eksterne databaser</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#english">English</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podcast-audio-content">🎧 Podcast / Audio Content</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Jupyter Notebooks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizations">Visualizations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#external-databases">External Databases</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teknisk-informasjon-technical-information">Teknisk informasjon / Technical Information</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avhengigheter-dependencies">Avhengigheter / Dependencies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prosjektstruktur-project-structure">Prosjektstruktur / Project Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lisens-license">Lisens / License</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handtering-av-sensitive-data-handling-sensitive-data">🔒 Håndtering av sensitive data / Handling Sensitive Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#public-repository-offentlig-repository">🌍 Public Repository / Offentlig Repository</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bidrag-contributing">Bidrag / Contributing</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generer-pdf-bok-generate-pdf-book">📚 Generer PDF-bok / Generate PDF Book</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bok-redigering-book-editing">📖 Bok-redigering / Book Editing</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rask-start-for-bok-redigering-quick-start-for-book-editing">🚀 Rask start for bok-redigering / Quick start for book editing</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utviklingsverktoy-development-tools">🛠️ Utviklingsverktøy / Development Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kontakt-contact">Kontakt / Contact</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Arvid Lundervold
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  <p class="copyright">
-    
-      © Copyright 2023.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
         
-
-      </main>
+        <div class="description">
+            <h3>📚 Om denne HTML-versjonen</h3>
+            <p>Dette er den interaktive HTML-versjonen av boken "Slektstre med NetworkX". 
+            Du kan lese hvert kapittel direkte i nettleseren, eller kjøre dem interaktivt i Google Colab.</p>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 0: Slektstrær og Grafer</div>
+            <a href="notebooks/00_slektstraer_og_grafer.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 1: Introduksjon</div>
+            <a href="notebooks/01_introduksjon.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 2: Bygge tre manuelt</div>
+            <a href="notebooks/02_bygg_tre_manuelt.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 3: Importer data</div>
+            <a href="notebooks/03_importer_data.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 4: Visualisering</div>
+            <a href="notebooks/04_visualisering.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="chapter-section">
+            <div class="chapter-title">📖 Kapitel 5: Eksterne databaser</div>
+            <a href="notebooks/05_eksterne_databaser.html" class="chapter-link">
+                📄 Les HTML-versjon
+            </a>
+            <a href="https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb" class="chapter-link colab-link">
+                🔬 Kjør i Google Colab
+            </a>
+        </div>
+        
+        <div class="description">
+            <h3>🔗 Andre ressurser</h3>
+            <p>
+                <a href="index.html" class="chapter-link">← Tilbake til forsiden</a>
+                <a href="Slektstre_med_NetworkX_Komplett_Bok_v1.01.pdf" class="chapter-link">📖 Last ned PDF-versjon</a>
+                <a href="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" class="chapter-link">🎧 Podcast</a>
+            </p>
+        </div>
+        
+        <p style="text-align: center; margin-top: 40px; color: #7f8c8d;">
+            <strong>Av Arvid Lundervold</strong><br>
+            (etter en idé fra Helena Lundervold Pedersen)
+        </p>
     </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
+</body>
 </html>
