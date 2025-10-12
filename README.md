@@ -19,9 +19,21 @@ Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved 
 
 ## 🎧 Podcast: Slektstre med Python og Grafteori - Slik Analyserer du Din Familie
 
+<div style="text-align: center; margin: 20px 0;">
+  <p>
+    <a href="https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" 
+       style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+      🎵 Spill MP3 (20MB)
+    </a>
+  </p>
+  <p><small>En omfattende introduksjon til slektstre-prosjektet (NotebookLM)</small></p>
+</div>
 
+<!--
 - [🎵 MP3-fil (20MB)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - Klikk for å spille i nettleseren
 - [🎵 M4A-fil (40MB)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - Høyere kvalitet
+-->
+
 
 **💡 Tips:** Klikk på lenkene ovenfor for å spille podcasten direkte i nettleseren eller laste ned til din enhet.
 
