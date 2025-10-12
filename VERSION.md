@@ -1,5 +1,30 @@
 # Slektstre med NetworkX - Versjonshistorikk
 
+## Versjon 1.1 - 12 Oktober 2025
+
+### 🎉 Ny funksjonalitet:
+- ✅ Live Demo med interaktive visualiseringer
+- ✅ Colab-badger på alle notebook-kort for umiddelbar interaktivitet
+- ✅ Versjonshåndteringssystem med automatiserte scripts
+- ✅ Forbedret HTML-forside med hurtigtilgang
+- ✅ README.html tilgjengelig på GitHub Pages
+- ✅ Podcast tilgjengelig direkte fra forsiden
+
+### 🔧 Forbedringer:
+- ✅ Responsivt design for alle enheter
+- ✅ Forbedret navigasjon og brukeropplevelse
+- ✅ Konsistent styling på tvers av alle sider
+- ✅ Flerspråklig støtte (norsk/engelsk)
+- ✅ Automatisert versjonshåndtering
+
+### 📚 Dokumentasjon:
+- ✅ Oppdatert README med installasjonsinstruksjoner
+- ✅ Klargjort alle notebooks for Colab-kjøring
+- ✅ Lagt til Helena Lundervold Pedersen som idéopphav
+- ✅ Komplett versjonshistorikk og planlegging
+
+---
+
 ## Versjon 1.01 - 12 Oktober 2025
 
 ### 🎉 Ny funksjonalitet:
