@@ -217,7 +217,7 @@ slektstre/
 ├── notebooks/             # Jupyter notebooks
 ├── data/                  # Eksempeldata / Sample data
 ├── assets/                # Bilder og media / Images and media
-├── environment.yml         # Conda miljø / Conda environment
+├── environment.yml        # Conda miljø / Conda environment
 ├── requirements.txt       # Python pakker / Python packages
 └── README.md              # Dokumentasjon / Documentation
 ```
@@ -243,7 +243,7 @@ Dette er nå et **public repository** som alle kan se og bruke. Dette betyr:
 **✅ Fordeler:**
 - Alle kan teste notebooks i Google Colab uten autentisering
 - Bedre muligheter for å dele kunnskap og lære sammen
-- Open source-utvikling og bidrag fra samfunnet
+- Open source-utvikling og bidrag fra andre
 - Enklere å finne og bruke for nye brukere
 
 **⚠️ Viktig:**
