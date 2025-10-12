@@ -84,8 +84,6 @@ conda activate slektstre
 # Eller installer pakker direkte
 pip install -r requirements.txt
 
-# For kun bok-generering
-pip install -r requirements-book.txt
 ```
 
 #### Rask start
@@ -230,8 +228,6 @@ conda activate slektstre
 # Or install packages directly
 pip install -r requirements.txt
 
-# For book generation only
-pip install -r requirements-book.txt
 ```
 
 #### Quick Start
@@ -330,13 +326,6 @@ ekteskap:
 - Pandas 2.0+
 - Jupyter 1.0+
 
-**Book generation packages:**
-- Jupyter Book 0.15+
-- Sphinx 5.0+
-- nbconvert[webpdf] 7.0+
-- Playwright 1.55+
-- PyPDF2 3.0+
-- Pandoc 3.0+
 
 ### Prosjektstruktur / Project Structure
 
@@ -404,43 +393,6 @@ Bidrag er velkommen! Se [DEVELOPER.md](DEVELOPER.md) for detaljerte instruksjone
 3. Test your changes in Google Colab
 4. Submit a pull request
 
-### 📚 Generer PDF-bok / Generate PDF Book
-
-Du kan generere en komplett PDF-bok av hele prosjektet:
-
-**You can generate a complete PDF book of the entire project:**
-
-```bash
-# Enkel metode / Simple method
-make book
-
-# Eller manuelt / Or manually
-pip install -r requirements-book.txt
-jupyter-book build . --builder pdfhtml
-```
-
-Boken vil inkludere README.md som introduksjon, fulgt av alle notebooks som separate kapitler.
-
-**The book will include README.md as introduction, followed by all notebooks as separate chapters.**
-
-#### 📖 Bok-redigering / Book Editing
-
-For detaljerte instruksjoner om hvordan du redigerer boken, legger til kapitler, eller setter opp automatisk oppdatering, se [BOK-REDIGERING.md](BOK-REDIGERING.md).
-
-**For detailed instructions on how to edit the book, add chapters, or set up automatic updates, see [BOK-REDIGERING.md](BOK-REDIGERING.md).**
-
-#### 🚀 Rask start for bok-redigering / Quick start for book editing
-
-```bash
-# Valider eksisterende bok / Validate existing book
-make validate
-
-# Start automatisk overvåkning / Start automatic monitoring
-make watch
-
-# Generer bok på nytt / Regenerate book
-make book
-```
 
 ### 🛠️ Utviklingsverktøy / Development Tools
 

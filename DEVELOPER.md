@@ -176,14 +176,6 @@ pip install git-filter-repo
 #### Testing
 
 ```bash
-# Valider notebooks
-python scripts/validate_book.py
-
-# Test bok-generering
-make book
-
-# Test automatisk overvåkning
-make watch
 ```
 
 ### Bidrag til prosjektet
@@ -274,14 +266,6 @@ pip install git-filter-repo
 #### Testing
 
 ```bash
-# Validate notebooks
-python scripts/validate_book.py
-
-# Test book generation
-make book
-
-# Test automatic monitoring
-make watch
 ```
 
 ### Contributing to the project
@@ -303,5 +287,4 @@ make watch
 ## 📚 Relaterte dokumenter / Related Documents
 
 - [README.md](README.md) - Hoveddokumentasjon / Main documentation
-- [BOK-REDIGERING.md](BOK-REDIGERING.md) - Bok-redigering / Book editing
 - [PODCAST.md](PODCAST.md) - Podcast-instruksjoner / Podcast instructions
