@@ -3,59 +3,36 @@
 
 Et Python-bibliotek for å bygge, administrere og visualisere familie-trær ved hjelp av NetworkX og Jupyter notebooks.
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb)  -> slektstrær og grafer |  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-## 🎧 Podcast / Lydinnhold
 
-**Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
+
+<div style="text-align: center; margin: 20px 0;">
+  <h3>🎧 Podcast: Slektstre med Python og Grafteori - Slik Analyserer du Din Familie</h3>
+  <audio controls style="width: 100%; max-width: 400px; height: 40px;">
+    <source src="podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3" type="audio/mpeg">
+    Din nettleser støtter ikke audio-elementet.
+  </audio>
+  <p><small>En omfattende introduksjon til slektstre-prosjektet (NotebookLM) </small></p>
+</div>
+
 
 **📥 Last ned podcast-filer:**
 - [MP3 (universell kompatibilitet)](https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
-- [M4A (høy kvalitet)](https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
-
-**🔧 For å spille av:**
-1. Klikk på lenken ovenfor for å laste ned
-2. Åpne med din foretrukne lydspiller
-3. Eller høre direkte i nettleseren (støtter MP3/M4A)
+/  [M4A (høy kvalitet)](https://github.com/arvidl/slektstre/raw/main/podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
 
 
-**🎧 Podcasten er tilgjengelig direkte fra denne README-filen:**
-- Klikk på lenkene ovenfor for å laste ned podcast-filene
-- Spill av med din foretrukne lydspiller
-- Eller høre direkte i nettleseren (støtter MP3/M4A)
-
-### 🧹 Enhanced Notebook Cleanup
-
-Notebooks kan bli store på grunn av embedded audio/bilde-data. Vi har laget en forbedret cleanup-løsning:
-
-**Automatisk cleanup i notebook:**
-- Kjør cleanup-cellen i notebooken før commit/push
-- Fjerner automatisk embedded audio og bilder
-- Reduserer filstørrelse med opptil 99% (fra 27MB til 43KB)
-
-**Manuell cleanup fra kommandolinje:**
-```bash
-# Bruk det forbedrede cleanup-scriptet
-python scripts/enhanced_notebook_cleanup.py notebooks/00_slektstraer_og_grafer.ipynb
-
-# Eller bruk bash-scriptet
-./scripts/cleanup_notebook.sh notebooks/00_slektstraer_og_grafer.ipynb
-```
-
-**Hva cleanup gjør:**
-- ✅ Fjerner alle cell outputs
-- ✅ Fjerner embedded base64 audio-data
-- ✅ Fjerner embedded base64 bilder
-- ✅ Beholder notebook-strukturen intakt
-- ✅ Audio-spilleren fungerer fortsatt når notebooken kjøres på nytt
 
 ## 🇳🇴 Norsk / 🇬🇧 English
 
 ### Norsk (Hovedspråk)
 
-Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, importere/eksportere data i flere formater, og visualisere slektskap på forskjellige måter. Prosjektet støtter både norsk og engelsk språk.
+Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, importere/eksportere data i flere formater, og visualisere slektskap på forskjellige måter gjennom bruk av Python og Jupyter Notebooks. Prosjektet støtter både norsk og engelsk språk.
 
-#### Hovedfunksjoner
+🇬🇧 The Slektstre project allows you to build complex family trees with rich metadata, import/export data in multiple formats, and visualize relationships in various ways. The project supports both Norwegian and English languages.
+
+
+#### 🇳🇴  Hovedfunksjoner
 
 - 📊 **Rike metadata**: Fødselsdatoer, steder, bilder, historier og notater
 - 🔄 **Fleksibel datainput**: Manuell programmatisk opprettelse og fil-basert import
@@ -65,22 +42,82 @@ Slektstre-prosjektet lar deg bygge komplekse familie-trær med rike metadata, im
 - 🔍 **Slektsanalyse**: Beregning av slektskap, generasjonsnivåer og statistikk
 - 🌐 **Eksterne databaser**: Integrasjon med FamilySearch, Digitalarkivet og Wikipedia API
 
-#### Installasjon
+#### 🇬🇧 Key Features
+
+- 📊 **Rich metadata**: Birth dates, places, photos, stories and notes
+- 🔄 **Flexible data input**: Manual programmatic creation and file-based import
+- 📈 **Advanced visualizations**: Hierarchical, fan chart, interactive and hourglass views
+- 🌍 **Bilingual support**: Norwegian (primary) and English
+- 📁 **Multiple data formats**: YAML, JSON, CSV and GEDCOM
+- 🔍 **Family analysis**: Relationship calculation, generation levels and statistics
+- 🌐 **External databases**: Integration with FamilySearch, Digitalarkivet and Wikipedia API
+
+#### Åpne i Google Colab (anbefalt) / Open in Google Colab (recommended)
+
+Prosjektet inkluderer seks omfattende notebooks.
+Alle notebooks kan kjøres direkte i Google Colab uten installasjon:
+
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb) **00_slektstraer_og_grafer.ipynb** - Introduksjon til slektstrær og grafteori (*)
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb) **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb) **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb) **03_importer_data.ipynb** - Import/eksport av data
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb) **04_visualisering.ipynb** - Alle visualiseringsalternativer
+- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb) **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
+
+The project includes six comprehensive notebooks.
+All notebooks can be run directly in Google Colab without installation:
+
+0. **00_slektstraer_og_grafer.ipynb** - Introduction to family trees and graph theory (**)
+1. **01_introduksjon.ipynb** - Overview and basic concepts
+2. **02_bygg_tre_manuelt.ipynb** - Building family trees programmatically
+3. **03_importer_data.ipynb** - Data import/export
+4. **04_visualisering.ipynb** - All visualization options
+5. **05_eksterne_databaser.ipynb** - Integration with genealogy databases and APIs
+
+**💡 Tips:** Klikk på Colab-badgen for å åpne notebooken direkte i Google Colab. Alle avhengigheter installeres automatisk!
+
+*) 🇳🇴  er en omfattende introduksjonsnotebook som kobler sammen genealogi og grafteori. Den dekker grunnleggende konsepter, praktiske øvelser, og viser hvordan NetworkX brukes til å bygge og analysere slektstrær. Perfekt for nybegynnere som vil forstå både slektstrær og den underliggende matematikken.
+
+**) 🇬🇧 is a comprehensive introductory notebook that bridges genealogy and graph theory. It covers fundamental concepts, practical exercises, and shows how NetworkX is used to build and analyze family trees. Perfect for beginners who want to understand both family trees and the underlying mathematics.
+
+---
+
+### Lokal Installasjon / Local installation
+
+
+**1. Klon repositoriet til din lokale maskin / Clone the repository to your local machine:**
 
 ```bash
-# Opprett conda-miljø (anbefalt)
+# Klon repositoriet fra GitHub / Clone the repository from GitHub
+git clone https://github.com/arvidl/slektstre.git
+
+# Gå inn i prosjektmappen / Navigate to the project directory
+cd slektstre
+```
+
+**2. Opprett og aktiver miljø / Create and activate environment:**
+
+```bash
+# Opprett conda-miljø (anbefalt) / Create conda environment (recommended)
 conda env create -f environment.yml
 conda activate slektstre
 
-# Eller installer pakker direkte
+# Eller installer pakker direkte / Or install packages directly
 pip install -r requirements.txt
-
 ```
 
-#### Rask start
+**3. Verifiser installasjonen / Verify the installation:**
+
+```bash
+# Test at alt fungerer / Test that everything works
+python -c "import sys; sys.path.append('src'); from tree import Slektstre; print('✅ Installasjon vellykket! / Installation successful!')"
+```
+
+
+#### Rask start / Quick Start
 
 ```python
-# Importer modulene direkte fra src-mappen
+# Importer modulene direkte fra src-mappen / Import modules directly from src folder
 import sys
 sys.path.append('src')
 
@@ -88,7 +125,7 @@ from models import Person, Gender
 from tree import Slektstre
 from datetime import date
 
-# Opprett personer
+# Opprett personer / Create person
 person = Person(
     fornavn="Arvid",
     etternavn="Lundervold", 
@@ -97,11 +134,11 @@ person = Person(
     fødested="Bergen"
 )
 
-# Opprett slektstre
+# Opprett slektstre / Create family
 slektstre = Slektstre()
 slektstre.add_person(person)
 
-# Visualiser
+# Visualiser / Visualize
 from visualization import plot_hierarchical_tree
 import matplotlib.pyplot as plt
 
@@ -109,31 +146,9 @@ fig = plot_hierarchical_tree(slektstre)
 plt.show()
 ```
 
-#### Jupyter Notebooks
 
-Prosjektet inkluderer seks omfattende notebooks:
 
-0. **00_slektstraer_og_grafer.ipynb** - Introduksjon til slektstrær og grafteori
-1. **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
-2. **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
-3. **03_importer_data.ipynb** - Import/eksport av data
-4. **04_visualisering.ipynb** - Alle visualiseringsalternativer
-5. **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
 
-**📚 Nytt: 00_slektstraer_og_grafer.ipynb** er en omfattende introduksjonsnotebook som kobler sammen genealogi og grafteori. Den dekker grunnleggende konsepter, praktiske øvelser, og viser hvordan NetworkX brukes til å bygge og analysere slektstrær. Perfekt for nybegynnere som vil forstå både slektstrær og den underliggende matematikken.
-
-#### Åpne i Google Colab / Open in Google Colab
-
-Alle notebooks kan kjøres direkte i Google Colab uten installasjon:
-
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/00_slektstraer_og_grafer.ipynb) **00_slektstraer_og_grafer.ipynb** - Introduksjon til slektstrær og grafteori
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/01_introduksjon.ipynb) **01_introduksjon.ipynb** - Oversikt og grunnleggende konsepter
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/02_bygg_tre_manuelt.ipynb) **02_bygg_tre_manuelt.ipynb** - Bygge slektstreet programmatisk
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/03_importer_data.ipynb) **03_importer_data.ipynb** - Import/eksport av data
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/04_visualisering.ipynb) **04_visualisering.ipynb** - Alle visualiseringsalternativer
-- [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/slektstre/blob/main/notebooks/05_eksterne_databaser.ipynb) **05_eksterne_databaser.ipynb** - Integrasjon med genealogi-databaser og API-er
-
-**💡 Tips:** Klikk på Colab-badgen for å åpne notebooken direkte i Google Colab. Alle avhengigheter installeres automatisk!
 
 #### Dataformat
 
@@ -172,98 +187,9 @@ ekteskap:
 - **Data-konvertering**: Automatisk konvertering fra eksterne formater
 - **Eksport**: Til forskjellige formater for deling med andre
 
-### English
 
-The Slektstre project allows you to build complex family trees with rich metadata, import/export data in multiple formats, and visualize relationships in various ways. The project supports both Norwegian and English languages.
 
-## 🎧 Podcast / Audio Content
 
-**Slektstre med Python og Grafteori - Slik Analyserer du Din Familie**
-
-> **📝 Note:** Since this is a private repository, you need to download the podcast files locally to play them.
-
-**📥 Download podcast files:**
-- [MP3 (universal compatibility)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.mp3) - 20MB
-- [M4A (high quality)](podcast/Slektstre_med_Python_og_Grafteori__Slik_Analyserer_du_Din_Famil.m4a) - 40MB
-
-> **📝 Note:** Podcast files are not included in the Git repository due to size. You need to download them separately or generate them locally.
-
-**🔧 To play:**
-1. Download the file to your computer
-2. Open with your preferred audio player
-3. Or use an online audio player that supports local files
-
-**🎧 The podcast is available directly from this README file:**
-- Click the links above to download the podcast files
-- Play with your preferred audio player
-- Or listen directly in the browser (supports MP3/M4A)
-
-#### Key Features
-
-- 📊 **Rich metadata**: Birth dates, places, photos, stories and notes
-- 🔄 **Flexible data input**: Manual programmatic creation and file-based import
-- 📈 **Advanced visualizations**: Hierarchical, fan chart, interactive and hourglass views
-- 🌍 **Bilingual support**: Norwegian (primary) and English
-- 📁 **Multiple data formats**: YAML, JSON, CSV and GEDCOM
-- 🔍 **Family analysis**: Relationship calculation, generation levels and statistics
-- 🌐 **External databases**: Integration with FamilySearch, Digitalarkivet and Wikipedia API
-
-#### Installation
-
-```bash
-# Create conda environment (recommended)
-conda env create -f environment.yml
-conda activate slektstre
-
-# Or install packages directly
-pip install -r requirements.txt
-
-```
-
-#### Quick Start
-
-```python
-# Import modules directly from src folder
-import sys
-sys.path.append('src')
-
-from models import Person, Gender
-from tree import Slektstre
-from datetime import date
-
-# Create person
-person = Person(
-    fornavn="Arvid",
-    etternavn="Lundervold",
-    kjønn=Gender.MALE,
-    fødselsdato=date(1985, 12, 10),
-    fødested="Bergen"
-)
-
-# Create family tree
-slektstre = Slektstre()
-slektstre.add_person(person)
-
-# Visualize
-from visualization import plot_hierarchical_tree
-import matplotlib.pyplot as plt
-
-fig = plot_hierarchical_tree(slektstre)
-plt.show()
-```
-
-#### Jupyter Notebooks
-
-The project includes six comprehensive notebooks:
-
-0. **00_slektstraer_og_grafer.ipynb** - Introduction to family trees and graph theory
-1. **01_introduksjon.ipynb** - Overview and basic concepts
-2. **02_bygg_tre_manuelt.ipynb** - Building family trees programmatically
-3. **03_importer_data.ipynb** - Data import/export
-4. **04_visualisering.ipynb** - All visualization options
-5. **05_eksterne_databaser.ipynb** - Integration with genealogy databases and APIs
-
-**📚 New: 00_slektstraer_og_grafer.ipynb** is a comprehensive introductory notebook that bridges genealogy and graph theory. It covers fundamental concepts, practical exercises, and shows how NetworkX is used to build and analyze family trees. Perfect for beginners who want to understand both family trees and the underlying mathematics.
 
 #### Data Format
 
