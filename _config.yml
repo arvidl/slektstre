@@ -10,33 +10,9 @@ html:
   use_edit_page_button: false
   use_repository_button: false
   use_issues_button: false
-  theme:
-    primary: "#2E86AB"
-    accent: "#A23B72"
-    sidebar:
-      text: "#FFFFFF"
-      background: "#2E86AB"
-    navbar:
-      text: "#FFFFFF"
-      background: "#2E86AB"
-    footer:
-      text: "#FFFFFF"
-      background: "#2E86AB"
-    content:
-      text: "#000000"
-      background: "#FFFFFF"
-    code:
-      text: "#E83E8C"
-      background: "#F8F9FA"
-    border: "#E1E4E8"
-  sidebar:
-    width: "300px"
-    collapse: true
-    sticky: true
-  navbar:
-    sticky: true
-  footer:
-    sticky: true
+  use_downloads: true
+  use_fullscreen_button: true
+  use_source_button: true
 
 # Book-specific settings
 book:
@@ -55,7 +31,7 @@ book:
     jupyterhub_url: ""
     notebook_server: ""
 
-# PDF generation
+# Sphinx configuration
 sphinx:
   config:
     latex_elements:
