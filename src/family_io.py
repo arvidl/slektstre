@@ -210,6 +210,56 @@ def save_to_csv(familie_data: FamilieData, file_path: str) -> None:
         ekteskap_df = pd.DataFrame(ekteskap_rows)
         ekteskap_df.to_csv(ekteskap_file, index=False, encoding='utf-8')
 
+def load_from_gedcom(file_path: str) -> FamilieData:
+    """
+    Last familie-data fra GEDCOM-fil.
+    
+    Args:
+        file_path: Sti til GEDCOM-fil
+    
+    Returns:
+        FamilieData objekt
+    """
+    try:
+        from gedcom.parser import Parser
+        from gedcom.element.individual import IndividualElement
+        from gedcom.element.family import FamilyElement
+    except ImportError:
+        raise ImportError(
+            "python-gedcom library er ikke installert. "
+            "Installer med: pip install python-gedcom"
+        )
+    
+    file_path = Path(file_path)
+    if not file_path.exists():
+        raise FileNotFoundError(t('file_not_found'))
+    
+    # Parse GEDCOM-filen
+    gedcom_parser = Parser()
+    gedcom_parser.parse_file(str(file_path))
+    
+    personer = []
+    ekteskap_liste = []
+    
+    # Behandle alle individer
+    for element in gedcom_parser.get_root_child_elements():
+        if isinstance(element, IndividualElement):
+            person = _gedcom_individual_to_person(element, gedcom_parser)
+            personer.append(person)
+    
+    # Behandle alle familier (ekteskap)
+    for element in gedcom_parser.get_root_child_elements():
+        if isinstance(element, FamilyElement):
+            ekteskap = _gedcom_family_to_ekteskap(element, gedcom_parser)
+            if ekteskap:
+                ekteskap_liste.append(ekteskap)
+    
+    return FamilieData(
+        personer=personer,
+        ekteskap=ekteskap_liste,
+        beskrivelse=f"Importert fra GEDCOM: {file_path.name}"
+    )
+
 def export_to_gedcom(familie_data: FamilieData, file_path: str) -> None:
     """
     Eksporter familie-data til GEDCOM-format.
@@ -380,3 +430,172 @@ def _ekteskap_to_gedcom(ekteskap: Ekteskap) -> List[str]:
         lines.append(f"2 DATE {ekteskap.skilsmisse_dato.strftime('%d %b %Y')}")
     
     return lines
+
+def _gedcom_individual_to_person(individual, parser) -> Person:
+    """Konverter GEDCOM Individual til Person objekt."""
+    from dateutil import parser as date_parser
+    
+    # Hent grunnleggende informasjon
+    pointer = individual.get_pointer()
+    
+    # Parse navn
+    name_parts = individual.get_name()
+    fornavn = ""
+    mellomnavn = None
+    etternavn = None
+    
+    if name_parts:
+        # GEDCOM format: "Fornavn Mellomnavn /Etternavn/"
+        name_str = name_parts[0] if isinstance(name_parts, tuple) else name_parts
+        name_str = str(name_str).strip()
+        
+        # Fjern / rundt etternavn
+        if '/' in name_str:
+            before_surname, rest = name_str.split('/', 1)
+            surname_part, after_surname = rest.split('/', 1) if '/' in rest else (rest, '')
+            etternavn = surname_part.strip() if surname_part.strip() else None
+            
+            # Parse fornavn og mellomnavn
+            given_names = before_surname.strip().split()
+            if given_names:
+                fornavn = given_names[0]
+                if len(given_names) > 1:
+                    mellomnavn = ' '.join(given_names[1:])
+        else:
+            # Ingen etternavn markering
+            given_names = name_str.split()
+            if given_names:
+                fornavn = given_names[0]
+                if len(given_names) > 1:
+                    mellomnavn = ' '.join(given_names[1:])
+    
+    if not fornavn:
+        fornavn = "Ukjent"
+    
+    # Hent kjønn
+    gender_str = individual.get_gender()
+    if gender_str == 'M':
+        kjønn = Gender.MALE
+    elif gender_str == 'F':
+        kjønn = Gender.FEMALE
+    else:
+        kjønn = Gender.OTHER
+    
+    # Hent fødselsdato og -sted
+    birth_data = individual.get_birth_data()
+    fødselsdato = None
+    fødested = None
+    
+    if birth_data and len(birth_data) >= 2:
+        birth_date_str = birth_data[0]
+        fødested = birth_data[1] if len(birth_data) > 1 else None
+        
+        if birth_date_str:
+            try:
+                fødselsdato = date_parser.parse(birth_date_str, fuzzy=True).date()
+            except:
+                pass
+    
+    # Hent dødsdato og -sted
+    death_data = individual.get_death_data()
+    dødsdato = None
+    dødssted = None
+    
+    if death_data and len(death_data) >= 2:
+        death_date_str = death_data[0]
+        dødssted = death_data[1] if len(death_data) > 1 else None
+        
+        if death_date_str:
+            try:
+                dødsdato = date_parser.parse(death_date_str, fuzzy=True).date()
+            except:
+                pass
+    
+    # Hent foreldre
+    foreldre = []
+    parent_families = individual.get_parent_family_elements(parser)
+    for family in parent_families:
+        husband = family.get_husband_element(parser)
+        wife = family.get_wife_element(parser)
+        if husband:
+            foreldre.append(husband.get_pointer())
+        if wife:
+            foreldre.append(wife.get_pointer())
+    
+    # Hent barn (via familier)
+    barn = []
+    spouse_families = individual.get_child_family_elements(parser)
+    for family in spouse_families:
+        children = family.get_child_elements(parser)
+        for child in children:
+            barn.append(child.get_pointer())
+    
+    # Hent partnere
+    partnere = []
+    for family in spouse_families:
+        husband = family.get_husband_element(parser)
+        wife = family.get_wife_element(parser)
+        
+        # Legg til partner (ikke seg selv)
+        if husband and husband.get_pointer() != pointer:
+            partnere.append(husband.get_pointer())
+        if wife and wife.get_pointer() != pointer:
+            partnere.append(wife.get_pointer())
+    
+    return Person(
+        id=pointer,
+        fornavn=fornavn,
+        mellomnavn=mellomnavn,
+        etternavn=etternavn,
+        kjønn=kjønn,
+        fødselsdato=fødselsdato,
+        dødsdato=dødsdato,
+        fødested=fødested,
+        dødssted=dødssted,
+        foreldre=foreldre,
+        barn=barn,
+        partnere=partnere,
+        notater=f"Importert fra GEDCOM (ID: {pointer})"
+    )
+
+def _gedcom_family_to_ekteskap(family, parser) -> Optional[Ekteskap]:
+    """Konverter GEDCOM Family til Ekteskap objekt."""
+    from dateutil import parser as date_parser
+    
+    # Hent ektefeller
+    husband = family.get_husband_element(parser)
+    wife = family.get_wife_element(parser)
+    
+    if not husband or not wife:
+        return None
+    
+    partner1_id = husband.get_pointer()
+    partner2_id = wife.get_pointer()
+    
+    # Hent ekteskapsdato
+    marriage_data = family.get_marriage_data()
+    ekteskapsdato = None
+    ekteskapssted = None
+    
+    if marriage_data and len(marriage_data) >= 2:
+        marriage_date_str = marriage_data[0]
+        ekteskapssted = marriage_data[1] if len(marriage_data) > 1 else None
+        
+        if marriage_date_str:
+            try:
+                ekteskapsdato = date_parser.parse(marriage_date_str, fuzzy=True).date()
+            except:
+                pass
+    
+    # Opprett ekteskap-ID
+    family_pointer = family.get_pointer()
+    ekteskap_id = family_pointer if family_pointer else f"e_{partner1_id}_{partner2_id}"
+    
+    return Ekteskap(
+        id=ekteskap_id,
+        partner1_id=partner1_id,
+        partner2_id=partner2_id,
+        ekteskapsdato=ekteskapsdato,
+        ekteskapssted=ekteskapssted,
+        notater=f"Importert fra GEDCOM (Family ID: {family_pointer})"
+    )

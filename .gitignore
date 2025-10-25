@@ -120,3 +120,6 @@ ehthumbs.db
 # Logs
 *.log
 logs/
+
+# Not to be tracked
+my_stuff/
