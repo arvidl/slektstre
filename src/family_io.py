@@ -482,65 +482,112 @@ def _gedcom_individual_to_person(individual, parser) -> Person:
         kjønn = Gender.OTHER
     
     # Hent fødselsdato og -sted
-    birth_data = individual.get_birth_data()
     fødselsdato = None
     fødested = None
     
-    if birth_data and len(birth_data) >= 2:
-        birth_date_str = birth_data[0]
-        fødested = birth_data[1] if len(birth_data) > 1 else None
-        
-        if birth_date_str:
-            try:
-                fødselsdato = date_parser.parse(birth_date_str, fuzzy=True).date()
-            except:
-                pass
+    # Forsøk 1: Bruk get_birth_data hvis tilgjengelig (GEDCOM 5.5)
+    try:
+        if hasattr(individual, 'get_birth_data'):
+            birth_data = individual.get_birth_data()
+            if birth_data and len(birth_data) >= 2:
+                birth_date_str = birth_data[0]
+                fødested = birth_data[1] if len(birth_data) > 1 else None
+                
+                if birth_date_str:
+                    try:
+                        fødselsdato = date_parser.parse(birth_date_str, fuzzy=True).date()
+                    except:
+                        pass
+    except:
+        pass
+    
+    # Forsøk 2: Parse BIRT tag direkte (GEDCOM 7.0)
+    if fødselsdato is None:
+        try:
+            for child in individual.get_child_elements():
+                if child.get_tag() == "BIRT":
+                    for birt_child in child.get_child_elements():
+                        if birt_child.get_tag() == "DATE":
+                            date_str = birt_child.get_value()
+                            if date_str:
+                                try:
+                                    fødselsdato = date_parser.parse(date_str, fuzzy=True).date()
+                                except:
+                                    pass
+                        elif birt_child.get_tag() == "PLAC":
+                            fødested = birt_child.get_value()
+                    break
+        except:
+            pass
     
     # Hent dødsdato og -sted
-    death_data = individual.get_death_data()
     dødsdato = None
     dødssted = None
     
-    if death_data and len(death_data) >= 2:
-        death_date_str = death_data[0]
-        dødssted = death_data[1] if len(death_data) > 1 else None
-        
-        if death_date_str:
-            try:
-                dødsdato = date_parser.parse(death_date_str, fuzzy=True).date()
-            except:
-                pass
+    # Forsøk 1: Bruk get_death_data hvis tilgjengelig (GEDCOM 5.5)
+    try:
+        if hasattr(individual, 'get_death_data'):
+            death_data = individual.get_death_data()
+            if death_data and len(death_data) >= 2:
+                death_date_str = death_data[0]
+                dødssted = death_data[1] if len(death_data) > 1 else None
+                
+                if death_date_str:
+                    try:
+                        dødsdato = date_parser.parse(death_date_str, fuzzy=True).date()
+                    except:
+                        pass
+    except:
+        pass
     
-    # Hent foreldre
+    # Forsøk 2: Parse DEAT tag direkte (GEDCOM 7.0)
+    if dødsdato is None:
+        try:
+            for child in individual.get_child_elements():
+                if child.get_tag() == "DEAT":
+                    for deat_child in child.get_child_elements():
+                        if deat_child.get_tag() == "DATE":
+                            date_str = deat_child.get_value()
+                            if date_str:
+                                try:
+                                    dødsdato = date_parser.parse(date_str, fuzzy=True).date()
+                                except:
+                                    pass
+                        elif deat_child.get_tag() == "PLAC":
+                            dødssted = deat_child.get_value()
+                    break
+        except:
+            pass
+    
+    # Hent foreldre (via FAMC - family as child)
     foreldre = []
-    parent_families = individual.get_parent_family_elements(parser)
-    for family in parent_families:
-        husband = family.get_husband_element(parser)
-        wife = family.get_wife_element(parser)
-        if husband:
-            foreldre.append(husband.get_pointer())
-        if wife:
-            foreldre.append(wife.get_pointer())
+    try:
+        parent_families = parser.get_families(individual, "FAMC")
+        for family in parent_families:
+            parents = parser.get_family_members(family, "PARENTS")
+            for parent in parents:
+                foreldre.append(parent.get_pointer())
+    except:
+        pass
     
-    # Hent barn (via familier)
+    # Hent barn (via FAMS - family as spouse)
     barn = []
-    spouse_families = individual.get_child_family_elements(parser)
-    for family in spouse_families:
-        children = family.get_child_elements(parser)
-        for child in children:
-            barn.append(child.get_pointer())
-    
-    # Hent partnere
     partnere = []
-    for family in spouse_families:
-        husband = family.get_husband_element(parser)
-        wife = family.get_wife_element(parser)
-        
-        # Legg til partner (ikke seg selv)
-        if husband and husband.get_pointer() != pointer:
-            partnere.append(husband.get_pointer())
-        if wife and wife.get_pointer() != pointer:
-            partnere.append(wife.get_pointer())
+    try:
+        spouse_families = parser.get_families(individual, "FAMS")
+        for family in spouse_families:
+            # Hent barn
+            children = parser.get_family_members(family, "CHIL")
+            for child in children:
+                barn.append(child.get_pointer())
+            
+            # Hent partnere
+            parents = parser.get_family_members(family, "PARENTS")
+            for parent in parents:
+                if parent.get_pointer() != pointer:
+                    partnere.append(parent.get_pointer())
+    except:
+        pass
     
     return Person(
         id=pointer,
@@ -562,30 +609,56 @@ def _gedcom_family_to_ekteskap(family, parser) -> Optional[Ekteskap]:
     """Konverter GEDCOM Family til Ekteskap objekt."""
     from dateutil import parser as date_parser
     
-    # Hent ektefeller
-    husband = family.get_husband_element(parser)
-    wife = family.get_wife_element(parser)
-    
-    if not husband or not wife:
+    # Hent ektefeller/foreldre i familien
+    try:
+        parents = parser.get_family_members(family, "PARENTS")
+        if len(parents) < 2:
+            return None
+        
+        partner1_id = parents[0].get_pointer()
+        partner2_id = parents[1].get_pointer()
+    except:
         return None
     
-    partner1_id = husband.get_pointer()
-    partner2_id = wife.get_pointer()
-    
-    # Hent ekteskapsdato
-    marriage_data = family.get_marriage_data()
+    # Hent ekteskapsdato - forsøk flere metoder (GEDCOM 5.5 vs 7.0)
     ekteskapsdato = None
     ekteskapssted = None
     
-    if marriage_data and len(marriage_data) >= 2:
-        marriage_date_str = marriage_data[0]
-        ekteskapssted = marriage_data[1] if len(marriage_data) > 1 else None
-        
-        if marriage_date_str:
-            try:
-                ekteskapsdato = date_parser.parse(marriage_date_str, fuzzy=True).date()
-            except:
-                pass
+    # Forsøk 1: Bruk get_marriage_data hvis tilgjengelig (GEDCOM 5.5)
+    try:
+        if hasattr(family, 'get_marriage_data'):
+            marriage_data = family.get_marriage_data()
+            if marriage_data and len(marriage_data) >= 2:
+                marriage_date_str = marriage_data[0]
+                ekteskapssted = marriage_data[1] if len(marriage_data) > 1 else None
+                
+                if marriage_date_str:
+                    try:
+                        ekteskapsdato = date_parser.parse(marriage_date_str, fuzzy=True).date()
+                    except:
+                        pass
+    except:
+        pass
+    
+    # Forsøk 2: Parse MARR tag direkte fra child elements (GEDCOM 7.0)
+    if ekteskapsdato is None:
+        try:
+            for child in family.get_child_elements():
+                if child.get_tag() == "MARR":
+                    # Se etter DATE og PLAC under MARR
+                    for marr_child in child.get_child_elements():
+                        if marr_child.get_tag() == "DATE":
+                            date_str = marr_child.get_value()
+                            if date_str:
+                                try:
+                                    ekteskapsdato = date_parser.parse(date_str, fuzzy=True).date()
+                                except:
+                                    pass
+                        elif marr_child.get_tag() == "PLAC":
+                            ekteskapssted = marr_child.get_value()
+                    break
+        except:
+            pass
     
     # Opprett ekteskap-ID
     family_pointer = family.get_pointer()
