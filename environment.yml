@@ -13,6 +13,7 @@ dependencies:
   - plotly>=5.0
   - ipywidgets>=8.0
   - pillow>=10.0
+  - scipy>=1.11.0
   # Book generation dependencies
   - jupyter-book>=0.15.0
   - sphinx>=5.0.0
